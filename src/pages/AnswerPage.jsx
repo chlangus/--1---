@@ -1,5 +1,9 @@
 function AnswerPage() {
-  return <div>test</div>;
+  return (
+    <div>
+      <div>test2</div>
+    </div>
+  );
 }
 
 export default AnswerPage;
