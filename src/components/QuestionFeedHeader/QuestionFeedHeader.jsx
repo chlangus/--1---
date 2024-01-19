@@ -1,20 +1,31 @@
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import fetchSubject from '../../services/FetchSubject';
 import QuestionFeedHead from '../../assets/QuestionFeedHead.svg';
 import QuestionFeedLogo from '../../assets/QuestionFeedLogo.svg';
-import Profiledummy from '../../assets/ProfileImg.png';
 import LinkShare from '../../assets/Share.svg';
 import Kakaotalk from '../../assets/Kakaotalk.svg';
 import Facebook from '../../assets/Facebook.svg';
 
 function QuestionFeedHeader() {
+  const [subjectData, setSubjectData] = useState({ imageSource: '', name: '' });
+
+  useEffect(() => {
+    fetchSubject(2387).then(data => {
+      if (data) {
+        setSubjectData(data);
+      }
+    });
+  }, []);
+
   return (
     <div>
       <QuestionFeedHeaderBox>
         <HeadImg src={QuestionFeedHead} alt="main-header-img" />
         <LogoImg src={QuestionFeedLogo} alt="logo" />
-        <ProfileImg src={Profiledummy} alt="profileimg" />
+        <ProfileImg src={subjectData.imageSource} alt="profileimg" />
       </QuestionFeedHeaderBox>
-      <QuestionProfileText>아초는고양이</QuestionProfileText>
+      <QuestionProfileText>{subjectData.name} </QuestionProfileText>
       <QuestionShareIcon>
         <LinkShareicon src={LinkShare} alt="shareicon" />
         <Kakaotalkicon src={Kakaotalk} alt="kakaoicon" />
@@ -55,6 +66,7 @@ const ProfileImg = styled.img`
   top: 129px;
   transform: translateX(-50%);
   left: 50%;
+  border-radius: 50%;
 `;
 
 const QuestionProfileText = styled.p`
@@ -68,7 +80,7 @@ const QuestionProfileText = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: 40px; /* 125% */
-  margin-top: 40px;
+  margin-top: 110px;
 `;
 
 const QuestionShareIcon = styled.div`
