@@ -1,8 +1,19 @@
 import styled from 'styled-components';
 
-export default function AnswerBadge() {
-  return <S.Badge />;
+export default function AnswerBadge({ isAnswered }) {
+  return (
+    <S.Badge isAnswered={isAnswered}>
+      {isAnswered ? '답변완료' : '미답변'}
+    </S.Badge>
+  );
 }
+
+const COLORS = {
+  brown: 'var(--color-brown-40)',
+  gray: 'var(--color-grayscale-40)',
+  white: 'var(--color-grayscale-10)',
+};
+
 const Badge = styled.span`
   display: flex;
   padding: 0.4rem 1.2rem;
@@ -11,15 +22,11 @@ const Badge = styled.span`
   gap: 1rem;
 
   border-radius: 0.8rem;
+  background: var(--color-grayscale-10);
 
-  border: 1px solid var(--Brown-40, #542f1a); //답변완료
-  background: var(--Grayscale-10, #fff);
-
-  border: 1px solid var(--Grayscale-40, #818181); //미답변
-  background: var(--Grayscale-10, #fff);
-
-  color: var(--Brown-40, #542f1a); //답변완료
-  color: var(--Grayscale-40, #818181); //미답변
+  border: 1px solid
+    ${({ isAnswered }) => (isAnswered ? COLORS.brown : COLORS.gray)};
+  color: ${({ isAnswered }) => (isAnswered ? COLORS.brown : COLORS.gray)};
 
   font-feature-settings:
     'clig' off,

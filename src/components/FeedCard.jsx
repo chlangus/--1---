@@ -1,27 +1,36 @@
 import styled from 'styled-components';
+import AnswerBadge from './AnswerBadge';
 import thumbsUp from '../assets/thumbs-up.svg';
 import thumbsDown from '../assets/thumbs-down.svg';
+import profileImg from '../assets/sample-profile-img.svg';
 
 export default function FeedCard() {
   return (
     <S.Container>
+      <AnswerBadge isAnswered />
       <S.QuestionBox>
         <S.QuestionTime>질문 · 2주전</S.QuestionTime>
         <S.QuestionText>좋아하는 동물은?</S.QuestionText>
-        <S.AnswerFrame />
-        <S.ReactionFrame>
-          <S.ReactionBox>
-            <S.LikeBox>
-              <img src={thumbsUp} alt="thumbs-up" />
-              <span>좋아요</span>
-            </S.LikeBox>
-            <S.LikeBox>
-              <img src={thumbsDown} alt="thumbs-down" />
-              <span>싫어요</span>
-            </S.LikeBox>
-          </S.ReactionBox>
-        </S.ReactionFrame>
       </S.QuestionBox>
+      <S.AnswerFrame>
+        <S.Profile src={profileImg} alt="profile" />
+        <S.AnswerBox>
+          <div>아초는 고양이</div>
+          <div>(공용 컴포넌트...기다리는중..)</div>
+        </S.AnswerBox>
+      </S.AnswerFrame>
+      <S.ReactionFrame>
+        <S.ReactionBox>
+          <S.LikeBox>
+            <img src={thumbsUp} alt="thumbs-up" />
+            <span>좋아요</span>
+          </S.LikeBox>
+          <S.LikeBox>
+            <img src={thumbsDown} alt="thumbs-down" />
+            <span>싫어요</span>
+          </S.LikeBox>
+        </S.ReactionBox>
+      </S.ReactionFrame>
     </S.Container>
   );
 }
@@ -113,6 +122,32 @@ const AnswerFrame = styled.div`
   gap: 1.2rem;
   align-self: stretch;
 `;
+
+const Profile = styled.img`
+  border-radius: 4.8rem;
+  // background:
+    url(${profileImg}),
+    lightgray 50% / cover no-repeat,
+    #d9d9d9;
+`;
+
+const AnswerBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  flex: 1 0 0;
+
+  color: var(--color-grayscale-60);
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-family: Actor;
+  font-size: var(--font-body2);
+  font-style: normal;
+  font-weight: var(--weight-regular);
+  line-height: 2.4rem; /* 133.333% */
+`;
 // 스타일
 const S = {
   Container,
@@ -123,4 +158,6 @@ const S = {
   ReactionBox,
   LikeBox,
   AnswerFrame,
+  Profile,
+  AnswerBox,
 };
