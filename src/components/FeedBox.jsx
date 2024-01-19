@@ -7,7 +7,7 @@ export default function FeedBox() {
     <S.Container>
       <S.QuestionCount>
         <img src={messageIcon} alt="message-icon" />
-        <div>3개의 질문이 있습니다</div>
+        <S.Text>3개의 질문이 있습니다</S.Text>
       </S.QuestionCount>
       <FeedCard />
     </S.Container>
@@ -30,20 +30,24 @@ const QuestionCount = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 0.8rem;
 `;
 
-// const FeedCard = styled.div`
-//   display: flex;
-//   padding: 3.2rem;
-//   flex-direction: column;
-//   align-items: flex-start;
-//   gap: 3.2rem;
-//   align-self: stretch;
-// `;
+const Text = styled.span`
+  color: var(--color-brown-40);
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-family: Actor;
+  font-size: var(--font-body1);
+  font-style: normal;
+  font-weight: var(--weight-regular);
+  line-height: 2.5rem; /* 125% */
+`;
 
 // 스타일
 const S = {
   Container,
   QuestionCount,
+  Text,
 };

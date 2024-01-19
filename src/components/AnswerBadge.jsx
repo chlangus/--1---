@@ -8,9 +8,9 @@ const Badge = styled.span`
   padding: 0.4rem 1.2rem;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 1rem;
 
-  border-radius: 8px;
+  border-radius: 0.8rem;
 
   border: 1px solid var(--Brown-40, #542f1a); //답변완료
   background: var(--Grayscale-10, #fff);
@@ -24,11 +24,10 @@ const Badge = styled.span`
   font-feature-settings:
     'clig' off,
     'liga' off;
-  font-family: Pretendard;
-  font-size: 14px;
+  font-size: var(--font-caption1);
   font-style: normal;
-  font-weight: 500;
-  line-height: 18px; /* 128.571% */
+  font-weight: var(--weight-medium);
+  line-height: 1.8rem; /* 128.571% */
 `;
 
 // 스타일

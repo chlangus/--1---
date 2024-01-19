@@ -44,7 +44,7 @@ const QuestionBox = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  gap: 0.4rem;
   flex: 1 0 0;
 `;
 
@@ -57,9 +57,9 @@ const QuestionTime = styled.div`
   font-feature-settings:
     'clig' off,
     'liga' off;
-  font-size: --font-caption1;
+  font-size: var(--font-caption1);
   font-style: normal;
-  font-weight: --weight-medium
+  font-weight: var(--weight-medium);
   line-height: 1.8rem; /* 128.571% */
 `;
 
@@ -70,9 +70,9 @@ const QuestionText = styled.div`
     'clig' off,
     'liga' off;
   font-family: Actor;
-  font-size: 1.8rem;
+  font-size: var(--font-body2);
   font-style: normal;
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 2.4rem; /* 133.333% */
 `;
 
@@ -89,28 +89,28 @@ const ReactionFrame = styled.div`
 const ReactionBox = styled.span`
   display: flex;
   align-items: flex-start;
-  gap: 32px;
+  gap: 3.2rem;
 `;
 
 const LikeBox = styled.span`
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.6rem;
 
   color: var(--color-grayscale-40);
   font-feature-settings:
     'clig' off,
     'liga' off;
-  font-size: 14px;
+  font-size: var(--font-caption1);
   font-style: normal;
-  font-weight: 500;
-  line-height: 18px; /* 128.571% */
+  font-weight: var(--weight-medium);
+  line-height: 1.8rem; /* 128.571% */
 `;
 
 const AnswerFrame = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 1.2rem;
   align-self: stretch;
 `;
 // 스타일
