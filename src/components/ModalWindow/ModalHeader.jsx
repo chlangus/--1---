@@ -4,21 +4,21 @@ import closeButton from '../../assets/Close.svg';
 
 const StyledModalHeader = styled.div`
   display: flex;
-  width: 532px;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 43px;
+  margin-bottom: 3rem;
   div {
     display: flex;
+    gap: 0.5rem;
     color: var(--Grayscale-60, #000);
-    /* font-feature-settings:
+    font-feature-settings:
       'clig' off,
-      'liga' off; */
+      'liga' off;
     font-family: Actor;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 30px; /* 125% */
+    line-height: 1.875rem; /* 125% */
   }
 `;
 

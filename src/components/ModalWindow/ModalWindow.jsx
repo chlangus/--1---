@@ -3,12 +3,12 @@ import ModalHeader from './ModalHeader';
 import QuestionInput from './QuestionInput';
 
 const ModalWrapper = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: var(--Dim, rgba(0, 0, 0, 0.56));
@@ -20,16 +20,16 @@ const ModalContent = styled.div`
   position: relative;
   /* justify-content: center;
   align-items: center; */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  /* top: 50%;
+  left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  border-radius: 1.5rem;
   background-color: var(--Grayscale-10, #fff);
   box-shadow: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
-  width: 612px;
-  height: 454px;
-  padding: 40px 40px 70px;
+  width: 38.25rem;
+  height: 28.375rem;
   flex-shrink: 0;
-  border-radius: 24px;
+  padding: 40px;
   border: none;
   z-index: 100;
 `;
