@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import Kakaotalk from '../assets/Kakaotalk.svg';
+import Kakaotalk from '../../assets/Kakaotalk.svg';
 
-function HandleKakaoShareClick() {
+function KakaoShareIcon() {
   const realUrl = 'https://65ab8de97f607773eddc0349--openmind-3-2.netlify.app/';
 
   useEffect(() => {
@@ -45,4 +45,4 @@ function HandleKakaoShareClick() {
 
 const Kakaotalkicon = styled.img``;
 
-export default HandleKakaoShareClick;
+export default KakaoShareIcon;
