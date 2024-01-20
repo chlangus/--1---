@@ -9,7 +9,7 @@ export default function FeedCard() {
   return (
     <S.Container>
       <S.BadgeFrame>
-        <AnswerBadge isAnswered />
+        <AnswerBadge $isAnswered />
         <KebabButton />
       </S.BadgeFrame>
       <S.QuestionBox>
