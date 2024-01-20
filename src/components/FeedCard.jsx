@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import AnswerBadge from './AnswerBadge';
+import KebabButton from './KebabButton';
 import thumbsUp from '../assets/thumbs-up.svg';
 import thumbsDown from '../assets/thumbs-down.svg';
 import profileImg from '../assets/sample-profile-img.svg';
@@ -7,7 +8,10 @@ import profileImg from '../assets/sample-profile-img.svg';
 export default function FeedCard() {
   return (
     <S.Container>
-      <AnswerBadge isAnswered />
+      <S.BadgeFrame>
+        <AnswerBadge isAnswered />
+        <KebabButton />
+      </S.BadgeFrame>
       <S.QuestionBox>
         <S.QuestionTime>질문 · 2주전</S.QuestionTime>
         <S.QuestionText>좋아하는 동물은?</S.QuestionText>
@@ -37,16 +41,23 @@ export default function FeedCard() {
 
 const Container = styled.div`
   display: flex;
-  width: 684px;
-  padding: 3.2rem;
+  // width: 684px;
+  width: 100%;
+
   flex-direction: column;
   align-items: flex-start;
-  gap: 3.2rem;
+  padding: 2.4rem;
+  gap: 2.4rem;
 
   border-radius: 1.6rem;
   background: var(--color-grayscale-10);
 
   box-shadow: var(--shadow-1pt);
+
+  @media (min-width: 768px) {
+    padding: 3.2rem;
+    gap: 3.2rem;
+  }
 `;
 const QuestionBox = styled.div`
   display: flex;
@@ -55,6 +66,13 @@ const QuestionBox = styled.div`
   align-items: flex-start;
   gap: 0.4rem;
   flex: 1 0 0;
+`;
+
+const BadgeFrame = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
 `;
 
 const QuestionTime = styled.div`
@@ -79,10 +97,15 @@ const QuestionText = styled.div`
     'clig' off,
     'liga' off;
   font-family: Actor;
-  font-size: var(--font-body2);
+  font-size: var(--font-body3);
+  line-height: 2.2rem;
   font-style: normal;
   font-weight: var(--weight-regular);
-  line-height: 2.4rem; /* 133.333% */
+
+  @media (min-width: 768px) {
+    font-size: var(--font-body2);
+    line-height: 2.4rem; /* 133.333% */
+  }
 `;
 
 const ReactionFrame = styled.div`
@@ -143,10 +166,15 @@ const AnswerBox = styled.div`
     'clig' off,
     'liga' off;
   font-family: Actor;
-  font-size: var(--font-body2);
+  font-size: var(--font-caption1);
+  line-height: 1.8rem;
   font-style: normal;
   font-weight: var(--weight-regular);
-  line-height: 2.4rem; /* 133.333% */
+
+  @media (min-width: 768px) {
+    font-size: var(--font-body2);
+    line-height: 2.4rem; /* 133.333% */
+  }
 `;
 // 스타일
 const S = {
@@ -160,4 +188,5 @@ const S = {
   AnswerFrame,
   Profile,
   AnswerBox,
+  BadgeFrame,
 };
