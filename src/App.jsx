@@ -6,21 +6,24 @@ import AnswerPage from './pages/AnswerPage';
 import QuestionFeedPage from './pages/QuestionFeedPage';
 import theme from './styles/Theme';
 import GlobalStyle from './styles/GlobalStyle';
+import LocaleContextProvider from './contexts/LocaleContext';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/list" element={<QuestionListPage />} />
-          <Route path="/post">
-            <Route path=":id/answer" element={<AnswerPage />} />
-            <Route path=":id" element={<QuestionFeedPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <LocaleContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/list" element={<QuestionListPage />} />
+            <Route path="/post">
+              <Route path=":id/answer" element={<AnswerPage />} />
+              <Route path=":id" element={<QuestionFeedPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </LocaleContextProvider>
     </ThemeProvider>
   );
 }

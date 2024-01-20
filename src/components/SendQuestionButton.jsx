@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 import arrowRight from '../assets/arrow-right.svg';
 
-const StyledButton = styled.button`
-  position: absolute;
-  right: 130px;
-  top: 45px;
+export default function SendQuestionButton({ children }) {
+  return (
+    <StyledButton>
+      {children}
+      <Img src={arrowRight} alt="arrowRight" />
+    </StyledButton>
+  );
+}
+
+export const StyledButton = styled.button`
   display: flex;
-  width: 192px;
   padding: 12px 24px;
   justify-content: center;
   align-items: center;
@@ -23,18 +28,14 @@ const StyledButton = styled.button`
   font-style: normal;
   font-weight: 400;
   line-height: 22px; /* 137.5% */
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 18px; /* 128.571% */
+  }
 `;
 
 const Img = styled.img`
   width: 18px;
   height: 18px;
 `;
-
-export default function SendQuestionButton({ children }) {
-  return (
-    <StyledButton>
-      {children}
-      <Img src={arrowRight} alt="arrowRight" />
-    </StyledButton>
-  );
-}
