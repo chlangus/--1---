@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import arrowRight from '../assets/arrow-right.svg';
+import arrowRight from '../../assets/arrow-right.svg';
 
 export default function SendQuestionButton({ children }) {
   return (

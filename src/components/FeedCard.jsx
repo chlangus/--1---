@@ -1,18 +1,18 @@
 // import { createPortal } from 'react-dom';
 import styled from 'styled-components';
-import AnswerBadge from './AnswerBadge';
-import KebabButton from './KebabButton';
+import AnswerBadge from './Badges/AnswerBadge';
+import KebabButton from './Buttons/KebabButton';
 import thumbsUp from '../assets/thumbs-up.svg';
 import thumbsDown from '../assets/thumbs-down.svg';
 import profileImg from '../assets/sample-profile-img.svg';
 
 export default function FeedCard({ isAnswerPage }) {
-  console.log('isAnswerPage', isAnswerPage);
+  // console.log('isAnswerPage', isAnswerPage);
   return (
     <S.Container>
       <S.BadgeFrame>
         <AnswerBadge $isAnswered />
-        {isAnswerPage ? <KebabButton /> : <div>나한테왜이래</div>}
+        {isAnswerPage && <KebabButton />}
       </S.BadgeFrame>
       <S.QuestionBox>
         <S.QuestionTime>질문 · 2주전</S.QuestionTime>

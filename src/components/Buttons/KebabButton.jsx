@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import kebabImg from '../assets/more-icon.svg';
+import kebabImg from '../../assets/more-icon.svg';
 
 export default function KebabButton() {
   const [pop, setPop] = useState(false);
