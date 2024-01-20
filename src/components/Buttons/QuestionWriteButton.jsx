@@ -11,16 +11,19 @@ function QuestionWriteButton() {
 
 const QuestionButton = styled.button`
   display: flex;
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
   width: 208px;
   height: 54px;
   padding: 12px 24px;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0;
   border-radius: 200px;
   background: var(--Brown-40, #542f1a);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border: none;
 `;
 
 const QuestionWriteText = styled.p`

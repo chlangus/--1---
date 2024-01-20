@@ -80,7 +80,7 @@ const QuestionShareIcon = styled.div`
   height: 40px;
   gap: 12px;
   justify-content: center;
-  margin: 0;
+  margin-top: 12px;
 `;
 
 export default QuestionFeedHeader;
