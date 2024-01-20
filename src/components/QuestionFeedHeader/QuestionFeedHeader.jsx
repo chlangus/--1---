@@ -31,9 +31,6 @@ function QuestionFeedHeader() {
         <KakaoShareIcon />
         <FacebookShareIcon />
       </QuestionShareIcon>
-      <QuestionWriteButton>
-        <QuestionWriteText>질문 작성하기</QuestionWriteText>
-      </QuestionWriteButton>
     </div>
   );
 }
@@ -84,31 +81,6 @@ const QuestionShareIcon = styled.div`
   gap: 12px;
   justify-content: center;
   margin: 0;
-`;
-
-const QuestionWriteButton = styled.button`
-  display: flex;
-  width: 208px;
-  height: 54px;
-  padding: 12px 24px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  border-radius: 200px;
-  background: var(--Brown-40, #542f1a);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-`;
-
-const QuestionWriteText = styled.p`
-  color: var(--Grayscale-10, #fff);
-  font-feature-settings:
-    'clig' off,
-    'liga' off;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 25px;
 `;
 
 export default QuestionFeedHeader;
