@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import logo from '../assets/logo.svg';
 import mainBg from '../assets/main-bg.svg';
-import NameInput from '../components/NameInput';
-import QuestionButton from '../components/QuestionButton';
+import NameInput from '../components/Inputs/NameInput';
+import QuestionButton from '../components/Buttons/QuestionButton';
 import storeId from '../services/storeId';
-import SendQuestionButton from '../components/SendQuestionButton';
+import SendQuestionButton from '../components/Buttons/SendQuestionButton';
 
 export default function MainPage() {
   const [inputValue, setInputValue] = useState('');
@@ -15,7 +15,7 @@ export default function MainPage() {
     setInputValue(name);
   };
 
-  if (localStorage.getItem('userAccounts') === undefined) {
+  if (localStorage.getItem('userAccounts') === null) {
     // 저장된 데이터 없으면 배열로 초기화
     localStorage.setItem('userAccounts', JSON.stringify([]));
   }

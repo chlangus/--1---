@@ -4,7 +4,7 @@ import FeedCard from '../components/FeedCard';
 export default function AnswerPage() {
   return (
     <FeedBox>
-      <FeedCard />
+      <FeedCard isAnswerPage />
     </FeedBox>
   );
 }
