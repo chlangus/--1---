@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import personIcon from '../assets/personIcon.svg';
+import personIcon from '../../assets/personIcon.svg';
 
 export default function NameInput({ onHandleInput }) {
   return (
