@@ -1,4 +1,3 @@
-// import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
@@ -7,7 +6,6 @@ import thumbsDown from '../assets/thumbs-down.svg';
 import profileImg from '../assets/sample-profile-img.svg';
 
 export default function FeedCard({ isAnswerPage }) {
-  // console.log('isAnswerPage', isAnswerPage);
   return (
     <S.Container>
       <S.BadgeFrame>
@@ -71,6 +69,7 @@ const QuestionBox = styled.div`
 `;
 
 const BadgeFrame = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;

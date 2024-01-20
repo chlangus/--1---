@@ -1,18 +1,27 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import kebabImg from '../../assets/more-icon.svg';
+import EditBoxModal from '../EditBoxModal';
 
 export default function KebabButton() {
-  const [pop, setPop] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
-    <Button type="button" onClick={() => setPop(!pop)}>
-      <img src={kebabImg} alt="show-more" />
-    </Button>
+    <>
+      <EditButton type="button" onClick={() => setIsOpenModal(pre => !pre)}>
+        <img src={kebabImg} alt="show-more" />
+      </EditButton>
+      {isOpenModal && (
+        <EditBoxModal
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+        />
+      )}
+    </>
   );
 }
 
-const Button = styled.button`
+const EditButton = styled.button`
   all: unset;
   cursor: pointer;
 `;
