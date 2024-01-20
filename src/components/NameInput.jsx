@@ -1,9 +1,22 @@
 import { styled } from 'styled-components';
 import personIcon from '../assets/personIcon.svg';
 
+export default function NameInput({ onHandleInput }) {
+  return (
+    <InputWrapper>
+      <img src={personIcon} alt="personIcon" />
+      <Input
+        onChange={e => {
+          onHandleInput(e.target.value);
+        }}
+        placeholder="이름을 입력하세요"
+      />
+    </InputWrapper>
+  );
+}
 const InputWrapper = styled.div`
   display: flex;
-  width: 336px;
+  width: 100%;
   padding: 12px 16px;
   justify-content: left;
   align-items: center;
@@ -29,17 +42,3 @@ const Input = styled.input`
     outline: none;
   }
 `;
-
-export default function NameInput({ onHandleInput }) {
-  return (
-    <InputWrapper>
-      <img src={personIcon} alt="personIcon" />
-      <Input
-        onChange={e => {
-          onHandleInput(e.target.value);
-        }}
-        placeholder="이름을 입력하세요"
-      />
-    </InputWrapper>
-  );
-}
