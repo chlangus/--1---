@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import fetchSubject from '../../services/FetchSubject';
+import handleFacebookShareClick from '../../utils/FacebookShareButton';
 import QuestionFeedHead from '../../assets/QuestionFeedHead.svg';
 import QuestionFeedLogo from '../../assets/QuestionFeedLogo.svg';
 import LinkShare from '../../assets/Share.svg';
@@ -49,7 +50,11 @@ function QuestionFeedHeader() {
         />
         {isToastVisible && <ToastMessage>URL이 복사되었습니다.</ToastMessage>}
         <Kakaotalkicon src={Kakaotalk} alt="kakaoicon" />
-        <Facebookicon src={Facebook} alt="facebookicon" />
+        <Facebookicon
+          src={Facebook}
+          alt="facebookicon"
+          onClick={handleFacebookShareClick}
+        />
       </QuestionShareIcon>
       <QuestionWriteButton>
         <QuestionWriteText>질문 작성하기</QuestionWriteText>
