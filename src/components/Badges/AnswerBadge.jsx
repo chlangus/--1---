@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export default function AnswerBadge({ isAnswered }) {
+export default function AnswerBadge({ $isAnswered }) {
   return (
-    <S.Badge isAnswered={isAnswered}>
-      {isAnswered ? '답변완료' : '미답변'}
+    <S.Badge $isAnswered={$isAnswered}>
+      {$isAnswered ? '답변완료' : '미답변'}
     </S.Badge>
   );
 }
@@ -25,8 +25,8 @@ const Badge = styled.span`
   background: var(--color-grayscale-10);
 
   border: 1px solid
-    ${({ isAnswered }) => (isAnswered ? COLORS.brown : COLORS.gray)};
-  color: ${({ isAnswered }) => (isAnswered ? COLORS.brown : COLORS.gray)};
+    ${({ $isAnswered }) => ($isAnswered ? COLORS.brown : COLORS.gray)};
+  color: ${({ $isAnswered }) => ($isAnswered ? COLORS.brown : COLORS.gray)};
 
   font-feature-settings:
     'clig' off,
