@@ -7,6 +7,7 @@ import QuestionFeedPage from './pages/QuestionFeedPage';
 import theme from './styles/Theme';
 import GlobalStyle from './styles/GlobalStyle';
 import LocaleContextProvider from './contexts/LocaleContext';
+import NoQuestionFeedPage from './pages/NoQuestionFeedPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/post">
               <Route path=":id/answer" element={<AnswerPage />} />
               <Route path=":id" element={<QuestionFeedPage />} />
+              <Route path="no" element={<NoQuestionFeedPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

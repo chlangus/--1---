@@ -15,8 +15,8 @@ function KakaoShareIcon() {
       window.Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
-          title: 'Linkbrary',
-          description: '링크를 추가해 보세요.',
+          title: 'OpenMind',
+          description: '마음을 전해 보세요.',
           imageUrl: '',
           link: {
             mobileWebUrl: realUrl,
