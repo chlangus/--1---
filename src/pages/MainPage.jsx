@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import logo from '../assets/logo.svg';
 import mainBg from '../assets/main-bg.svg';
 import NameInput from '../components/NameInput';
@@ -15,7 +15,7 @@ export default function MainPage() {
     setInputValue(name);
   };
 
-  if (localStorage.getItem('userAccounts') === undefined) {
+  if (localStorage.getItem('userAccounts') === null) {
     // 저장된 데이터 없으면 배열로 초기화
     localStorage.setItem('userAccounts', JSON.stringify([]));
   }
@@ -32,7 +32,6 @@ export default function MainPage() {
     navigate(`/post/${id}/answer`); // id에따른 answer페이지로 이동
   };
 
-  useEffect(() => {}, []);
   return (
     <PageWrapper>
       <MainLogoAndInputWrapper>
@@ -52,7 +51,7 @@ export default function MainPage() {
 }
 
 const PageWrapper = styled.div`
-  background-color: var(--Grayscale-20, #f9f9f9);
+  background-color: var(--grayscale-20, #f9f9f9);
   background-image: url(${mainBg});
   background-repeat: no-repeat;
   background-position: bottom;
@@ -88,13 +87,17 @@ const InputAndButtonBox = styled.div`
   gap: 10px;
   border-radius: 16px;
   background: var(--Grayscale-10, #fff);
+  @media (max-width: 768px) {
+    max-width: 305px;
+    padding: 24px;
+  }
 `;
 
 const MainLogoAndInputWrapper = styled.div`
-  padding-top: 160px;
+  padding-top: 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 24px;
 `;
