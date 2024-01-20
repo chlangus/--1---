@@ -9,6 +9,7 @@ import Facebook from '../../assets/Facebook.svg';
 
 function QuestionFeedHeader() {
   const [subjectData, setSubjectData] = useState({ imageSource: '', name: '' });
+  const [isToastVisible, setIsToastVisible] = useState(false);
 
   useEffect(() => {
     fetchSubject(2387).then(data => {
@@ -17,6 +18,20 @@ function QuestionFeedHeader() {
       }
     });
   }, []);
+
+  const showCopySuccessToast = () => {
+    setIsToastVisible(true);
+    setTimeout(() => {
+      setIsToastVisible(false);
+    }, 5000);
+  };
+
+  const handleLinkShareClick = () => {
+    const urlToCopy = 'http://localhost:3000/post/%EB%8B%89%EB%84%A4%EC%9E%84';
+    navigator.clipboard.writeText(urlToCopy).then(() => {
+      showCopySuccessToast();
+    });
+  };
 
   return (
     <div>
@@ -27,7 +42,12 @@ function QuestionFeedHeader() {
       </QuestionFeedHeaderBox>
       <QuestionProfileText>{subjectData.name} </QuestionProfileText>
       <QuestionShareIcon>
-        <LinkShareicon src={LinkShare} alt="shareicon" />
+        <LinkShareicon
+          src={LinkShare}
+          alt="shareicon"
+          onClick={handleLinkShareClick}
+        />
+        {isToastVisible && <ToastMessage>URL이 복사되었습니다.</ToastMessage>}
         <Kakaotalkicon src={Kakaotalk} alt="kakaoicon" />
         <Facebookicon src={Facebook} alt="facebookicon" />
       </QuestionShareIcon>
@@ -115,6 +135,21 @@ const QuestionWriteText = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: 25px;
+`;
+
+const ToastMessage = styled.div`
+  position: fixed;
+  display: inline-flex;
+  bottom: 30px;
+  padding: 12px 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  width: 167px;
+  height: 42px;
+  color: #666666
+  background: var(--Grayscale-60, #000);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
 export default QuestionFeedHeader;
