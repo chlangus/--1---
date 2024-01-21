@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -20,16 +19,6 @@ export default function MainPage() {
     // 저장된 데이터 없으면 배열로 초기화
     localStorage.setItem('userAccounts', JSON.stringify([]));
   }
-=======
-import { useState } from 'react';
-import ModalWindow from '../components/Modal/ModalWindow';
-
-export default function MainPage() {
-  // 모달이 열려있는지 여부를 나타냄
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
->>>>>>> Stashed changes
 
   // parse로 바꿔준 객체 저장해줌
   const sendName = async () => {
@@ -45,7 +34,6 @@ export default function MainPage() {
 
   useEffect(() => {}, []);
   return (
-<<<<<<< Updated upstream
     <PageWrapper>
       <MainLogoAndInputWrapper>
         <Img src={logo} alt="logo-imgage" />
@@ -60,14 +48,6 @@ export default function MainPage() {
         </InputAndButtonBox>
       </MainLogoAndInputWrapper>
     </PageWrapper>
-=======
-    <div>
-      <button type="button" onClick={openModal}>
-        Open Modal
-      </button>
-      {isModalOpen && <ModalWindow />}
-    </div>
->>>>>>> Stashed changes
   );
 }
 

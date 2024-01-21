@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import ModalWindow from '../Modal/ModalWindow';
 
 function QuestionWriteButton() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const handle = () => {
+    setModalOpen(false);
+  };
+
   return (
-    <QuestionButton>
-      <QuestionWriteText>질문 작성하기</QuestionWriteText>
-    </QuestionButton>
+    <>
+      {modalOpen && <ModalWindow isOpen={handle} />}
+      <QuestionButton
+        onClick={() => {
+          setModalOpen(true);
+        }}
+      >
+        <QuestionWriteText>질문 작성하기</QuestionWriteText>
+      </QuestionButton>
+    </>
   );
 }
 

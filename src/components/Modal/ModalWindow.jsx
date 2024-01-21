@@ -3,9 +3,9 @@ import QuestionInput from '../QuestionInput';
 import messageIcon from '../../assets/Messages.svg';
 import closeButton from '../../assets/Close.svg';
 
-export default function ModalWindow() {
-  // const openModal = () => setIsModalOpen(true);
+// http://localhost:3000/post/no
 
+export default function ModalWindow({ isOpen }) {
   return (
     <ModalWrapper>
       <ModalContent>
@@ -14,9 +14,9 @@ export default function ModalWindow() {
             <img src={messageIcon} alt="말풍선 아이콘" />
             <div>질문을 작성하세요</div>
           </div>
-          <div>
-            <img src={closeButton} alt="닫기 버튼" />{' '}
-          </div>
+          <button type="button" onClick={isOpen}>
+            <img src={closeButton} alt="닫기 버튼" />
+          </button>
         </ModalHeader>
         <QuestionInput />
       </ModalContent>
