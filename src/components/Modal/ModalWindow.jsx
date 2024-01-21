@@ -5,16 +5,28 @@ import closeButton from '../../assets/Close.svg';
 
 // http://localhost:3000/post/no
 
-export default function ModalWindow({ isOpen }) {
+export default function ModalWindow({ closeModal }) {
+  const handleModalClick = e => {
+    // 모달 내부를 클릭했을 때는 모달이 닫히지 않도록 처리
+    if (e.target.closest('.modal-content')) {
+      return;
+    }
+
+    // 모달 밖의 영역을 클릭했을 때 모달을 닫도록 처리
+    closeModal();
+  };
+
+  // 모달에서 추가함!
+  // 모달이 떠있을 때만 백그라운드 100퍼센트 어쩌구~~~~~~
   return (
-    <ModalWrapper>
-      <ModalContent>
+    <ModalWrapper onClick={handleModalClick}>
+      <ModalContent className="modal-content">
         <ModalHeader>
           <div>
             <img src={messageIcon} alt="말풍선 아이콘" />
             <div>질문을 작성하세요</div>
           </div>
-          <button type="button" onClick={isOpen}>
+          <button type="button" onClick={closeModal}>
             <img src={closeButton} alt="닫기 버튼" />
           </button>
         </ModalHeader>
@@ -34,6 +46,19 @@ const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--Dim, rgba(0, 0, 0, 0.56));
+  z-index: 100;
+`;
+
+const ModalContent = styled.div`
+  position: relative;
+  border-radius: 1.5rem;
+  background-color: var(--Grayscale-10, #fff);
+  box-shadow: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
+  width: 61.2rem;
+  height: 45.4rem;
+  flex-shrink: 0;
+  padding: 4rem;
+  border: none;
   z-index: 100;
 `;
 
@@ -61,17 +86,9 @@ const ModalHeader = styled.div`
   img {
     cursor: pointer;
   }
-`;
 
-const ModalContent = styled.div`
-  position: relative;
-  border-radius: 1.5rem;
-  background-color: var(--Grayscale-10, #fff);
-  box-shadow: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
-  width: 61.2rem;
-  height: 45.4rem;
-  flex-shrink: 0;
-  padding: 4rem;
-  border: none;
-  z-index: 100;
+  button {
+    border: 0;
+    background-color: transparent;
+  }
 `;
