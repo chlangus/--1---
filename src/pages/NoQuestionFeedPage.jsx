@@ -16,8 +16,8 @@ export default function NoQuestionFeedPage() {
           </NoQuestionText>
           <img src={Noquestion} alt="문서사진" />
         </NoQuestionBox>
-        <QuestionWriteButton />
       </NoQuestionWapper>
+      <QuestionWriteButton />
     </div>
   );
 }
@@ -43,12 +43,11 @@ const NoQuestionBox = styled.div`
   border: 1px solid var(--Brown-20, #e4d5c9);
   background: var(--Brown-10, #f5f1ee);
 
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     margin-left: 32px;
     margin-right: 32px;
   }
-
-  @media (max-width: 768px) {
+  @media (max-width: 576px) {
     margin-left: 24px;
     margin-right: 24px;
   }
