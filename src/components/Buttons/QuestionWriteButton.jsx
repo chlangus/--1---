@@ -1,11 +1,40 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import ModalWindow from '../Modal/ModalWindow';
 
 function QuestionWriteButton() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const outSectionRef = useRef();
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const outSectionClosing = e => {
+    if (outSectionRef.current === e.target) {
+      setModalOpen(false);
+    }
+  };
+
   return (
-    <QuestionButton>
-      <QuestionWriteText>질문 작성하기</QuestionWriteText>
-    </QuestionButton>
+    <>
+      {modalOpen && <ModalWindow closeModal={handleCloseModal} />}
+      <QuestionButton
+        onClick={() => {
+          setModalOpen(true);
+        }}
+      >
+        <QuestionWriteText>질문 작성하기</QuestionWriteText>
+      </QuestionButton>
+      <div
+        tabIndex={0}
+        role="button"
+        ref={outSectionRef}
+        onClick={outSectionClosing}
+        onKeyDown={outSectionClosing}
+        aria-label="외부 클릭시 닫힘"
+      />
+    </>
   );
 }
 
