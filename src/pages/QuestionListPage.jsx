@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import QuestionList from '../components/QuestionList';
 import logo from '../assets/logo.svg';
@@ -6,15 +6,43 @@ import AnswerButton from '../components/Buttons/SendQuestionButton';
 import arrowDown from '../assets/arrow-down.svg';
 
 function Navbar() {
+  const navigateToPage = useNavigate();
+
+  const handleIsUserID = () => {
+    const userAccounts = JSON.parse(localStorage.getItem('userAccounts'));
+    const firstUserId =
+      userAccounts && userAccounts.length > 0 ? userAccounts[0].id : null;
+    if (firstUserId === null) {
+      // eslint-disable-next-line no-console
+      console.log('로컬 스토리지에 아이디가 없습니다');
+      navigateToPage(`/`);
+    } else {
+      navigateToPage(`/post/${firstUserId}/answer`);
+    }
+  };
+
+  // eslint-disable-next-line no-console
+
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      handleIsUserID();
+    }
+  };
+
   return (
     <NavWrapper>
       <Nav>
         <Link to="/">
           <LogoImg src={logo} alt="오픈마인드 로고" />
         </Link>
-        <Link to="/">
+        <div
+          onClick={handleIsUserID}
+          onKeyDown={handleKeyDown}
+          role="button"
+          tabIndex={0}
+        >
           <AnswerButton>답변하러 가기</AnswerButton>
-        </Link>
+        </div>
       </Nav>
     </NavWrapper>
   );
@@ -37,7 +65,7 @@ function QuestionBox() {
   );
 }
 
-function QuestionListPage() {
+export default function QuestionListPage() {
   return (
     <>
       <Navbar />
@@ -90,33 +118,12 @@ const LogoImg = styled.img`
   align-items: center;
 `;
 
-/*
-const AnswerButton = styled.button`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1.2rem 2.4rem;
-  gap: 0.8rem;
-  border-radius: 0.8rem;
-  border: 1px solid var(--color-brown-40);
-  background-color: var(--color-brown-10);
-  color: var(--color-brown-40);
-  font-size: var(--font-body3);
-  font-weight: var(--weight-regular);
-  text-decoration: none;
-  cursor: pointer;
-`;
-
-const ArrowRightIcon = styled.img`
-  width: 1.8rem;
-  height: 1.8rem;
-`;
-*/
-
 // 카드리스트 스타일
 
 const Header = styled.div`
   display: flex;
+  width: 100%;
+  max-width: 120rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -190,5 +197,3 @@ const ListTitle = styled.h1`
     font-size: var(--font-h3);
   }
 `;
-
-export default QuestionListPage;
