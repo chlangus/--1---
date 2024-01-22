@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
-import thumbsUp from '../assets/thumbs-up.svg';
-import thumbsDown from '../assets/thumbs-down.svg';
 import profileImg from '../assets/sample-profile-img.svg';
+import ReactionButton from './Buttons/ReactionButton';
 
 export default function FeedCard({ isAnswerPage }) {
   return (
@@ -24,16 +23,7 @@ export default function FeedCard({ isAnswerPage }) {
         </S.AnswerBox>
       </S.AnswerFrame>
       <S.ReactionFrame>
-        <S.ReactionBox>
-          <S.LikeBox>
-            <img src={thumbsUp} alt="thumbs-up" />
-            <span>좋아요</span>
-          </S.LikeBox>
-          <S.LikeBox>
-            <img src={thumbsDown} alt="thumbs-down" />
-            <span>싫어요</span>
-          </S.LikeBox>
-        </S.ReactionBox>
+        <ReactionButton /> {/* id랑 좋아요 싫어요 개수 전달해줘야 함 */}
       </S.ReactionFrame>
     </S.Container>
   );
@@ -119,27 +109,6 @@ const ReactionFrame = styled.div`
   border-top: 1px solid var(--color-grayscale-30);
 `;
 
-const ReactionBox = styled.span`
-  display: flex;
-  align-items: flex-start;
-  gap: 3.2rem;
-`;
-
-const LikeBox = styled.span`
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-
-  color: var(--color-grayscale-40);
-  font-feature-settings:
-    'clig' off,
-    'liga' off;
-  font-size: var(--font-caption1);
-  font-style: normal;
-  font-weight: var(--weight-medium);
-  line-height: 1.8rem; /* 128.571% */
-`;
-
 const AnswerFrame = styled.div`
   display: flex;
   align-items: flex-start;
@@ -149,9 +118,8 @@ const AnswerFrame = styled.div`
 
 const Profile = styled.img`
   border-radius: 4.8rem;
-  // background:
-    url(${profileImg}),
-    lightgray 50% / cover no-repeat,
+  background:
+    url(${profileImg}) lightgray 50% / cover no-repeat,
     #d9d9d9;
 `;
 
@@ -184,8 +152,6 @@ const S = {
   QuestionTime,
   QuestionText,
   ReactionFrame,
-  ReactionBox,
-  LikeBox,
   AnswerFrame,
   Profile,
   AnswerBox,

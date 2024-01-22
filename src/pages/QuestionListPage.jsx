@@ -156,7 +156,7 @@ const DropdownButton = styled.button`
   @media screen and ((min-width: 375px)
   and (max-width: 767px)) {
     font-size: var(--font-caption1);
-
+  }
 `;
 
 const DropdownSpan = styled.span`
