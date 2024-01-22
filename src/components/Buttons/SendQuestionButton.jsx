@@ -11,7 +11,7 @@ export default function SendQuestionButton({ children }) {
 }
 
 export const StyledButton = styled.button`
-  display: flex;
+  display: inline-flex;
   padding: 12px 24px;
   justify-content: center;
   align-items: center;
