@@ -20,6 +20,6 @@ const Button = styled.button`
   line-height: 22px; /* 137.5% */
 `;
 
-export default function QuestionButton({ children, onHandleButton }) {
+export default function GetQuestionButton({ children, onHandleButton }) {
   return <Button onClick={onHandleButton}>{children}</Button>;
 }
