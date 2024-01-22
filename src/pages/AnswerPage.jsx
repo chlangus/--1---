@@ -1,3 +1,10 @@
+import FeedBox from '../components/FeedBox';
+import FeedCard from '../components/FeedCard';
+
 export default function AnswerPage() {
-  return <div>this is Answer Page</div>;
+  return (
+    <FeedBox>
+      <FeedCard isAnswerPage />
+    </FeedBox>
+  );
 }
