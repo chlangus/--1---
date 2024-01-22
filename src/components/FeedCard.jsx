@@ -1,11 +1,22 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
 import thumbsUp from '../assets/thumbs-up.svg';
 import thumbsDown from '../assets/thumbs-down.svg';
 import profileImg from '../assets/sample-profile-img.svg';
+import fetchAnswer from '../services/FetchAnswer';
 
 export default function FeedCard({ isAnswerPage }) {
+  const [answerData, setAnswerData] = useState({ content: '' });
+
+  useEffect(() => {
+    fetchAnswer(1920).then(data => {
+      if (data) {
+        setAnswerData(data);
+      }
+    });
+  }, []);
   return (
     <S.Container>
       <S.BadgeFrame>
@@ -13,14 +24,14 @@ export default function FeedCard({ isAnswerPage }) {
         {isAnswerPage && <KebabButton />}
       </S.BadgeFrame>
       <S.QuestionBox>
-        <S.QuestionTime>질문 · 2주전</S.QuestionTime>
+        <S.QuestionTime>질문 ·2주전 </S.QuestionTime>
         <S.QuestionText>좋아하는 동물은?</S.QuestionText>
       </S.QuestionBox>
       <S.AnswerFrame>
         <S.Profile src={profileImg} alt="profile" />
         <S.AnswerBox>
           <div>아초는 고양이</div>
-          <div>(공용 컴포넌트...기다리는중..)</div>
+          <div>(답변내용: {answerData.content})</div>
         </S.AnswerBox>
       </S.AnswerFrame>
       <S.ReactionFrame>

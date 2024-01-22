@@ -24,6 +24,7 @@ const Container = styled.div`
   border-radius: 1.6rem;
   border: 1px solid var(--color-brown-30);
   background: var(--color-brown-10);
+  margin-bottom: 15rem;
 
   @media (min-width: 768px) {
     width: 704px;

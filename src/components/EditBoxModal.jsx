@@ -6,8 +6,6 @@ export default function EditBoxModal({ isOpenModal, setIsOpenModal }) {
   const handleClickOutside = e => {
     if (wrapperRef && !wrapperRef.current.contains(e.target)) {
       setIsOpenModal(false);
-    } else {
-      setIsOpenModal(true);
     }
   };
   useEffect(() => {

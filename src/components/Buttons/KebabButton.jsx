@@ -8,7 +8,13 @@ export default function KebabButton() {
 
   return (
     <>
-      <EditButton type="button" onClick={() => setIsOpenModal(pre => !pre)}>
+      <EditButton
+        type="button"
+        onClick={e => {
+          e.stopPropagation();
+          return setIsOpenModal(!isOpenModal);
+        }}
+      >
         <img src={kebabImg} alt="show-more" />
       </EditButton>
       {isOpenModal && (
