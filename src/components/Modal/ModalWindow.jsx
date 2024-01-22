@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import QuestionInput from '../QuestionInput';
+import QuestionInput from '../Inputs/QuestionInput';
 import messageIcon from '../../assets/Messages.svg';
 import closeButton from '../../assets/Close.svg';
 

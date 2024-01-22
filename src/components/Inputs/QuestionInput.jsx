@@ -1,7 +1,36 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import photo from '../../assets/Photo.svg';
 
 export default function QuestionInput() {
+  const [question, setQuestion] = useState('');
+
+  // textarea 값이 변경될 때마다 호출,
+  // 현재 값으로 question 상태를 업데이트
+  const handleQuestionChange = e => {
+    setQuestion(e.target.value);
+  };
+
+  // 질문을 보내는 역할
+  const handleSendQuestion = () => {
+    console.log('Sending question:', question);
+
+    fetch(
+      'https://openmind-api.vercel.app/3-2/subjects/{subjectId}/questions/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ question }),
+      },
+    )
+      .then(response => response.json())
+      .catch(error => {
+        console.error('질문 등록 실패 : ', error);
+      });
+  };
+
   return (
     <>
       <ModalSendTo>
@@ -13,9 +42,14 @@ export default function QuestionInput() {
       </ModalSendTo>
       <ModalInput>
         <div>
-          <textarea placeholder="질문을 입력해주세요" />
+          <textarea
+            placeholder="질문을 입력해주세요"
+            value={question}
+            onChange={handleQuestionChange}
+          />
+          -
         </div>
-        <Button>질문 보내기</Button>
+        <Button onClick={handleSendQuestion}>질문 보내기</Button>
       </ModalInput>
     </>
   );
