@@ -17,11 +17,6 @@ function QuestionWriteButton() {
   };
 
   return (
-
-    <QuestionButton>
-      <QuestionWriteText />
-    </QuestionButton>
-
     <>
       {modalOpen && <ModalWindow closeModal={handleCloseModal} />}
       <QuestionButton
@@ -29,7 +24,7 @@ function QuestionWriteButton() {
           setModalOpen(true);
         }}
       >
-        <QuestionWriteText>질문 작성하기</QuestionWriteText>
+        <QuestionWriteText />
       </QuestionButton>
       <div
         tabIndex={0}
@@ -40,7 +35,6 @@ function QuestionWriteButton() {
         aria-label="외부 클릭시 닫힘"
       />
     </>
-
   );
 }
 
@@ -62,6 +56,7 @@ const QuestionButton = styled.button`
   background: var(--Brown-40, #542f1a);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border: none;
+  cursor: pointer;
 
   @media (max-width: 576px) {
     ::after {
