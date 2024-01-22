@@ -8,17 +8,27 @@ export default function NoQuestionFeedPage() {
   return (
     <div>
       <QuestionFeedHeader />
-      <NoQuestionBox>
-        <NoQuestionText>
-          <img src={Messages} alt="메세지" />
-          <p>아직 질문이 없습니다</p>
-        </NoQuestionText>
-        <img src={Noquestion} alt="문서사진" />
-      </NoQuestionBox>
+      <NoQuestionWapper>
+        <NoQuestionBox>
+          <NoQuestionText>
+            <img src={Messages} alt="메세지" />
+            <p>아직 질문이 없습니다</p>
+          </NoQuestionText>
+          <img src={Noquestion} alt="문서사진" />
+        </NoQuestionBox>
+      </NoQuestionWapper>
       <QuestionWriteButton />
     </div>
   );
 }
+
+const NoQuestionWapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 54px auto;
+`;
 
 const NoQuestionBox = styled.div`
   display: flex;
@@ -32,7 +42,15 @@ const NoQuestionBox = styled.div`
   border-radius: 16px;
   border: 1px solid var(--Brown-20, #e4d5c9);
   background: var(--Brown-10, #f5f1ee);
-  margin: 54px auto;
+
+  @media (max-width: 768px) {
+    margin-left: 32px;
+    margin-right: 32px;
+  }
+  @media (max-width: 576px) {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
 `;
 
 const NoQuestionText = styled.div`

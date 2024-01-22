@@ -27,7 +27,9 @@ function LinkShareIcon() {
   );
 }
 
-const LinkShareicon = styled.img``;
+const LinkShareicon = styled.img`
+  cursor: pointer;
+`;
 
 const ToastMessage = styled.div`
   position: fixed;

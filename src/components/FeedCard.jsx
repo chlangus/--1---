@@ -1,10 +1,30 @@
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
 import profileImg from '../assets/sample-profile-img.svg';
 import ReactionButton from './Buttons/ReactionButton';
+import fetchQuestion from '../services/FetchQuestion';
+import timeSince from '../utils/TimeSince';
 
 export default function FeedCard({ isAnswerPage }) {
+  const [questionData, setQuestionData] = useState({
+    content: '',
+    createdAt: '',
+  });
+
+  useEffect(() => {
+    fetchQuestion(2387).then(data => {
+      if (data.results?.length) {
+        const question = data.results[0];
+        setQuestionData({
+          ...question,
+          createdAt: timeSince(question.createdAt),
+        });
+      }
+    });
+  }, []);
+
   return (
     <S.Container>
       <S.BadgeFrame>
@@ -12,8 +32,8 @@ export default function FeedCard({ isAnswerPage }) {
         {isAnswerPage && <KebabButton />}
       </S.BadgeFrame>
       <S.QuestionBox>
-        <S.QuestionTime>질문 · 2주전</S.QuestionTime>
-        <S.QuestionText>좋아하는 동물은?</S.QuestionText>
+        <S.QuestionTime>질문 · {questionData.createdAt}</S.QuestionTime>
+        <S.QuestionText>{questionData.content}</S.QuestionText>
       </S.QuestionBox>
       <S.AnswerFrame>
         <S.Profile src={profileImg} alt="profile" />
