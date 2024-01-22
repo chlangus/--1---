@@ -21,6 +21,8 @@ function FacebookShareIcon() {
   );
 }
 
-const Facebookicon = styled.img``;
+const Facebookicon = styled.img`
+  cursor: pointer;
+`;
 
 export default FacebookShareIcon;
