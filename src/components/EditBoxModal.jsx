@@ -4,7 +4,11 @@ import styled from 'styled-components';
 export default function EditBoxModal({ isOpenModal, setIsOpenModal }) {
   const wrapperRef = useRef();
   const handleClickOutside = e => {
-    if (wrapperRef && !wrapperRef.current.contains(e.target)) {
+    if (
+      wrapperRef &&
+      !wrapperRef.current.contains(e.target) &&
+      e.target.id !== 'kebab'
+    ) {
       setIsOpenModal(false);
     }
   };

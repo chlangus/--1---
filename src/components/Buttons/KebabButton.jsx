@@ -8,15 +8,7 @@ export default function KebabButton() {
 
   return (
     <>
-      <EditButton
-        type="button"
-        onClick={e => {
-          e.stopPropagation();
-          return setIsOpenModal(!isOpenModal);
-        }}
-      >
-        <img src={kebabImg} alt="show-more" />
-      </EditButton>
+      <EditButton id="kebab" onClick={() => setIsOpenModal(!isOpenModal)} />
       {isOpenModal && (
         <EditBoxModal
           isOpenModal={isOpenModal}
@@ -30,4 +22,8 @@ export default function KebabButton() {
 const EditButton = styled.button`
   all: unset;
   cursor: pointer;
+
+  background: url(${kebabImg}) no-repeat;
+  width: 26px;
+  height: 26px;
 `;
