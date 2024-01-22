@@ -26,6 +26,8 @@ export default function QuestionInput() {
       },
     )
       .then(response => response.json())
+      // 성공적으로 response 받으면 모달 창 꺼짐
+      .then(() => setModalOpen(false))
       .catch(error => {
         console.error('질문 등록 실패 : ', error);
       });
