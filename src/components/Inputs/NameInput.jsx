@@ -24,6 +24,14 @@ const InputWrapper = styled.div`
   border-radius: 8px;
   border: 1px solid var(--Grayscale-40, #818181);
   background: var(--Grayscale-10, #fff);
+  display: flex;
+  @media (max-width: 765px) {
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    align-self: stretch;
+  }
 `;
 
 const Input = styled.input`
@@ -40,5 +48,13 @@ const Input = styled.input`
   &:focus {
     border-style: none;
     outline: none;
+  }
+
+  @media (max-width: 765px) {
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px; /* 137.5% */
   }
 `;
