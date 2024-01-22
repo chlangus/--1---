@@ -49,7 +49,9 @@ export default function QuestionInput() {
           />
           -
         </div>
-        <Button onClick={handleSendQuestion}>질문 보내기</Button>
+        <Button onClick={question ? handleSendQuestion : null}>
+          질문 보내기
+        </Button>
       </ModalInput>
     </>
   );
