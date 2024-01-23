@@ -51,7 +51,18 @@ export default function QuestionInput() {
           />
           -
         </div>
-        <Button onClick={question ? handleSendQuestion : null}>
+        <Button
+          onClick={question ? handleSendQuestion : null}
+          style={{
+            cursor: question ? 'pointer' : 'default',
+            background: question
+              ? 'var(--Brown-30, #C7BBB5)'
+              : ' var(--Brown-10, #F5F1EE)',
+            color: question
+              ? 'var(--Brown-10, #F5F1EE)'
+              : 'var(--Brown-30, #C7BBB5)',
+          }}
+        >
           질문 보내기
         </Button>
       </ModalInput>
@@ -131,9 +142,7 @@ const Button = styled.button`
   font-weight: 400;
   line-height: 2.2rem; /* 137.5% */
   border-radius: 0.8rem;
-  background: var(--Brown-30, #c7bbb5);
   margin-top: 0.8rem;
   height: 5rem;
   border: none;
-  cursor: pointer;
 `;
