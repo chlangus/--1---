@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import photo from '../../assets/Photo.svg';
+// import photo from '../../assets/Photo.svg';
+import fetchSubject from '../../services/FetchSubject';
 
 export default function QuestionInput() {
   const [question, setQuestion] = useState('');
@@ -33,14 +34,16 @@ export default function QuestionInput() {
       });
   };
 
+  const subjectData = fetchSubject();
+
   return (
     <>
       <ModalSendTo>
         <div className="to">To.</div>
         <div>
-          <img src={photo} alt="프로필이미지" />
+          <img src={subjectData.imageSource} alt="프로필이미지" />
         </div>
-        <div className="nickname">닉네임</div>
+        <div className="nickname">{subjectData.name}닉네임</div>
       </ModalSendTo>
       <ModalInput>
         <div>
@@ -124,6 +127,16 @@ const ModalInput = styled.div`
     font-weight: 400;
     border: none;
     resize: none;
+    @media (max-width: 767px) {
+      display: flex;
+      height: 35rem;
+      width: 27rem;
+      padding: 1.6rem;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      align-self: stretch;
+    }
   }
 `;
 
