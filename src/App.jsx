@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 import styled, { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ import GlobalStyle from './styles/GlobalStyle';
 import NoQuestionFeedPage from './pages/NoQuestionFeedPage';
 import theme from './styles/theme';
 import ThemeContext from './contexts/ThemeContext';
+import folwerDance from './assets/flower-dance.mp3';
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -21,6 +23,7 @@ function App() {
       <ThemeButton type="button" onClick={handleMode}>
         테마바꾸기
       </ThemeButton>
+      <audio src={folwerDance} loop autoPlay />
       <GlobalStyle />
       <ThemeContext.Provider value={mode}>
         <BrowserRouter>

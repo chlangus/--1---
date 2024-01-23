@@ -1,11 +1,18 @@
 import styled from 'styled-components';
+import { useContext } from 'react';
 import arrowRight from '../../assets/arrow-right.svg';
+import darkArrowRight from '../../assets/dark-arrow-right.svg';
+import ThemeContext from '../../contexts/ThemeContext';
 
 export default function SendQuestionButton({ children }) {
+  const mode = useContext(ThemeContext);
   return (
     <StyledButton>
       {children}
-      <Img src={arrowRight} alt="arrowRight" />
+      <Img
+        src={mode === 'light' ? arrowRight : darkArrowRight}
+        alt="arrowRight"
+      />
     </StyledButton>
   );
 }
