@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import kebabImg from '../../assets/more-icon.svg';
 import EditBoxModal from '../EditBoxModal';
 
-export default function KebabButton(editMode, setEditMode) {
+export default function KebabButton({ editMode, setEditMode }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
