@@ -21,8 +21,6 @@ function Navbar() {
     }
   };
 
-  // eslint-disable-next-line no-console
-
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
       handleIsUserID();
