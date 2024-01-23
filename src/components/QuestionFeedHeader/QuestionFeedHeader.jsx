@@ -7,14 +7,14 @@ import LinkShareIcon from '../Buttons/LinkShareIcon';
 import FacebookShareIcon from '../Buttons/FacebookShareIcon';
 import KakaoShareIcon from '../Buttons/KakaoShareIcon';
 
-function QuestionFeedHeader({ subjectData, setSubjectData }) {
+function QuestionFeedHeader({ subjectId, subjectData, setSubjectData }) {
   useEffect(() => {
-    fetchSubject(2387).then(data => {
+    fetchSubject(subjectId).then(data => {
       if (data) {
         setSubjectData(data);
       }
     });
-  }, []);
+  }, [subjectId, setSubjectData]);
 
   return (
     <div>

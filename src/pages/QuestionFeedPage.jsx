@@ -6,7 +6,7 @@ import FeedCard from '../components/FeedCard';
 import QuestionWriteButton from '../components/Buttons/QuestionWriteButton';
 
 export default function QuestionFeedPage() {
-  const [subjectId, setSubjectId] = useState(2387);
+  const [subjectId, setSubjectId] = useState();
   const [subjectData, setSubjectData] = useState({
     imageSource: '',
     name: '',
@@ -16,11 +16,16 @@ export default function QuestionFeedPage() {
   return (
     <Wrapper>
       <QuestionFeedHeader
+        subjectId={subjectId}
         subjectData={subjectData}
         setSubjectData={setSubjectData}
       />
       <FeedBox subjectData={subjectData}>
-        <FeedCard subjectId={subjectId} setSubjectId={setSubjectId} />
+        <FeedCard
+          subjectId={subjectId}
+          subjectData={subjectData}
+          setSubjectId={setSubjectId}
+        />
       </FeedBox>
       <QuestionWriteButton />
     </Wrapper>

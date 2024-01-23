@@ -8,7 +8,7 @@ import profileImg from '../assets/sample-profile-img.svg';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
 
-export default function FeedCard({ subjectId, isAnswerPage }) {
+export default function FeedCard({ subjectId, subjectData, isAnswerPage }) {
   const [questionData, setQuestionData] = useState([]);
 
   useEffect(() => {
@@ -18,6 +18,12 @@ export default function FeedCard({ subjectId, isAnswerPage }) {
           data.results.map(question => ({
             ...question,
             createdAt: timeSince(question.createdAt),
+            answer: question.answer
+              ? {
+                  ...question.answer,
+                  createdAt: timeSince(question.answer.createdAt),
+                }
+              : null,
           })),
         );
       }
@@ -27,7 +33,7 @@ export default function FeedCard({ subjectId, isAnswerPage }) {
   return (
     <S.Container>
       {questionData.map(question => (
-        <QuestionWapper key={question.id}>
+        <QuestionWrapper key={question.id}>
           <S.BadgeFrame>
             <AnswerBadge $isAnswered />
             {isAnswerPage && <KebabButton />}
@@ -37,11 +43,14 @@ export default function FeedCard({ subjectId, isAnswerPage }) {
             <S.QuestionText>{question.content}</S.QuestionText>
           </S.QuestionBox>
           <S.AnswerFrame>
-            {/* <S.Profile src={profileImg} alt="profile" /> */}
-            {/* <S.AnswerBox>
-          <div>아초는 고양이</div>
-          <div>(공용 컴포넌트...기다리는중..)</div>
-        </S.AnswerBox> */}
+            <S.Profile src={subjectData.imageSource} alt="profile" />
+            <S.AnswerBox>
+              <AnswerNameBox>
+                <S.AnswerName>{subjectData.name}</S.AnswerName>
+                <S.AnswerTime>{question.answer.createdAt}</S.AnswerTime>
+              </AnswerNameBox>
+              <S.AnswerText>{question.answer.content}</S.AnswerText>
+            </S.AnswerBox>
           </S.AnswerFrame>
           <S.ReactionFrame>
             <S.ReactionBox>
@@ -55,7 +64,7 @@ export default function FeedCard({ subjectId, isAnswerPage }) {
               </S.LikeBox>
             </S.ReactionBox>
           </S.ReactionFrame>
-        </QuestionWapper>
+        </QuestionWrapper>
       ))}
     </S.Container>
   );
@@ -88,6 +97,7 @@ const QuestionBox = styled.div`
   align-items: flex-start;
   gap: 0.4rem;
   flex: 1 0 0;
+  margin-bottom: 32px;
 `;
 
 const BadgeFrame = styled.div`
@@ -96,6 +106,7 @@ const BadgeFrame = styled.div`
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
+  margin-bottom: 32px;
 `;
 
 const QuestionTime = styled.div`
@@ -167,9 +178,12 @@ const AnswerFrame = styled.div`
   align-items: flex-start;
   gap: 1.2rem;
   align-self: stretch;
+  margin-bottom: 32px;
 `;
 
 const Profile = styled.img`
+    width: 48px;
+    height: 48px;
   border-radius: 4.8rem;
   // background:
     url(${profileImg}),
@@ -200,9 +214,54 @@ const AnswerBox = styled.div`
   }
 `;
 
-const QuestionWapper = styled.div`
+const QuestionWrapper = styled.div`
   width: 100%;
 `;
+
+const AnswerName = styled.p`
+  color: var(--Grayscale-60, #000);
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-family: Actor;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 133.333% */
+`;
+
+const AnswerTime = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--color-grayscale-40);
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-family: Pretendard;
+  font-size: var(--font-caption1);
+  font-style: normal;
+  font-weight: var(--weight-medium);
+  line-height: 1.8rem; /* 128.571% */
+`;
+
+const AnswerNameBox = styled.div`
+  display: flex;
+  gap: 8px;
+`;
+
+const AnswerText = styled.p`
+  color: var(--Grayscale-60, #000);
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 137.5% */
+`;
+
 // 스타일
 const S = {
   Container,
@@ -216,4 +275,8 @@ const S = {
   Profile,
   AnswerBox,
   BadgeFrame,
+  AnswerName,
+  AnswerTime,
+  AnswerNameBox,
+  AnswerText,
 };
