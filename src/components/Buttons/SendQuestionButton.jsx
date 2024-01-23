@@ -17,9 +17,9 @@ export const StyledButton = styled.button`
   align-items: center;
   gap: 8px;
   border-radius: 8px;
-  border: 1px solid var(--Brown-40, #542f1a);
-  background: var(--Brown-10, #f5f1ee);
-  color: var(--Brown-40, #542f1a);
+  border: 1px solid ${({ theme }) => theme.colorBrown40};
+  background: ${({ theme }) => theme.colorBrown10};
+  color: ${({ theme }) => theme.colorBrown40};
   font-feature-settings:
     'clig' off,
     'liga' off;

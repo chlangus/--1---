@@ -29,8 +29,8 @@ const CardBox = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   border-radius: 16px;
-  border: 1px solid var(--color-grayscale-40);
-  background: var(--color-grayscale-10);
+  border: 1px solid ${({ theme }) => theme.colorGrayScale40};
+  background: ${({ theme }) => theme.colorGrayScale10};
 `;
 
 const ProfileWrapper = styled.div`
@@ -50,7 +50,7 @@ const ProfileImg = styled.img`
 `;
 
 const ProfileName = styled.h2`
-  color: var(--color-grayscale-60);
+  color: ${({ theme }) => theme.colorGrayScale60};
   font-size: var(--font-body1);
   font-style: normal;
   font-weight: var(--weight-regular);
@@ -74,7 +74,7 @@ const QuestionInfo = styled.div`
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
-  color: var(--color-grayscale-40);
+  color: ${({ theme }) => theme.colorGrayScale40};
   font-size: var(--font-body3);
   font-style: normal;
   font-weight: var(--weight-regular);

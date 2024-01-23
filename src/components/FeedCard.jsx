@@ -60,7 +60,7 @@ const Container = styled.div`
   gap: 2.4rem;
 
   border-radius: 1.6rem;
-  background: var(--color-grayscale-10);
+  background: ${({ theme }) => theme.colorGrayScale10};
 
   box-shadow: var(--shadow-1pt);
 
@@ -91,7 +91,7 @@ const QuestionTime = styled.div`
   align-items: center;
   gap: 0.8rem;
 
-  color: var(--color-grayscale-40);
+  color: ${({ theme }) => theme.colorGrayScale40};
   font-feature-settings:
     'clig' off,
     'liga' off;
@@ -103,7 +103,7 @@ const QuestionTime = styled.div`
 
 const QuestionText = styled.div`
   align-self: stretch;
-  color: var(--Grayscale-60, #000);
+  color: ${({ theme }) => theme.colorGrayScale60};
   font-feature-settings:
     'clig' off,
     'liga' off;
@@ -125,8 +125,7 @@ const ReactionFrame = styled.div`
   align-items: flex-start;
   padding-top: 2.4rem;
   align-self: stretch;
-
-  border-top: 1px solid var(--color-grayscale-30);
+  border-top: 1px solid ${({ theme }) => theme.colorGrayScale30};
 `;
 
 const AnswerFrame = styled.div`
@@ -150,7 +149,7 @@ const AnswerBox = styled.div`
   gap: 4px;
   flex: 1 0 0;
 
-  color: var(--color-grayscale-60);
+  color: ${({ theme }) => theme.colorGrayScale60};
   font-feature-settings:
     'clig' off,
     'liga' off;

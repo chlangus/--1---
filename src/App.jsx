@@ -1,30 +1,48 @@
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 import MainPage from './pages/MainPage';
 import QuestionListPage from './pages/QuestionListPage';
 import AnswerPage from './pages/AnswerPage';
 import QuestionFeedPage from './pages/QuestionFeedPage';
-import theme from './styles/Theme';
 import GlobalStyle from './styles/GlobalStyle';
 import NoQuestionFeedPage from './pages/NoQuestionFeedPage';
+import theme from './styles/theme';
+import ThemeContext from './contexts/ThemeContext';
 
 function App() {
+  const [mode, setMode] = useState('light');
+  const handleMode = () => {
+    setMode(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme[mode]}>
+      <ThemeButton type="button" onClick={handleMode}>
+        테마바꾸기
+      </ThemeButton>
       <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/list" element={<QuestionListPage />} />
-          <Route path="/post">
-            <Route path=":id/answer" element={<AnswerPage />} />
-            <Route path=":id" element={<QuestionFeedPage />} />
-            <Route path="no" element={<NoQuestionFeedPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <ThemeContext.Provider value={mode}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/list" element={<QuestionListPage />} />
+            <Route path="/post">
+              <Route path=":id/answer" element={<AnswerPage />} />
+              <Route path=":id" element={<QuestionFeedPage />} />
+              <Route path="no" element={<NoQuestionFeedPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeContext.Provider>
     </ThemeProvider>
   );
 }
 
 export default App;
+
+const ThemeButton = styled.button`
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+`;
