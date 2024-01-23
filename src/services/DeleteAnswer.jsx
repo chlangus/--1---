@@ -1,13 +1,12 @@
-async function deleteQuestion(id) {
-  const questionId = id;
-  console.log('id: ', questionId);
-  // test: 3656
+async function deleteAnswer(id) {
+  const answerId = id;
+  console.log('id: ', answerId);
   try {
     const response = await fetch(
-      `https://openmind-api.vercel.app/3-2/questions/${questionId}/`,
+      `https://openmind-api.vercel.app/3-2/answers/${answerId}/`,
       { method: 'DELETE' },
     );
-    console.log('실행');
+    console.log('답변 삭제 실행');
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
@@ -18,4 +17,4 @@ async function deleteQuestion(id) {
   }
 }
 
-export default deleteQuestion;
+export default deleteAnswer;

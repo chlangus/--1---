@@ -9,7 +9,9 @@ import fetchAnswer from '../services/FetchAnswer';
 
 export default function FeedCard({ isAnswerPage }) {
   // const [questionData, setQuestionData] = useState([]);
+  // 각 질문id(questionData.id) 케밥버튼에 넘겨줘야함
   const [answerData, setAnswerData] = useState({ content: '' });
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     fetchAnswer(1920).then(data => {
@@ -22,7 +24,9 @@ export default function FeedCard({ isAnswerPage }) {
     <S.Container>
       <S.BadgeFrame>
         <AnswerBadge $isAnswered />
-        {isAnswerPage && <KebabButton />}
+        {isAnswerPage && (
+          <KebabButton editMode={editMode} setEditMode={setEditMode} />
+        )}
       </S.BadgeFrame>
       <S.QuestionBox>
         <S.QuestionTime>질문 ·2주전 </S.QuestionTime>
@@ -33,6 +37,7 @@ export default function FeedCard({ isAnswerPage }) {
         <S.AnswerBox>
           <div>아초는 고양이</div>
           <div>(답변내용: {answerData.content})</div>
+          {editMode && <div>수정중...</div>}
         </S.AnswerBox>
       </S.AnswerFrame>
       <S.ReactionFrame>

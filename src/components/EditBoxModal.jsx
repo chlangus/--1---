@@ -1,7 +1,14 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import deleteAnswer from '../services/DeleteAnswer';
 
-export default function EditBoxModal({ isOpenModal, setIsOpenModal }) {
+export default function EditBoxModal({
+  isOpenModal,
+  setIsOpenModal,
+  setEditMode,
+}) {
+  // const [answer, setAnswer] = useState('');
+
   const wrapperRef = useRef();
   const handleClickOutside = e => {
     if (
@@ -20,10 +27,19 @@ export default function EditBoxModal({ isOpenModal, setIsOpenModal }) {
     };
   });
 
+  const handleEdit = () => {
+    console.log('수정창 열림');
+    setEditMode(true);
+  };
+  const handleDelete = async () => {
+    alert('정말로 삭제하시겠습니까?');
+    await deleteAnswer(3655);
+  };
+
   return (
     <EditBox ref={wrapperRef} value={isOpenModal}>
-      <EditItem>수정하기</EditItem>
-      <EditItem>삭제하기</EditItem>
+      <EditItem onClick={handleEdit}>수정하기</EditItem>
+      <EditItem onClick={handleDelete}>삭제하기</EditItem>
     </EditBox>
   );
 }

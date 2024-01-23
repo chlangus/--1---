@@ -3,7 +3,8 @@ import deleteQuestion from '../../services/DeleteQuestion';
 
 function DeleteAllButton({ text }) {
   const handleDelete = async () => {
-    await deleteQuestion(3657);
+    alert('정말로 삭제하시겠습니까?'); // 얘도 모달로 만들까 고민중..
+    await deleteQuestion(3656);
   };
 
   return (
