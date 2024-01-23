@@ -16,8 +16,6 @@ export default function ModalWindow({ closeModal }) {
     closeModal();
   };
 
-  // 모달에서 추가함!
-  // 모달이 떠있을 때만 백그라운드 100퍼센트 어쩌구~~~~~~
   return (
     <ModalWrapper onClick={handleModalClick}>
       <ModalContent className="modal-content">
@@ -60,13 +58,23 @@ const ModalContent = styled.div`
   padding: 4rem;
   border: none;
   z-index: 100;
+  @media (max-width: 767px) {
+    width: 32.7rem;
+    height: 56.8rem;
+    padding: 2.5rem;
+  }
 `;
+
+/* 테블릿 CSS */
 
 const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 4.5rem;
+  @media (max-width: 767px) {
+    margin-bottom: 3rem;
+  }
 
   div {
     display: flex;
@@ -81,6 +89,11 @@ const ModalHeader = styled.div`
     font-weight: 400;
     line-height: 30px;
     line-height: 1.875rem; /* 125% */
+
+    @media (max-width: 767px) {
+      font-size: 2rem;
+      line-height: 2.5rem; /* 125% */
+    }
   }
 
   img {
