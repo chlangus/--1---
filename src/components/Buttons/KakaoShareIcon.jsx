@@ -43,6 +43,8 @@ function KakaoShareIcon() {
   );
 }
 
-const Kakaotalkicon = styled.img``;
+const Kakaotalkicon = styled.img`
+  cursor: pointer;
+`;
 
 export default KakaoShareIcon;
