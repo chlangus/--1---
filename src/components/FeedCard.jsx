@@ -8,53 +8,55 @@ import profileImg from '../assets/sample-profile-img.svg';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
 
-export default function FeedCard({ isAnswerPage }) {
-  const [questionData, setQuestionData] = useState({
-    content: '',
-    createdAt: '',
-  });
+export default function FeedCard({ subjectId, isAnswerPage }) {
+  const [questionData, setQuestionData] = useState([]);
 
   useEffect(() => {
-    fetchQuestion(2387).then(data => {
+    fetchQuestion(subjectId).then(data => {
       if (data.results?.length) {
-        const question = data.results[0];
-        setQuestionData({
-          ...question,
-          createdAt: timeSince(question.createdAt),
-        });
+        setQuestionData(
+          data.results.map(question => ({
+            ...question,
+            createdAt: timeSince(question.createdAt),
+          })),
+        );
       }
     });
-  }, []);
+  }, [subjectId]);
 
   return (
     <S.Container>
-      <S.BadgeFrame>
-        <AnswerBadge $isAnswered />
-        {isAnswerPage && <KebabButton />}
-      </S.BadgeFrame>
-      <S.QuestionBox>
-        <S.QuestionTime>질문 · {questionData.createdAt}</S.QuestionTime>
-        <S.QuestionText>{questionData.content}</S.QuestionText>
-      </S.QuestionBox>
-      <S.AnswerFrame>
-        <S.Profile src={profileImg} alt="profile" />
-        <S.AnswerBox>
+      {questionData.map(question => (
+        <QuestionWapper key={question.id}>
+          <S.BadgeFrame>
+            <AnswerBadge $isAnswered />
+            {isAnswerPage && <KebabButton />}
+          </S.BadgeFrame>
+          <S.QuestionBox>
+            <S.QuestionTime>질문 · {question.createdAt}</S.QuestionTime>
+            <S.QuestionText>{question.content}</S.QuestionText>
+          </S.QuestionBox>
+          <S.AnswerFrame>
+            {/* <S.Profile src={profileImg} alt="profile" /> */}
+            {/* <S.AnswerBox>
           <div>아초는 고양이</div>
           <div>(공용 컴포넌트...기다리는중..)</div>
-        </S.AnswerBox>
-      </S.AnswerFrame>
-      <S.ReactionFrame>
-        <S.ReactionBox>
-          <S.LikeBox>
-            <img src={thumbsUp} alt="thumbs-up" />
-            <span>좋아요</span>
-          </S.LikeBox>
-          <S.LikeBox>
-            <img src={thumbsDown} alt="thumbs-down" />
-            <span>싫어요</span>
-          </S.LikeBox>
-        </S.ReactionBox>
-      </S.ReactionFrame>
+        </S.AnswerBox> */}
+          </S.AnswerFrame>
+          <S.ReactionFrame>
+            <S.ReactionBox>
+              <S.LikeBox>
+                <img src={thumbsUp} alt="thumbs-up" />
+                <span>좋아요</span>
+              </S.LikeBox>
+              <S.LikeBox>
+                <img src={thumbsDown} alt="thumbs-down" />
+                <span>싫어요</span>
+              </S.LikeBox>
+            </S.ReactionBox>
+          </S.ReactionFrame>
+        </QuestionWapper>
+      ))}
     </S.Container>
   );
 }
@@ -196,6 +198,10 @@ const AnswerBox = styled.div`
     font-size: var(--font-body2);
     line-height: 2.4rem; /* 133.333% */
   }
+`;
+
+const QuestionWapper = styled.div`
+  width: 100%;
 `;
 // 스타일
 const S = {

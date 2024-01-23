@@ -6,7 +6,7 @@ import AnswerPage from './pages/AnswerPage';
 import QuestionFeedPage from './pages/QuestionFeedPage';
 import theme from './styles/Theme';
 import GlobalStyle from './styles/GlobalStyle';
-import NoQuestionFeedPage from './pages/NoQuestionFeedPage';
+import NoQuestionFeedPage from './components/NoQuestionFeedPage';
 
 function App() {
   return (

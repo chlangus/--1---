@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import fetchSubject from '../../services/FetchSubject';
 import QuestionFeedHead from '../../assets/QuestionFeedHead.svg';
@@ -7,9 +7,7 @@ import LinkShareIcon from '../Buttons/LinkShareIcon';
 import FacebookShareIcon from '../Buttons/FacebookShareIcon';
 import KakaoShareIcon from '../Buttons/KakaoShareIcon';
 
-function QuestionFeedHeader() {
-  const [subjectData, setSubjectData] = useState({ imageSource: '', name: '' });
-
+function QuestionFeedHeader({ subjectData, setSubjectData }) {
   useEffect(() => {
     fetchSubject(2387).then(data => {
       if (data) {
