@@ -18,6 +18,7 @@ export default function FeedCard({ subjectId, subjectData, isAnswerPage }) {
           data.results.map(question => ({
             ...question,
             createdAt: timeSince(question.createdAt),
+            isAnswered: question.answer !== null,
             answer: question.answer
               ? {
                   ...question.answer,
@@ -35,7 +36,7 @@ export default function FeedCard({ subjectId, subjectData, isAnswerPage }) {
       {questionData.map(question => (
         <QuestionWrapper key={question.id}>
           <S.BadgeFrame>
-            <AnswerBadge $isAnswered />
+            <AnswerBadge $isAnswered={question.isAnswered} />
             {isAnswerPage && <KebabButton />}
           </S.BadgeFrame>
           <S.QuestionBox>
@@ -43,14 +44,18 @@ export default function FeedCard({ subjectId, subjectData, isAnswerPage }) {
             <S.QuestionText>{question.content}</S.QuestionText>
           </S.QuestionBox>
           <S.AnswerFrame>
-            <S.Profile src={subjectData.imageSource} alt="profile" />
-            <S.AnswerBox>
-              <AnswerNameBox>
-                <S.AnswerName>{subjectData.name}</S.AnswerName>
-                <S.AnswerTime>{question.answer.createdAt}</S.AnswerTime>
-              </AnswerNameBox>
-              <S.AnswerText>{question.answer.content}</S.AnswerText>
-            </S.AnswerBox>
+            {question.answer ? (
+              <>
+                <S.Profile src={subjectData.imageSource} alt="profile" />
+                <S.AnswerBox>
+                  <AnswerNameBox>
+                    <S.AnswerName>{subjectData.name}</S.AnswerName>
+                    <S.AnswerTime>{question.answer.createdAt}</S.AnswerTime>
+                  </AnswerNameBox>
+                  <S.AnswerText>{question.answer.content}</S.AnswerText>
+                </S.AnswerBox>
+              </>
+            ) : null}
           </S.AnswerFrame>
           <S.ReactionFrame>
             <S.ReactionBox>
