@@ -1,9 +1,13 @@
-import React from 'react';
 import styled from 'styled-components';
+import deleteQuestion from '../../services/DeleteQuestion';
 
-function DeleteButton({ text }) {
+function DeleteAllButton({ text }) {
+  const handleDelete = async () => {
+    await deleteQuestion(3657);
+  };
+
   return (
-    <Button>
+    <Button onClick={handleDelete}>
       <ButtonText>{text}</ButtonText>
     </Button>
   );
@@ -23,6 +27,7 @@ const Button = styled.button`
   background: var(--color-brown-40);
   box-shadow: var(--shadow-2pt);
   border: none;
+  cursor: pointer;
 
   @media (min-width: 768px) {
     width: 100px;
@@ -45,4 +50,4 @@ const ButtonText = styled.p`
   }
 `;
 
-export default DeleteButton;
+export default DeleteAllButton;

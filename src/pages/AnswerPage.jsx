@@ -1,16 +1,21 @@
+// import { useState } from 'react';
 import styled from 'styled-components';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
 import FeedCard from '../components/FeedCard';
-import DeleteButton from '../components/Buttons/DeleteButton';
+import DeleteAllButton from '../components/Buttons/DeleteAllButton';
 
 export default function AnswerPage() {
+  // const [feedList, setFeedList] = useState([]);
   return (
     <S.Wrapper>
       <QuestionFeedHeader />
       <S.DeleteAndFeed>
-        <DeleteButton text="삭제하기" />
+        <DeleteAllButton text="삭제하기" />
         <FeedBox>
+          {/* {feedList.map(item => (
+            <FeedCard key={item.id} isAnswerPage />
+          ))} */}
           <FeedCard isAnswerPage />
         </FeedBox>
       </S.DeleteAndFeed>

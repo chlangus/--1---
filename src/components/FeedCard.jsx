@@ -8,6 +8,7 @@ import profileImg from '../assets/sample-profile-img.svg';
 import fetchAnswer from '../services/FetchAnswer';
 
 export default function FeedCard({ isAnswerPage }) {
+  // const [questionData, setQuestionData] = useState([]);
   const [answerData, setAnswerData] = useState({ content: '' });
 
   useEffect(() => {
