@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import QuestionInput from '../Inputs/QuestionInput';
 import messageIcon from '../../assets/Messages.svg';
@@ -17,20 +18,25 @@ export default function ModalWindow({ closeModal }) {
   };
 
   return (
-    <ModalWrapper onClick={handleModalClick}>
-      <ModalContent className="modal-content">
-        <ModalHeader>
-          <div>
-            <img src={messageIcon} alt="말풍선 아이콘" />
-            <div>질문을 작성하세요</div>
-          </div>
-          <button type="button" onClick={closeModal}>
-            <img src={closeButton} alt="닫기 버튼" />
-          </button>
-        </ModalHeader>
-        <QuestionInput />
-      </ModalContent>
-    </ModalWrapper>
+    <>
+      {createPortal(
+        <ModalWrapper onClick={handleModalClick}>
+          <ModalContent className="modal-content">
+            <ModalHeader>
+              <div>
+                <img src={messageIcon} alt="말풍선 아이콘" />
+                <div>질문을 작성하세요</div>
+              </div>
+              <button type="button" onClick={closeModal}>
+                <img src={closeButton} alt="닫기 버튼" />
+              </button>
+            </ModalHeader>
+            <QuestionInput />
+          </ModalContent>
+        </ModalWrapper>,
+        document.body,
+      )}
+    </>
   );
 }
 
@@ -44,7 +50,6 @@ const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--Dim, rgba(0, 0, 0, 0.56));
-  z-index: 100;
 `;
 
 const ModalContent = styled.div`
