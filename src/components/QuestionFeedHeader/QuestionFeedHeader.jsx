@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react';
-
 import styled from 'styled-components';
 import fetchSubject from '../../services/FetchSubject';
 import QuestionFeedHead from '../../assets/QuestionFeedHead.svg';
