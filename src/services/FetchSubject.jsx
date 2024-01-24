@@ -1,7 +1,7 @@
 async function fetchSubject() {
   try {
     const response = await fetch(
-      `https://openmind-api.vercel.app/3-2/subjects/2387/`,
+      `https://openmind-api.vercel.app/3-2/subjects/2672/`,
     );
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);

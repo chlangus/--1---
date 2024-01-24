@@ -8,8 +8,8 @@ const Button = styled.button`
   gap: 8px;
   align-self: stretch;
   border-radius: 8px;
-  background: var(--Brown-40, #542f1a);
-  color: var(--Grayscale-10, #fff);
+  background: ${({ theme }) => theme.colorBrown40};
+  color: ${({ theme }) => theme.colorGrayScale10};
   font-feature-settings:
     'clig' off,
     'liga' off;

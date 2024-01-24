@@ -41,8 +41,8 @@ const ToastMessage = styled.div`
   border-radius: 8px;
   width: 167px;
   height: 42px;
-  color: #666666
-  background: var(--Grayscale-60, #000);
+  color: #666666;
+  background: ${({ theme }) => theme.colorGrayScale60};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   transform: translateX(-50%);
   left: 50%;
