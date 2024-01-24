@@ -3,41 +3,39 @@ import styled from 'styled-components';
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
 import profileImg from '../assets/sample-profile-img.svg';
-import fetchAnswer from '../services/FetchAnswer';
 
 import ReactionButton from './Buttons/ReactionButton';
+import DeleteQuestionButton from './Buttons/DeleteQuestionButton';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
+import AnswerInput from './Inputs/AnswerInput';
 
-export default function FeedCard({ isAnswerPage }) {
+export default function FeedCard({ subjectId, subjectData, isAnswerPage }) {
   const [editMode, setEditMode] = useState(false);
   const [questionData, setQuestionData] = useState({
     content: '',
     createdAt: '',
   });
 
-  const [answerData, setAnswerData] = useState({ content: '' });
-
   useEffect(() => {
-    fetchAnswer(1920).then(data => {
-      if (data) {
-        setAnswerData(data);
+    fetchQuestion(subjectId).then(data => {
+      if (data.results.length) {
+        setQuestionData(
+          data.results.map(question => ({
+            ...question,
+            createdAt: timeSince(question.createdAt),
+            isAnswered: question.answer !== null,
+            answer: question.answer
+              ? {
+                  ...question.answer,
+                  createdAt: timeSince(question.answer.createdAt),
+                }
+              : null,
+          })),
+        );
       }
     });
-  }, []);
-
-  useEffect(() => {
-    fetchQuestion(2387).then(data => {
-      if (data.results?.length) {
-        const question = data.results[0];
-        setQuestionData({
-          ...question,
-          createdAt: timeSince(question.createdAt),
-        });
-        console.log('questionData', questionData);
-      }
-    });
-  }, []);
+  }, [subjectId]);
 
   return (
     <S.Container>
@@ -52,15 +50,23 @@ export default function FeedCard({ isAnswerPage }) {
         <S.QuestionText>{questionData.content}</S.QuestionText>
       </S.QuestionBox>
       <S.AnswerFrame>
-        <S.Profile src={profileImg} alt="profile" />
-        <S.AnswerBox>
-          <div>아초는 고양이</div>
-          <div>(답변내용: {answerData.content})</div>
-          {editMode && <div>수정중...</div>}
-        </S.AnswerBox>
+        {question.answer ? (
+          <>
+            <S.Profile src={subjectData.imageSource} alt="profile" />
+            <S.AnswerBox>
+              {/* <AnswerNameBox> */}
+              <S.AnswerName>{subjectData.name}</S.AnswerName>
+              <S.AnswerTime>{question.answer.createdAt}</S.AnswerTime>
+              {/* </AnswerNameBox> */}
+              <S.AnswerText>{question.answer.content}</S.AnswerText>
+              {editMode && <AnswerInput />}
+            </S.AnswerBox>
+          </>
+        ) : null}
       </S.AnswerFrame>
       <S.ReactionFrame>
         <ReactionButton /> {/* id랑 좋아요 싫어요 개수 전달해줘야 함 */}
+        <DeleteQuestionButton />
       </S.ReactionFrame>
     </S.Container>
   );

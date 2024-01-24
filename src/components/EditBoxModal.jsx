@@ -28,7 +28,6 @@ export default function EditBoxModal({
   });
 
   const handleEdit = () => {
-    console.log('수정창 열림');
     setEditMode(true);
   };
   const handleDelete = async () => {

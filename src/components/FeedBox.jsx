@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import messageIcon from '../assets/message-icon.svg';
 
-export default function FeedBox({ children }) {
+export default function FeedBox({ subjectData, children }) {
   return (
     <S.Container>
       <S.QuestionCount>
         <img src={messageIcon} alt="message-icon" />
-        <S.Text>3개의 질문이 있습니다</S.Text>
+        <S.Text>{subjectData.questionCount}개의 질문이 있습니다</S.Text>
       </S.QuestionCount>
       {children}
     </S.Container>

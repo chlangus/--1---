@@ -1,22 +1,53 @@
-// import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
 import FeedCard from '../components/FeedCard';
 import DeleteAllButton from '../components/Buttons/DeleteAllButton';
+import fetchQuestion from '../services/FetchQuestion';
+import timeSince from '../utils/TimeSince';
 
 export default function AnswerPage() {
-  // const [feedList, setFeedList] = useState([]);
+  // const [feedList, setFeedData] = useState([]);
+  const [subjectId, setSubjectId] = useState();
+  const [subjectData, setSubjectData] = useState({
+    imageSource: '',
+    name: '',
+    questionCount: '',
+  });
+  useEffect(() => {
+    fetchQuestion().then(data => {
+      if (data.results.length) {
+        const question = data.results;
+        setFeedData({
+          ...question,
+          createdAt: timeSince(question.createdAt),
+        });
+        console.log('questionData', feedList);
+        console.log('question', question);
+      }
+    });
+  }, []);
   return (
     <S.Wrapper>
-      <QuestionFeedHeader />
+      <QuestionFeedHeader
+        subjectId={subjectId}
+        subjectData={subjectData}
+        setSubjectData={setSubjectData}
+      />
       <S.DeleteAndFeed>
         <DeleteAllButton text="삭제하기" />
-        <FeedBox>
-          {/* {feedList.map(item => (
-            <FeedCard key={item.id} isAnswerPage />
-          ))} */}
-          <FeedCard isAnswerPage />
+        <FeedBox subjectData={subjectData}>
+          {feedList &&
+            feedList.map(item => (
+              <FeedCard
+                key={item.id}
+                subjectId={subjectId}
+                subjectData={subjectData}
+                setSubjectId={setSubjectId}
+                isAnswerPage
+              />
+            ))}
         </FeedBox>
       </S.DeleteAndFeed>
     </S.Wrapper>
