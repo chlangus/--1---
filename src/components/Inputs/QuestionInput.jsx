@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 // import photo from '../../assets/Photo.svg';
 import fetchSubject from '../../services/FetchSubject';
 
-export default function QuestionInput() {
+export default function QuestionInput({ subjectId }) {
   const [question, setQuestion] = useState('');
+  const [subjectData, setSubjectData] = useState({ imageSource: '', name: '' });
 
   // textarea 값이 변경될 때마다 호출,
   // 현재 값으로 question 상태를 업데이트
@@ -17,7 +18,7 @@ export default function QuestionInput() {
     console.log('Sending question:', question);
 
     fetch(
-      'https://openmind-api.vercel.app/3-2/subjects/{subjectId}/questions/',
+      `https://openmind-api.vercel.app/3-2/subjects/${subjectId}/questions/`,
       {
         method: 'POST',
         headers: {
@@ -34,7 +35,14 @@ export default function QuestionInput() {
       });
   };
 
-  const subjectData = fetchSubject();
+  // 닉네임, 프로필사진 받아오기
+  useEffect(() => {
+    fetchSubject(2387).then(data => {
+      if (data) {
+        setSubjectData(data);
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -43,7 +51,7 @@ export default function QuestionInput() {
         <div>
           <img src={subjectData.imageSource} alt="프로필이미지" />
         </div>
-        <div className="nickname">{subjectData.name}닉네임</div>
+        <div className="nickname">{subjectData.name}</div>
       </ModalSendTo>
       <ModalInput>
         <div>
@@ -87,6 +95,15 @@ const ModalSendTo = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
+  }
+
+  img {
+    display: flex;
+    width: 2.8rem;
+    height: 2.8rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
   }
 
   .nickname {
