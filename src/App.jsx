@@ -7,8 +7,8 @@ import QuestionListPage from './pages/QuestionListPage';
 import AnswerPage from './pages/AnswerPage';
 import QuestionFeedPage from './pages/QuestionFeedPage';
 import GlobalStyle from './styles/GlobalStyle';
-import NoQuestionFeedPage from './pages/NoQuestionFeedPage';
-import theme from './styles/theme';
+import NoQuestionFeedPage from './components/NoQuestionFeedPage';
+import theme from './styles/Theme';
 import ThemeContext from './contexts/ThemeContext';
 import folwerDance from './assets/flower-dance.mp3';
 

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
+
 import styled from 'styled-components';
 import fetchSubject from '../../services/FetchSubject';
 import QuestionFeedHead from '../../assets/QuestionFeedHead.svg';
@@ -10,17 +11,15 @@ import FacebookShareIcon from '../Buttons/FacebookShareIcon';
 import KakaoShareIcon from '../Buttons/KakaoShareIcon';
 import ThemeContext from '../../contexts/ThemeContext';
 
-function QuestionFeedHeader() {
-  const [subjectData, setSubjectData] = useState({ imageSource: '', name: '' });
+function QuestionFeedHeader({ subjectId, subjectData, setSubjectData }) {
   const mode = useContext(ThemeContext);
-
   useEffect(() => {
-    fetchSubject(2387).then(data => {
+    fetchSubject(subjectId).then(data => {
       if (data) {
         setSubjectData(data);
       }
     });
-  }, []);
+  }, [subjectId, setSubjectData]);
 
   return (
     <div>

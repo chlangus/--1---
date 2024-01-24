@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
+import QuestionFeedHeader from './QuestionFeedHeader/QuestionFeedHeader';
 import Messages from '../assets/Messages.svg';
 import Noquestion from '../assets/noquestion.svg';
-import QuestionWriteButton from '../components/Buttons/QuestionWriteButton';
+import QuestionWriteButton from './Buttons/QuestionWriteButton';
 
 export default function NoQuestionFeedPage() {
   return (
