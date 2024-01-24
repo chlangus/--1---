@@ -12,12 +12,15 @@ import ThemeContext from '../../contexts/ThemeContext';
 
 function QuestionFeedHeader({ subjectId, subjectData, setSubjectData }) {
   const mode = useContext(ThemeContext);
+
   useEffect(() => {
-    fetchSubject(subjectId).then(data => {
-      if (data) {
-        setSubjectData(data);
-      }
-    });
+    if (typeof setSubjectData === 'function') {
+      fetchSubject(subjectId).then(data => {
+        if (data) {
+          setSubjectData(data);
+        }
+      });
+    }
   }, [subjectId, setSubjectData]);
 
   return (
@@ -31,9 +34,9 @@ function QuestionFeedHeader({ subjectId, subjectData, setSubjectData }) {
           src={mode === 'light' ? QuestionFeedLogo : darkQuestionFeedLogo}
           alt="logo"
         />
-        <ProfileImg src={subjectData.imageSource} alt="profileimg" />
+        <ProfileImg src={subjectData?.imageSource} alt="profileimg" />
       </QuestionFeedHeaderBox>
-      <QuestionProfileText>{subjectData.name} </QuestionProfileText>
+      <QuestionProfileText>{subjectData?.name} </QuestionProfileText>
       <QuestionShareIcon>
         <LinkShareIcon />
         <KakaoShareIcon />

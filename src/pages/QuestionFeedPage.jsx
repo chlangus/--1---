@@ -6,6 +6,7 @@ import FeedCard from '../components/FeedCard';
 import QuestionWriteButton from '../components/Buttons/QuestionWriteButton';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
+import NoQuestionFeedPage from '../components/NoQuestionFeedPage';
 
 export default function QuestionFeedPage() {
   const [subjectId, setSubjectId] = useState();
@@ -36,6 +37,10 @@ export default function QuestionFeedPage() {
       }
     });
   }, [subjectId]);
+
+  if (questions.length === 0) {
+    return <NoQuestionFeedPage />;
+  }
 
   return (
     <Wrapper>

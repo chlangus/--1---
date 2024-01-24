@@ -15,23 +15,6 @@ export default function FeedBox({ subjectData, children, isFirstBox }) {
   );
 }
 
-// const Container = styled.div`
-//   display: flex;
-//   width: 327px;
-//   padding: 1.6rem;
-//   flex-direction: column;
-//   align-items: center;
-//   gap: 1.6rem;
-
-//   border-radius: 1.6rem;
-//   border: 1px solid ${({ theme }) => theme.colorBrown30};
-//   background: ${({ theme }) => theme.colorBrown10};
-
-//   @media (min-width: 768px) {
-//     width: 704px;
-//   }
-// `;
-
 const QuestionCount = styled.div`
   display: flex;
   justify-content: center;
@@ -58,7 +41,6 @@ const Text = styled.span`
 
 // 스타일
 const S = {
-  // Container,
   QuestionCount,
   Text,
 };
