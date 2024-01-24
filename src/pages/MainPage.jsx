@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import logo from '../assets/logo.svg';
 import darkLogo from '../assets/dark-logo.svg';
 import mainBg from '../assets/main-bg.svg';
@@ -19,11 +19,14 @@ export default function MainPage() {
   };
   const mode = useContext(ThemeContext);
 
-  if (localStorage.getItem('userAccounts') === null) {
-    // 저장된 데이터 없으면 배열로 초기화
-    localStorage.setItem('userAccounts', JSON.stringify([]));
-  }
+  useEffect(() => {
+    if (localStorage.getItem('userAccounts') === null) {
+      // 저장된 데이터 없으면 배열로 초기화
+      localStorage.setItem('userAccounts', JSON.stringify([]));
+    }
+  }, []);
 
+  // useEffect로 감싸기
   // parse로 바꿔준 객체 저장해줌
   const sendName = async () => {
     setInputValue(inputValue);
