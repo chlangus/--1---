@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import styled from 'styled-components';
 import fetchSubject from '../../services/FetchSubject';
@@ -12,6 +12,7 @@ import KakaoShareIcon from '../Buttons/KakaoShareIcon';
 import ThemeContext from '../../contexts/ThemeContext';
 
 function QuestionFeedHeader({ subjectId, subjectData, setSubjectData }) {
+  const mode = useContext(ThemeContext);
   useEffect(() => {
     fetchSubject(subjectId).then(data => {
       if (data) {

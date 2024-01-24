@@ -57,16 +57,7 @@ export default function FeedCard({ subjectId, subjectData, isAnswerPage }) {
             ) : null}
           </S.AnswerFrame>
           <S.ReactionFrame>
-            <S.ReactionBox>
-              <S.LikeBox>
-                <img src={thumbsUp} alt="thumbs-up" />
-                <span>좋아요</span>
-              </S.LikeBox>
-              <S.LikeBox>
-                <img src={thumbsDown} alt="thumbs-down" />
-                <span>싫어요</span>
-              </S.LikeBox>
-            </S.ReactionBox>
+            <ReactionButton />
           </S.ReactionFrame>
         </QuestionWrapper>
       ))}
