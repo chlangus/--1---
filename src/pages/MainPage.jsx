@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import logo from '../assets/logo.svg';
+import darkLogo from '../assets/dark-logo.svg';
 import mainBg from '../assets/main-bg.svg';
+import darkMainBg from '../assets/dark-main-bg.svg';
 import NameInput from '../components/Inputs/NameInput';
 import GetQuestionButton from '../components/Buttons/GetQuestionButton';
 import storeId from '../services/storeId';
 import SendQuestionButton from '../components/Buttons/SendQuestionButton';
+import ThemeContext from '../contexts/ThemeContext';
 
 export default function MainPage() {
   const [inputValue, setInputValue] = useState('');
@@ -14,6 +17,7 @@ export default function MainPage() {
   const handleInputValue = name => {
     setInputValue(name);
   };
+  const mode = useContext(ThemeContext);
 
   if (localStorage.getItem('userAccounts') === null) {
     // 저장된 데이터 없으면 배열로 초기화
@@ -30,11 +34,10 @@ export default function MainPage() {
     localStorage.setItem('userAccounts', JSON.stringify(values)); // 이 브라우저의 모든 유저 정보 저장
     navigate(`/post/${id}/answer`); // id에따른 answer페이지로 이동
   };
-
   return (
     <PageWrapper>
       <MainLogoAndInputWrapper>
-        <Img src={logo} alt="logo-imgage" />
+        <Img src={mode === 'light' ? logo : darkLogo} alt="logo" />
         <Link to="/list">
           <ButtonWrapper>
             <SendQuestionButton>질문하러 가기</SendQuestionButton>
@@ -52,8 +55,8 @@ export default function MainPage() {
 }
 
 const PageWrapper = styled.div`
-  background-color: var(--grayscale-20, #f9f9f9);
-  background-image: url(${mainBg});
+  background-image: url(${({ theme }) =>
+    theme.mode === 'light' ? mainBg : darkMainBg});
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: contain;
@@ -87,7 +90,7 @@ const InputAndButtonBox = styled.div`
   align-items: flex-start;
   gap: 10px;
   border-radius: 16px;
-  background: var(--Grayscale-10, #fff);
+  background: ${({ theme }) => theme.colorGrayScale10};
   @media (max-width: 768px) {
     max-width: 305px;
     padding: 24px;

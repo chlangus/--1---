@@ -53,7 +53,7 @@ const QuestionButton = styled.button`
   align-items: center;
   gap: 8px;
   border-radius: 200px;
-  background: var(--Brown-40, #542f1a);
+  background: ${({ theme }) => theme.colorBrown40};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border: none;
   cursor: pointer;
@@ -69,7 +69,7 @@ const QuestionButton = styled.button`
 `;
 
 const QuestionWriteText = styled.p`
-  color: var(--Grayscale-10, #fff);
+  color: ${({ theme }) => theme.colorGrayScale10};
   font-feature-settings:
     'clig' off,
     'liga' off;

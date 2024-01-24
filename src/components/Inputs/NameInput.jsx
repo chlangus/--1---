@@ -22,8 +22,8 @@ const InputWrapper = styled.div`
   align-items: center;
   gap: 4px;
   border-radius: 8px;
-  border: 1px solid var(--Grayscale-40, #818181);
-  background: var(--Grayscale-10, #fff);
+  border: 1px solid ${({ theme }) => theme.colorGrayScale40};
+  background: ${({ theme }) => theme.colorGrayScale10};
   display: flex;
   @media (max-width: 765px) {
     padding: 12px 16px;
@@ -35,7 +35,7 @@ const InputWrapper = styled.div`
 `;
 
 const Input = styled.input`
-  color: var(--grayscale-40);
+  color: ${({ theme }) => theme.colorGrayScale40};
   font-feature-settings:
     'clig' off,
     'liga' off;
@@ -45,6 +45,7 @@ const Input = styled.input`
   font-weight: 400;
   line-height: 22px; /* 137.5% */
   border-style: none;
+  background-color: ${({ theme }) => theme.colorGrayScale10};
   &:focus {
     border-style: none;
     outline: none;

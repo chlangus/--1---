@@ -1,11 +1,18 @@
 import styled from 'styled-components';
+import { useContext } from 'react';
 import arrowRight from '../../assets/arrow-right.svg';
+import darkArrowRight from '../../assets/dark-arrow-right.svg';
+import ThemeContext from '../../contexts/ThemeContext';
 
 export default function SendQuestionButton({ children }) {
+  const mode = useContext(ThemeContext);
   return (
     <StyledButton>
       {children}
-      <Img src={arrowRight} alt="arrowRight" />
+      <Img
+        src={mode === 'light' ? arrowRight : darkArrowRight}
+        alt="arrowRight"
+      />
     </StyledButton>
   );
 }
@@ -17,9 +24,9 @@ export const StyledButton = styled.button`
   align-items: center;
   gap: 8px;
   border-radius: 8px;
-  border: 1px solid var(--Brown-40, #542f1a);
-  background: var(--Brown-10, #f5f1ee);
-  color: var(--Brown-40, #542f1a);
+  border: 1px solid ${({ theme }) => theme.colorBrown40};
+  background: ${({ theme }) => theme.colorBrown10};
+  color: ${({ theme }) => theme.colorBrown40};
   font-feature-settings:
     'clig' off,
     'liga' off;
