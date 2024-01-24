@@ -4,7 +4,7 @@ function DeleteQuestionButton() {
   return (
     <S.Button>
       <S.Content>
-        <span>삭제하기</span>
+        <span>질문삭제</span>
       </S.Content>
     </S.Button>
   );
@@ -18,11 +18,11 @@ const Button = styled.button`
   align-items: center;
 
   border-radius: 8px;
-  border: 1px solid var(--Grayscale-30, #cfcfcf);
-  background: var(--Grayscale-10, #fff);
+  border: 1px solid var(--color-grayscale-30);
+  background: var(--color-grayscale-10);
 
   /* 1pt */
-  box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
+  box-shadow: var(--shadow-1pt);
 `;
 
 const Content = styled.span`
@@ -33,11 +33,10 @@ const Content = styled.span`
   gap: 8px;
   align-self: stretch;
 
-  color: var(--Grayscale-50, #515151);
+  color: var(--color-grayscale-50);
   font-feature-settings:
     'clig' off,
     'liga' off;
-  font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

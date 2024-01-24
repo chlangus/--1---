@@ -1,6 +1,5 @@
 async function putAnswer(id, answer) {
   const answerId = id;
-  console.log('id: ', answerId);
   try {
     const response = await fetch(
       `https://openmind-api.vercel.app/3-2/answers/${answerId}/`,
@@ -9,7 +8,7 @@ async function putAnswer(id, answer) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ answer }),
+        body: JSON.stringify(answer),
       },
     );
     console.log('답변 수정 실행');

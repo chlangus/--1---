@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
 import FeedCard from '../components/FeedCard';
 import DeleteAllButton from '../components/Buttons/DeleteAllButton';
-import fetchQuestion from '../services/FetchQuestion';
-import timeSince from '../utils/TimeSince';
 
 export default function AnswerPage() {
   // const [feedList, setFeedData] = useState([]);
@@ -15,19 +13,7 @@ export default function AnswerPage() {
     name: '',
     questionCount: '',
   });
-  useEffect(() => {
-    fetchQuestion().then(data => {
-      if (data.results.length) {
-        const question = data.results;
-        setFeedData({
-          ...question,
-          createdAt: timeSince(question.createdAt),
-        });
-        console.log('questionData', feedList);
-        console.log('question', question);
-      }
-    });
-  }, []);
+
   return (
     <S.Wrapper>
       <QuestionFeedHeader
@@ -38,7 +24,7 @@ export default function AnswerPage() {
       <S.DeleteAndFeed>
         <DeleteAllButton text="삭제하기" />
         <FeedBox subjectData={subjectData}>
-          {feedList &&
+          {/* {feedList &&
             feedList.map(item => (
               <FeedCard
                 key={item.id}
@@ -47,7 +33,13 @@ export default function AnswerPage() {
                 setSubjectId={setSubjectId}
                 isAnswerPage
               />
-            ))}
+            ))} */}
+          <FeedCard
+            subjectId={subjectId}
+            subjectData={subjectData}
+            setSubjectId={setSubjectId}
+            isAnswerPage
+          />
         </FeedBox>
       </S.DeleteAndFeed>
     </S.Wrapper>

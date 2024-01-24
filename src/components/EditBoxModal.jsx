@@ -1,14 +1,14 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import deleteAnswer from '../services/DeleteAnswer';
+import putAnswer from '../services/PutAnswer';
 
 export default function EditBoxModal({
   isOpenModal,
   setIsOpenModal,
   setEditMode,
+  setIsRejected,
 }) {
-  // const [answer, setAnswer] = useState('');
-
   const wrapperRef = useRef();
   const handleClickOutside = e => {
     if (
@@ -35,10 +35,19 @@ export default function EditBoxModal({
     await deleteAnswer(3655);
   };
 
+  const handleReject = () => {
+    setIsRejected(true);
+    putAnswer(1944, {
+      content: '답변거절',
+      isRejected: 'true',
+    });
+  };
+
   return (
     <EditBox ref={wrapperRef} value={isOpenModal}>
       <EditItem onClick={handleEdit}>수정하기</EditItem>
       <EditItem onClick={handleDelete}>삭제하기</EditItem>
+      <EditItem onClick={handleReject}>거절하기</EditItem>
     </EditBox>
   );
 }

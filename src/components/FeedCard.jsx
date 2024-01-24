@@ -5,25 +5,32 @@ import KebabButton from './Buttons/KebabButton';
 import profileImg from '../assets/sample-profile-img.svg';
 
 import ReactionButton from './Buttons/ReactionButton';
-import DeleteQuestionButton from './Buttons/DeleteQuestionButton';
+// import DeleteQuestionButton from './Buttons/DeleteQuestionButton';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
 import AnswerInput from './Inputs/AnswerInput';
 
-export default function FeedCard({ isAnswerPage }) {
-  const [questionData, setQuestionData] = useState({
-    content: '',
-    createdAt: '',
-  });
+export default function FeedCard({ subjectId, subjectData, isAnswerPage }) {
+  const [questionData, setQuestionData] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  const [isRejected, setIsRejected] = useState(false);
 
   useEffect(() => {
-    fetchQuestion(2387).then(data => {
+    fetchQuestion(subjectId).then(data => {
       if (data.results?.length) {
-        const question = data.results[0];
-        setQuestionData({
-          ...question,
-          createdAt: timeSince(question.createdAt),
-        });
+        setQuestionData(
+          data.results.map(question => ({
+            ...question,
+            createdAt: timeSince(question.createdAt),
+            isAnswered: question.answer !== null,
+            answer: question.answer
+              ? {
+                  ...question.answer,
+                  createdAt: timeSince(question.answer.createdAt),
+                }
+              : null,
+          })),
+        );
       }
     });
   }, [subjectId]);
@@ -34,7 +41,13 @@ export default function FeedCard({ isAnswerPage }) {
         <QuestionWrapper key={question.id}>
           <S.BadgeFrame>
             <AnswerBadge $isAnswered={question.isAnswered} />
-            {isAnswerPage && <KebabButton />}
+            {isAnswerPage && (
+              <KebabButton
+                editMode={editMode}
+                setEditMode={setEditMode}
+                setIsRejected={setIsRejected}
+              />
+            )}
           </S.BadgeFrame>
           <S.QuestionBox>
             <S.QuestionTime>질문 · {question.createdAt}</S.QuestionTime>
@@ -49,14 +62,21 @@ export default function FeedCard({ isAnswerPage }) {
                     <S.AnswerName>{subjectData.name}</S.AnswerName>
                     <S.AnswerTime>{question.answer.createdAt}</S.AnswerTime>
                   </AnswerNameBox>
-                  <S.AnswerText>{question.answer.content}</S.AnswerText>
-                  {editMode && <AnswerInput />}
+
+                  {editMode ? (
+                    <AnswerInput />
+                  ) : (
+                    <S.AnswerText $isRejected>
+                      {isRejected ? '답변거절' : question.answer.content}
+                    </S.AnswerText>
+                  )}
                 </S.AnswerBox>
               </>
             ) : null}
           </S.AnswerFrame>
           <S.ReactionFrame>
             <ReactionButton />
+            {/* <DeleteQuestionButton /> 질문 개별 삭제 버튼 - 추후 수정.. */}
           </S.ReactionFrame>
         </QuestionWrapper>
       ))}
@@ -221,12 +241,18 @@ const AnswerNameBox = styled.div`
   gap: 8px;
 `;
 
+const COLOR = {
+  normal: 'var(--color-grayscale-60)',
+  red: 'var(--color-red-50)',
+};
 const AnswerText = styled.p`
-  color: var(--Grayscale-60, #000);
+  // color: var(--Grayscale-60, #000);
+  // color: var(--color-red-50);
+  color: ${({ $isRejected }) =>
+    $isRejected ? COLOR.red : COLOR.normal}; //컬러가 안 먹음..why?
   font-feature-settings:
     'clig' off,
     'liga' off;
-  font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// import photo from '../../assets/Photo.svg';
 
 export default function AnswerInput() {
   return (
@@ -7,7 +6,8 @@ export default function AnswerInput() {
       <div>
         <textarea placeholder="질문을 입력해주세요" />
       </div>
-      <Button>질문 보내기</Button>
+      {/* <Button>수정 완료</Button> */}
+      <Button>딥변 완료</Button>
     </Input>
   );
 }
