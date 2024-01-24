@@ -5,7 +5,7 @@ import FeedBox from '../components/FeedBox';
 import FeedCard from '../components/FeedCard';
 import QuestionWriteButton from '../components/Buttons/QuestionWriteButton';
 import fetchQuestion from '../services/FetchQuestion';
-import timeSince from '../utils/TimeSince'; // 이 유틸리티 함수를 임포트해야 합니다.
+import timeSince from '../utils/TimeSince';
 
 export default function QuestionFeedPage() {
   const [subjectId, setSubjectId] = useState();
@@ -75,5 +75,17 @@ const Wrapper = styled.div`
 
 const FeedContainer = styled.div`
   display: flex;
+  width: 327px;
+  padding: 1.6rem;
   flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+
+  border-radius: 1.6rem;
+  border: 1px solid ${({ theme }) => theme.colorBrown30};
+  background: ${({ theme }) => theme.colorBrown10};
+
+  @media (min-width: 768px) {
+    width: 704px;
+  }
 `;
