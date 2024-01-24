@@ -11,6 +11,7 @@ ${reset}
 
   html {
     font-size: 62.5%;
+    background-color: ${({ theme }) => theme.colorGrayScale20};
   }
 
   body {

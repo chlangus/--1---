@@ -33,7 +33,7 @@ export default function QuestionFeedPage() {
 }
 
 const Wrapper = styled.div`
-  background: var(--color-grayscale-20);
+  background: ${({ theme }) => theme.colorGrayScale20};
   display: flex;
   flex-direction: column;
   align-items: center;

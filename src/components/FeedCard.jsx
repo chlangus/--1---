@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
-import thumbsUp from '../assets/thumbs-up.svg';
-import thumbsDown from '../assets/thumbs-down.svg';
 import profileImg from '../assets/sample-profile-img.svg';
+import ReactionButton from './Buttons/ReactionButton';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
 
@@ -86,7 +85,7 @@ const Container = styled.div`
   gap: 2.4rem;
 
   border-radius: 1.6rem;
-  background: var(--color-grayscale-10);
+  background: ${({ theme }) => theme.colorGrayScale10};
 
   box-shadow: var(--shadow-1pt);
 
@@ -119,7 +118,7 @@ const QuestionTime = styled.div`
   align-items: center;
   gap: 0.8rem;
 
-  color: var(--color-grayscale-40);
+  color: ${({ theme }) => theme.colorGrayScale40};
   font-feature-settings:
     'clig' off,
     'liga' off;
@@ -131,7 +130,7 @@ const QuestionTime = styled.div`
 
 const QuestionText = styled.div`
   align-self: stretch;
-  color: var(--Grayscale-60, #000);
+  color: ${({ theme }) => theme.colorGrayScale60};
   font-feature-settings:
     'clig' off,
     'liga' off;
@@ -153,29 +152,7 @@ const ReactionFrame = styled.div`
   align-items: flex-start;
   padding-top: 2.4rem;
   align-self: stretch;
-
-  border-top: 1px solid var(--color-grayscale-30);
-`;
-
-const ReactionBox = styled.span`
-  display: flex;
-  align-items: flex-start;
-  gap: 3.2rem;
-`;
-
-const LikeBox = styled.span`
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-
-  color: var(--color-grayscale-40);
-  font-feature-settings:
-    'clig' off,
-    'liga' off;
-  font-size: var(--font-caption1);
-  font-style: normal;
-  font-weight: var(--weight-medium);
-  line-height: 1.8rem; /* 128.571% */
+  border-top: 1px solid ${({ theme }) => theme.colorGrayScale30};
 `;
 
 const AnswerFrame = styled.div`
@@ -187,12 +164,11 @@ const AnswerFrame = styled.div`
 `;
 
 const Profile = styled.img`
-    width: 48px;
-    height: 48px;
+  width: 48px;
+  height: 48px;
   border-radius: 4.8rem;
-  // background:
-    url(${profileImg}),
-    lightgray 50% / cover no-repeat,
+  background:
+    url(${profileImg}) lightgray 50% / cover no-repeat,
     #d9d9d9;
 `;
 
@@ -203,7 +179,7 @@ const AnswerBox = styled.div`
   gap: 4px;
   flex: 1 0 0;
 
-  color: var(--color-grayscale-60);
+  color: ${({ theme }) => theme.colorGrayScale60};
   font-feature-settings:
     'clig' off,
     'liga' off;
@@ -274,8 +250,6 @@ const S = {
   QuestionTime,
   QuestionText,
   ReactionFrame,
-  ReactionBox,
-  LikeBox,
   AnswerFrame,
   Profile,
   AnswerBox,

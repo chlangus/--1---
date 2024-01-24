@@ -40,8 +40,8 @@ const NoQuestionBox = styled.div`
   align-items: center;
   gap: 8px;
   border-radius: 16px;
-  border: 1px solid var(--Brown-20, #e4d5c9);
-  background: var(--Brown-10, #f5f1ee);
+  border: 1px solid ${({ theme }) => theme.colorBrown20};
+  background: ${({ theme }) => theme.colorBrown10};
 
   @media (max-width: 768px) {
     margin-left: 32px;
@@ -59,7 +59,7 @@ const NoQuestionText = styled.div`
   justify-content: center;
   align-items: center;
   gap: 8px;
-  color: var(--Brown-40, #542f1a);
+  color: ${({ theme }) => theme.colorBrown40};
   font-feature-settings:
     'clig' off,
     'liga' off;

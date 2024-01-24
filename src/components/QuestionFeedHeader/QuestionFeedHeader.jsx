@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+
 import styled from 'styled-components';
 import fetchSubject from '../../services/FetchSubject';
 import QuestionFeedHead from '../../assets/QuestionFeedHead.svg';
 import QuestionFeedLogo from '../../assets/QuestionFeedLogo.svg';
+import darkQuestionFeedHead from '../../assets/darkQuestionFeedHead.svg';
+import darkQuestionFeedLogo from '../../assets/darkQuestionFeedLogo.svg';
 import LinkShareIcon from '../Buttons/LinkShareIcon';
 import FacebookShareIcon from '../Buttons/FacebookShareIcon';
 import KakaoShareIcon from '../Buttons/KakaoShareIcon';
+import ThemeContext from '../../contexts/ThemeContext';
 
 function QuestionFeedHeader({ subjectId, subjectData, setSubjectData }) {
   useEffect(() => {
@@ -19,8 +23,14 @@ function QuestionFeedHeader({ subjectId, subjectData, setSubjectData }) {
   return (
     <div>
       <QuestionFeedHeaderBox>
-        <HeadImg src={QuestionFeedHead} alt="main-header-img" />
-        <LogoImg src={QuestionFeedLogo} alt="logo" />
+        <HeadImg
+          src={mode === 'light' ? QuestionFeedHead : darkQuestionFeedHead}
+          alt="main-header-img"
+        />
+        <LogoImg
+          src={mode === 'light' ? QuestionFeedLogo : darkQuestionFeedLogo}
+          alt="logo"
+        />
         <ProfileImg src={subjectData.imageSource} alt="profileimg" />
       </QuestionFeedHeaderBox>
       <QuestionProfileText>{subjectData.name} </QuestionProfileText>
@@ -60,7 +70,7 @@ const ProfileImg = styled.img`
 
 const QuestionProfileText = styled.p`
   text-align: center;
-  color: var(--Grayscale-60, #000);
+  color: ${({ theme }) => theme.colorGrayScale60};
   font-feature-settings:
     'clig' off,
     'liga' off;

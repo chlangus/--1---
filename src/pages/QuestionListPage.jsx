@@ -1,16 +1,24 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useContext } from 'react';
 import QuestionList from '../components/QuestionList';
 import logo from '../assets/logo.svg';
+import darkLogo from '../assets/dark-logo.svg';
 import AnswerButton from '../components/Buttons/SendQuestionButton';
 import arrowDown from '../assets/arrow-down.svg';
+import ThemeContext from '../contexts/ThemeContext';
 
 function Navbar() {
+  const mode = useContext(ThemeContext);
+
   return (
     <NavWrapper>
       <Nav>
         <Link to="/">
-          <LogoImg src={logo} alt="오픈마인드 로고" />
+          <LogoImg
+            src={mode === 'light' ? logo : darkLogo}
+            alt="오픈마인드 로고"
+          />
         </Link>
         <Link to="/">
           <AnswerButton>답변하러 가기</AnswerButton>
@@ -150,17 +158,17 @@ const DropdownButton = styled.button`
   gap: 0.4rem;
   align-self: stretch;
   border-radius: 0.8rem;
-  border: 1px solid var(--color-grayscale-40);
-  background: var(--color-grayscale-10);
+  border: 1px solid ${({ theme }) => theme.colorGrayScale40};
+  background: ${({ theme }) => theme.colorGrayScale10};
 
   @media screen and ((min-width: 375px)
   and (max-width: 767px)) {
     font-size: var(--font-caption1);
-
+  }
 `;
 
 const DropdownSpan = styled.span`
-  color: var(--color-grayscale-40);
+  color: ${({ theme }) => theme.colorGrayScale40};
   font-feature-settings:
     'clig' off,
     'liga' off;
@@ -178,7 +186,7 @@ const ArrowDownIcon = styled.img`
 `;
 
 const ListTitle = styled.h1`
-  color: var(--color-grayscale-60);
+  color: ${({ theme }) => theme.colorGrayScale60};
   text-align: center;
   font-size: var(--font-h1);
   font-weight: var(--weight-regular);
