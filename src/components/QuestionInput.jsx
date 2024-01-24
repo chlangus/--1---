@@ -29,7 +29,7 @@ const ModalSendTo = styled.div`
   align-self: stretch;
 
   .to {
-    color: var(--Grayscale-60, #000);
+    color: ${({ theme }) => theme.colorGrayScale60};
     font-size: 18px;
     font-family: Actor;
     font-style: normal;
@@ -38,8 +38,7 @@ const ModalSendTo = styled.div`
   }
 
   .nickname {
-    color: var(--Grayscale-60, #000);
-
+    color: ${({ theme }) => theme.colorGrayScale60};
     font-feature-settings:
       'clig' off,
       'liga' off;
@@ -68,7 +67,7 @@ const ModalInput = styled.div`
     align-self: stretch;
     gap: 1rem;
     border-radius: 1rem;
-    background: var(--Grayscale-20, #f9f9f9);
+    background: ${({ theme }) => theme.colorGrayScale20};
     font-family: Pretendard;
     font-size: 1.52rem;
     font-style: normal;
@@ -86,14 +85,14 @@ const Button = styled.button`
   align-items: center;
   gap: 1rem;
   margin: 0.5rem;
-  color: var(--Grayscale-10, #fff);
+  color: ${({ theme }) => theme.colorGrayScale10};
   font-family: Pretendard;
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 400;
   line-height: 2.2rem; /* 137.5% */
   border-radius: 0.8rem;
-  background: var(--Brown-30, #c7bbb5);
+  background: ${({ theme }) => theme.colorBrown30};
   margin-top: 0.8rem;
   height: 5rem;
   border: none;

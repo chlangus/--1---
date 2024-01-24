@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import messageIcon from '../assets/message-icon.svg';
 
 export default function QuestionCard({ id, name, imageSource, questionCount }) {
-  const navigateToPage = useNavigate();
+  const navigateToFeed = useNavigate();
 
   return (
-    <CardBox onClick={() => navigateToPage(`/post/${id}`)}>
+    <CardBox onClick={() => navigateToFeed(`/post/${id}`)}>
       <ProfileWrapper>
         <ProfileImg src={imageSource} alt="프로필 이미지" />
         <ProfileName>{name}</ProfileName>
@@ -16,7 +16,7 @@ export default function QuestionCard({ id, name, imageSource, questionCount }) {
           <MessageIcon src={messageIcon} alt="메시지 아이콘" />
           <span>받은 질문</span>
         </QuestionInfo>
-        <span>{questionCount} 개</span>
+        <span>{questionCount}개</span>
       </ContentWrapper>
     </CardBox>
   );
@@ -31,8 +31,8 @@ const CardBox = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   border-radius: 16px;
-  border: 1px solid var(--color-grayscale-40);
-  background: var(--color-grayscale-10);
+  border: 1px solid ${({ theme }) => theme.colorGrayScale40};
+  background: ${({ theme }) => theme.colorGrayScale10};
 `;
 
 const ProfileWrapper = styled.div`
@@ -49,10 +49,11 @@ const ProfileImg = styled.img`
   height: 6rem;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
 `;
 
 const ProfileName = styled.h2`
-  color: var(--color-grayscale-60);
+  color: ${({ theme }) => theme.colorGrayScale60};
   font-size: var(--font-body1);
   font-style: normal;
   font-weight: var(--weight-regular);
@@ -65,7 +66,7 @@ const ContentWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
-  color: var(--color-grayscale-40);
+  color: ${({ theme }) => theme.colorGrayScale40};
   font-size: var(--font-body3);
   font-style: normal;
   font-weight: var(--weight-regular);

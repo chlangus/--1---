@@ -39,8 +39,8 @@ const EditBox = styled.div`
   align-items: center;
 
   border-radius: 8px;
-  border: 1px solid var(--color-grayscale-30);
-  background: var(--color-grayscale-10);
+  border: 1px solid ${({ theme }) => theme.colorGrayScale30};
+  background: ${({ theme }) => theme.colorGrayScale10};
 
   box-shadow: var(--shadow-1pt);
 
@@ -59,15 +59,15 @@ const EditItem = styled.div`
 
   font-size: var(--font-caption1);
 
-  color: var(--color-grayscale-50);
+  color: ${({ theme }) => theme.colorGrayScale50};
 
   &:hover {
-    color: var(--color-grayscale-60);
-    background: var(--color-grayscale-20);
+    color: ${({ theme }) => theme.colorGrayScale60};
+    background: ${({ theme }) => theme.colorGrayScale20};
   }
 
   &:active {
-    color: var(--color-blue-50);
-    background: var(--color-grayscale-10);
+    color: ${({ theme }) => theme.colorBlue50};
+    background: ${({ theme }) => theme.colorGrayScale10};
   }
 `;

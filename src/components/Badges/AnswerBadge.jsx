@@ -9,9 +9,9 @@ export default function AnswerBadge({ $isAnswered }) {
 }
 
 const COLORS = {
-  brown: 'var(--color-brown-40)',
-  gray: 'var(--color-grayscale-40)',
-  white: 'var(--color-grayscale-10)',
+  brown: ({ theme }) => theme.colorBrown40,
+  gray: ({ theme }) => theme.colorGrayScale40,
+  white: ({ theme }) => theme.colorGrayScale10,
 };
 
 const Badge = styled.span`
@@ -22,7 +22,7 @@ const Badge = styled.span`
   gap: 1rem;
 
   border-radius: 0.8rem;
-  background: var(--color-grayscale-10);
+  background: ${({ theme }) => theme.colorGrayScale10};
 
   border: 1px solid
     ${({ $isAnswered }) => ($isAnswered ? COLORS.brown : COLORS.gray)};
