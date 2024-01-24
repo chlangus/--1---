@@ -22,8 +22,8 @@ const Container = styled.div`
   gap: 1.6rem;
 
   border-radius: 1.6rem;
-  border: 1px solid var(--color-brown-30);
-  background: var(--color-brown-10);
+  border: 1px solid ${({ theme }) => theme.colorBrown30};
+  background: ${({ theme }) => theme.colorBrown10};
 
   @media (min-width: 768px) {
     width: 704px;
@@ -38,7 +38,7 @@ const QuestionCount = styled.div`
 `;
 
 const Text = styled.span`
-  color: var(--color-brown-40);
+  color: ${({ theme }) => theme.colorBrown40};
   font-feature-settings:
     'clig' off,
     'liga' off;
