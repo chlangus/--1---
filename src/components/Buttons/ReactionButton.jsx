@@ -55,7 +55,7 @@ const LikeBox = styled.span`
   align-items: center;
   gap: 0.6rem;
 
-  color: var(--color-grayscale-40);
+  color: ${({ theme }) => theme.colorGrayScale40};
   font-feature-settings:
     'clig' off,
     'liga' off;

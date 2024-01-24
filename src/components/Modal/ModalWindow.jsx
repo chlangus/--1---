@@ -55,7 +55,7 @@ const ModalWrapper = styled.div`
 const ModalContent = styled.div`
   position: relative;
   border-radius: 1.5rem;
-  background-color: var(--Grayscale-10, #fff);
+  background-color: ${({ theme }) => theme.colorGrayScale10};
   box-shadow: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
   width: 61.2rem;
   height: 45.4rem;
@@ -85,7 +85,7 @@ const ModalHeader = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--Grayscale-60, #000);
+    color: ${({ theme }) => theme.colorGrayScale60};
     font-feature-settings:
       'clig' off,
       'liga' off;
