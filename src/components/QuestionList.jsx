@@ -48,45 +48,36 @@ export default function QuestionList() {
 
   return (
     <StyledBox>
-      <Header>
-        <ListTitle>누구에게 질문할까요?</ListTitle>
-        <ButtonDiv>
-          <DropDownButton
-            orderType={orderType}
-            orderList={orderList}
-            handleButtonClick={handleOrderClick}
-          />
-        </ButtonDiv>
-      </Header>
-      <StyledList>
-        {sortedCardList?.map(data => (
-          <QuestionCard
-            id={data.id}
-            key={data.id}
-            name={data.name}
-            imageSource={data.imageSource}
-            questionCount={data.questionCount}
-          />
-        ))}
-      </StyledList>
+      <StyledDiv>
+        <Header>
+          <ListTitle>누구에게 질문할까요?</ListTitle>
+          <ButtonDiv>
+            <DropDownButton
+              orderType={orderType}
+              orderList={orderList}
+              handleButtonClick={handleOrderClick}
+            />
+          </ButtonDiv>
+        </Header>
+        <StyledList>
+          {sortedCardList?.map(data => (
+            <QuestionCard
+              id={data.id}
+              key={data.id}
+              name={data.name}
+              imageSource={data.imageSource}
+              questionCount={data.questionCount}
+            />
+          ))}
+        </StyledList>
+      </StyledDiv>
     </StyledBox>
   );
 }
 const StyledBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
-  max-width: 120rem;
-  padding: 0 3.2rem;
-  margin: 0 auto;
-  @media screen and ((min-width: 375px)
-  and (max-width: 767px)) {
-    max-width: 50rem;
-    padding: 0 2.4rem;
-  }
 `;
-const Header = styled.div`
+const StyledDiv = styled.div`
   display: flex;
   width: 100%;
   max-width: 120rem;
@@ -97,9 +88,24 @@ const Header = styled.div`
 
   @media screen and ((min-width: 375px)
   and (max-width: 767px)) {
+    max-width: 50rem;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 1.8rem;
+    width: 100%;
+  }
+`;
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and ((min-width: 375px)
+  and (max-width: 767px)) {
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 1.8rem;
     width: 100%;
   }
@@ -110,16 +116,20 @@ const ListTitle = styled.h1`
   font-size: var(--font-h1);
   font-weight: var(--weight-regular);
   line-height: normal;
+  margin=bottom: 1.2rem;
 
   @media screen and ((min-width: 375px)
   and (max-width: 767px)) {
     display: flex;
     font-size: var(--font-h3);
+    margin-bottom: 0;
   }
 `;
 
 const ButtonDiv = styled.div`
   margin-bottom: 3rem;
+  position: relative;
+  cursor: pointer;
 
   @media screen and ((min-width: 375px)
   and (max-width: 767px)) {
