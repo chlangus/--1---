@@ -1,17 +1,16 @@
-async function fetchQuestion(subjectId) {
+async function fetchAnswer(answerId) {
   try {
     const response = await fetch(
-      `https://openmind-api.vercel.app/3-2/subjects/${subjectId}/questions/`,
+      `https://openmind-api.vercel.app/3-2/answers/${answerId}/`,
     );
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     return null;
   }
 }
 
-export default fetchQuestion;
+export default fetchAnswer;
