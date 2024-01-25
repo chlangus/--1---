@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import arrowUpIcon from '../../assets/arrow-up.svg';
 import arrowDownIcon from '../../assets/arrow-down.svg';
 
@@ -23,10 +23,14 @@ export default function DropDownButton({
 
   return (
     <OrderBox $dropDownView={dropDownView} onBlur={handleBlurContainer}>
-      <OrderButton $dropDownView={dropDownView} onClick={handleClickContainer}>
-        {orderList}
+      <OrderButton
+        $dropDownView={dropDownView}
+        onClick={handleClickContainer}
+        onBlur={handleBlurContainer}
+      >
+        <span>{orderList}</span>
         <ArrowIcon
-          dropDownView={dropDownView}
+          $dropDownView={dropDownView}
           src={dropDownView ? arrowUpIcon : arrowDownIcon}
           alt="화살표"
         />
@@ -48,60 +52,33 @@ export default function DropDownButton({
 }
 
 const OrderBox = styled.div`
-  ${({ dropDownView }) =>
-    dropDownView
-      ? css`
-          /* 오픈 상태일 때 스타일 */
-          display: inline-flex;
-          position: relative;
-          border-radius: 0.8rem;
-          border: 0.1rem solid var(--color-gray-60);
-          background: var(--color-gray-10);
-        `
-      : css`
-        /* 닫힌 상태일 때 스타일 */
-        display: inline-flex;
-        position: relative;
-        border-radius solid var(--color-gray-40);
-        background: var(--color-gray-10);
-      `}
+  position: relative;
+  margin-bottom: 3rem;
+  cursor: pointer;
 `;
 
 const OrderButton = styled.button`
-  ${({ dropDownView }) =>
-    dropDownView
-      ? css`
-          /* 오픈 상태일 때 스타일 */
-          display: flex;
-          padding: 0.8rem 1.2rem;
-          justify-content: center;
-          align-items: center;
-          gap: 0.4rem;
-          align-self: stretch;
-          border-radius: 0.8rem;
-          border: 1px solid var(--color-grayscale-60);
-          background: var(--color-grayscale-10);
-          color: var(--color-grayscale-60);
-          font-feature-settings:
-            'clig' off,
-            'liga' off;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: 18px;
-        `
-      : css`
-          /* 닫힌 상태일 때 스타일 */
-          display: flex;
-padding: 8px 12px;
-justify-content: center;
-align-items: center;
-gap: 4px;
-align-self: stretch;
-border-radius: 8px;
-border: 1px solid var(--color-grayscale-60);
-background: var(--color-grayscale-10;
-        `}
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: ${({ $dropDownView }) => ($dropDownView ? '0.5rem' : '0')};
+  border: ${({ $dropDownView }) =>
+    $dropDownView
+      ? '0.1rem solid var(--color-grayscale-60)'
+      : '0.1rem solid var(--color-grayscale-40)'};
+  border-radius: 0.8rem;
+  background: var(--color-grayscale-10);
+
+  span {
+    color: ${({ $dropDownView }) =>
+      $dropDownView
+        ? 'var(--color-grayscale-60)'
+        : 'var(--color-grayscale-40)'};
+    font-size: var(--font-caption1);
+    font-weight: var(--weight-medium);
+  }
 `;
 
 const ArrowIcon = styled.img`
@@ -109,7 +86,30 @@ const ArrowIcon = styled.img`
 `;
 
 const OrderList = styled.ul`
-  /* 리스트 오픈 상태일 때 스타일 */
+  list-style-type: none;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.4rem 0rem;
+  width: 100%;
+  color: var(--color-grayscale-50);
+  background: var(--color-grayscale-10);
+  border-radius: 0.8rem;
+  border: 0.1rem solid var(--color-grayscale-30);
+  box-shadow: var(--shadow-1pt);
+  font-weight: var(--weight-medium);
+  font-size: var(--font-caption1);
 `;
 
-const OrderItem = styled.li``;
+const OrderItem = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.6rem 1.6rem;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-blue-50);
+  }
+`;

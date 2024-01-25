@@ -10,10 +10,8 @@ export default function QuestionList() {
   const [cardList, setCardList] = useState([]);
   const [orderList, setOrderList] = useState('최신순');
   const orderType = ['이름순', '최신순'];
-  const sortedCardList = cardList.sort((a, b) => b[sort] - a[sort]);
   const MIN_CARDS = 6;
   const MAX_CARDS = 8;
-
   const isMobileSize = useMobileLayout();
   const isTabletSize = useTabletLayout();
   const LIMITSIZE = isMobileSize || isTabletSize ? MIN_CARDS : MAX_CARDS;
@@ -31,18 +29,17 @@ export default function QuestionList() {
   };
 
   useEffect(() => {
-    handleLoad({ sort, LIMITSIZE });
-  }, [sort, LIMITSIZE]);
+    handleLoad();
+  }, [sort]);
 
   const handleOrderClick = e => {
-    const { textContent } = e.target;
-    if (e.target === '이름순') {
+    if (e === '이름순') {
       setSort('name');
-      setOrderList(textContent);
+      setOrderList(e);
     }
-    if (e.target === '최신순') {
+    if (e === '최신순') {
       setSort('time');
-      setOrderList(textContent);
+      setOrderList(e);
     }
   };
 
@@ -60,7 +57,7 @@ export default function QuestionList() {
           </ButtonDiv>
         </Header>
         <StyledList>
-          {sortedCardList?.map(data => (
+          {cardList?.map(data => (
             <QuestionCard
               id={data.id}
               key={data.id}
