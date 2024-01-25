@@ -18,7 +18,12 @@ function QuestionWriteButton() {
 
   return (
     <>
-      {modalOpen && <ModalWindow closeModal={handleCloseModal} />}
+      {modalOpen && (
+        <ModalWindow
+          setModalOpen={setModalOpen}
+          closeModal={handleCloseModal}
+        />
+      )}
       <QuestionButton
         onClick={() => {
           setModalOpen(true);

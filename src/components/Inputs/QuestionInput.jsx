@@ -1,55 +1,66 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-// import photo from '../../assets/Photo.svg';
 import fetchSubject from '../../services/FetchSubject';
+import fetchQuestion from '../../services/FetchQuestion';
 
-export default function QuestionInput({ subjectId }) {
+export default function QuestionInput({ subjectId, setModalOpen }) {
   const [question, setQuestion] = useState('');
   const [subjectData, setSubjectData] = useState({ imageSource: '', name: '' });
 
-  // textarea 값이 변경될 때마다 호출,
+  // 텍스트 에어리어 값이 변경될 때마다 호출되는 함수
   // 현재 값으로 question 상태를 업데이트
   const handleQuestionChange = e => {
     setQuestion(e.target.value);
   };
 
   // 질문을 보내는 역할
-  const handleSendQuestion = () => {
-    console.log('Sending question:', question);
+  const handleSendQuestion = async () => {
+    try {
+      console.log('질문 전송 중:', question);
 
-    fetch(
-      `https://openmind-api.vercel.app/3-2/subjects/${subjectId}/questions/`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      // subject ID 받아오기
+      const data = await fetchQuestion(subjectId);
+      console.log('질문 데이터:', data);
+
+      // mapping해서 subjectId를 가져와야할듯?
+      const extractedSubjectId = data?.results?.[0]?.subjectId;
+      console.log('추출된 subjectId:', extractedSubjectId);
+
+      const response = await fetch(
+        `https://openmind-api.vercel.app/3-2/subjects/${extractedSubjectId}/questions/`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ content: question }),
         },
-        body: JSON.stringify({ question }),
-      },
-    )
-      .then(response => response.json())
-      // 성공적으로 response 받으면 모달 창 꺼짐
-      .then(() => setModalOpen(false))
-      .catch(error => {
-        console.error('질문 등록 실패 : ', error);
-      });
+      );
+
+      const responseData = await response.json();
+      console.log('responseData: ', responseData);
+      // 성공적으로 response를 받으면 모달 창을 닫음
+      setModalOpen(false);
+    } catch (error) {
+      console.error('질문 등록 실패 : ', error);
+    }
   };
 
-  // 닉네임, 프로필사진 받아오기
+  // 닉네임, 프로필 사진 받아오기
   useEffect(() => {
-    fetchSubject(2387).then(data => {
+    fetchSubject(subjectId).then(data => {
       if (data) {
         setSubjectData(data);
       }
     });
-  }, []);
+  }, [subjectId, setSubjectData]);
 
   return (
     <>
       <ModalSendTo>
         <div className="to">To.</div>
         <div>
-          <img src={subjectData.imageSource} alt="프로필이미지" />
+          <img src={subjectData.imageSource} alt="프로필 이미지" />
         </div>
         <div className="nickname">{subjectData.name}</div>
       </ModalSendTo>
@@ -80,7 +91,6 @@ export default function QuestionInput({ subjectId }) {
     </>
   );
 }
-
 const ModalSendTo = styled.div`
   display: flex;
   gap: 0.5rem;
