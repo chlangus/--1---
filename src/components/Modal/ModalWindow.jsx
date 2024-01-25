@@ -1,5 +1,6 @@
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
-import QuestionInput from '../QuestionInput';
+import QuestionInput from '../Inputs/QuestionInput';
 import messageIcon from '../../assets/Messages.svg';
 import closeButton from '../../assets/Close.svg';
 
@@ -16,23 +17,26 @@ export default function ModalWindow({ closeModal }) {
     closeModal();
   };
 
-  // 모달에서 추가함!
-  // 모달이 떠있을 때만 백그라운드 100퍼센트 어쩌구~~~~~~
   return (
-    <ModalWrapper onClick={handleModalClick}>
-      <ModalContent className="modal-content">
-        <ModalHeader>
-          <div>
-            <img src={messageIcon} alt="말풍선 아이콘" />
-            <div>질문을 작성하세요</div>
-          </div>
-          <button type="button" onClick={closeModal}>
-            <img src={closeButton} alt="닫기 버튼" />
-          </button>
-        </ModalHeader>
-        <QuestionInput />
-      </ModalContent>
-    </ModalWrapper>
+    <>
+      {createPortal(
+        <ModalWrapper onClick={handleModalClick}>
+          <ModalContent className="modal-content">
+            <ModalHeader>
+              <div>
+                <img src={messageIcon} alt="말풍선 아이콘" />
+                <div>질문을 작성하세요</div>
+              </div>
+              <button type="button" onClick={closeModal}>
+                <img src={closeButton} alt="닫기 버튼" />
+              </button>
+            </ModalHeader>
+            <QuestionInput />
+          </ModalContent>
+        </ModalWrapper>,
+        document.body,
+      )}
+    </>
   );
 }
 
@@ -46,7 +50,6 @@ const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--Dim, rgba(0, 0, 0, 0.56));
-  z-index: 100;
 `;
 
 const ModalContent = styled.div`
@@ -60,13 +63,23 @@ const ModalContent = styled.div`
   padding: 4rem;
   border: none;
   z-index: 100;
+  @media (max-width: 767px) {
+    width: 32.7rem;
+    height: 56.8rem;
+    padding: 2.5rem;
+  }
 `;
+
+/* 테블릿 CSS */
 
 const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 4.5rem;
+  @media (max-width: 767px) {
+    margin-bottom: 3rem;
+  }
 
   div {
     display: flex;
@@ -81,6 +94,11 @@ const ModalHeader = styled.div`
     font-weight: 400;
     line-height: 30px;
     line-height: 1.875rem; /* 125% */
+
+    @media (max-width: 767px) {
+      font-size: 2rem;
+      line-height: 2.5rem; /* 125% */
+    }
   }
 
   img {

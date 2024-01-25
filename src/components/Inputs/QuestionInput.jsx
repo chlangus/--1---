@@ -1,21 +1,81 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import photo from '../../assets/Photo.svg';
+// import photo from '../../assets/Photo.svg';
+import fetchSubject from '../../services/FetchSubject';
 
-export default function QuestionInput() {
+export default function QuestionInput({ subjectId }) {
+  const [question, setQuestion] = useState('');
+  const [subjectData, setSubjectData] = useState({ imageSource: '', name: '' });
+
+  // textarea 값이 변경될 때마다 호출,
+  // 현재 값으로 question 상태를 업데이트
+  const handleQuestionChange = e => {
+    setQuestion(e.target.value);
+  };
+
+  // 질문을 보내는 역할
+  const handleSendQuestion = () => {
+    console.log('Sending question:', question);
+
+    fetch(
+      `https://openmind-api.vercel.app/3-2/subjects/${subjectId}/questions/`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ question }),
+      },
+    )
+      .then(response => response.json())
+      // 성공적으로 response 받으면 모달 창 꺼짐
+      .then(() => setModalOpen(false))
+      .catch(error => {
+        console.error('질문 등록 실패 : ', error);
+      });
+  };
+
+  // 닉네임, 프로필사진 받아오기
+  useEffect(() => {
+    fetchSubject(2387).then(data => {
+      if (data) {
+        setSubjectData(data);
+      }
+    });
+  }, []);
+
   return (
     <>
       <ModalSendTo>
         <div className="to">To.</div>
         <div>
-          <img src={photo} alt="프로필이미지" />
+          <img src={subjectData.imageSource} alt="프로필이미지" />
         </div>
-        <div className="nickname">닉네임</div>
+        <div className="nickname">{subjectData.name}</div>
       </ModalSendTo>
       <ModalInput>
         <div>
-          <textarea placeholder="질문을 입력해주세요" />
+          <textarea
+            placeholder="질문을 입력해주세요"
+            value={question}
+            onChange={handleQuestionChange}
+          />
+          -
         </div>
-        <Button>질문 보내기</Button>
+        <Button
+          onClick={question ? handleSendQuestion : null}
+          style={{
+            cursor: question ? 'pointer' : 'default',
+            background: question
+              ? 'var(--Brown-30, #C7BBB5)'
+              : ' var(--Brown-10, #F5F1EE)',
+            color: question
+              ? 'var(--Brown-10, #F5F1EE)'
+              : 'var(--Brown-30, #C7BBB5)',
+          }}
+        >
+          질문 보내기
+        </Button>
       </ModalInput>
     </>
   );
@@ -35,6 +95,15 @@ const ModalSendTo = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
+  }
+
+  img {
+    display: flex;
+    width: 2.8rem;
+    height: 2.8rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
   }
 
   .nickname {
@@ -75,6 +144,16 @@ const ModalInput = styled.div`
     font-weight: 400;
     border: none;
     resize: none;
+    @media (max-width: 767px) {
+      display: flex;
+      height: 35rem;
+      width: 27rem;
+      padding: 1.6rem;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      align-self: stretch;
+    }
   }
 `;
 
@@ -97,5 +176,4 @@ const Button = styled.button`
   margin-top: 0.8rem;
   height: 5rem;
   border: none;
-  cursor: pointer;
 `;
