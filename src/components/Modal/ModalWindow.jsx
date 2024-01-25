@@ -6,7 +6,7 @@ import closeButton from '../../assets/Close.svg';
 
 // http://localhost:3000/post/no
 
-export default function ModalWindow({ closeModal }) {
+export default function ModalWindow({ closeModal, setModalOpen }) {
   const handleModalClick = e => {
     // 모달 내부를 클릭했을 때는 모달이 닫히지 않도록 처리
     if (e.target.closest('.modal-content')) {
@@ -31,7 +31,7 @@ export default function ModalWindow({ closeModal }) {
                 <img src={closeButton} alt="닫기 버튼" />
               </button>
             </ModalHeader>
-            <QuestionInput />
+            <QuestionInput setModalOpen={setModalOpen} />
           </ModalContent>
         </ModalWrapper>,
         document.body,

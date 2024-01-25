@@ -7,6 +7,7 @@ async function fetchQuestion() {
       throw new Error(`Error: ${response.status}`);
     }
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     return null;
