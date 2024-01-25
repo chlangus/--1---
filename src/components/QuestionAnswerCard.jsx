@@ -17,7 +17,7 @@ export default function QuestionAnswerCard({
         {isAnswerPage && <KebabButton />}
       </S.BadgeFrame>
       <S.QuestionBox>
-        <S.QuestionTime>질문 · {question.createdAt}</S.QuestionTime>
+        <S.QuestionTime>질문 · {question.createdWhen}</S.QuestionTime>
         <S.QuestionText>{question.content}</S.QuestionText>
       </S.QuestionBox>
       <S.AnswerFrame>
@@ -27,7 +27,7 @@ export default function QuestionAnswerCard({
             <S.AnswerBox>
               <AnswerNameBox>
                 <S.AnswerName>{subjectData.name}</S.AnswerName>
-                <S.AnswerTime>{question.answer.createdAt}</S.AnswerTime>
+                <S.AnswerTime>{question.answer.createdWhen}</S.AnswerTime>
               </AnswerNameBox>
               <S.AnswerText>{question.answer.content}</S.AnswerText>
             </S.AnswerBox>
@@ -35,7 +35,7 @@ export default function QuestionAnswerCard({
         ) : null}
       </S.AnswerFrame>
       <S.ReactionFrame>
-        <ReactionButton />
+        <ReactionButton question={question} />
       </S.ReactionFrame>
     </QuestionWrapper>
   );

@@ -18,18 +18,18 @@ export default function QuestionFeedPage() {
     name: '',
     questionCount: '',
   });
-
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
       if (data.results.length) {
+        // 데이터 있으면 실행
         const transformedQuestions = data.results.map(question => ({
           ...question,
-          createdAt: timeSince(question.createdAt),
+          createdWhen: timeSince(question.createdAt),
           isAnswered: question.answer !== null,
           answer: question.answer
             ? {
                 ...question.answer,
-                createdAt: timeSince(question.answer.createdAt),
+                createdWhen: timeSince(question.answer.createdAt),
               }
             : null,
         }));
@@ -38,8 +38,7 @@ export default function QuestionFeedPage() {
         setQuestions([]);
       }
     });
-  }, [subjectId]);
-
+  }, []);
   return (
     <Wrapper>
       <QuestionFeedHeader
@@ -51,23 +50,23 @@ export default function QuestionFeedPage() {
         <NoQuestionFeed />
       ) : (
         <FeedContainer>
-          {questions.map((questionItem, index) => (
-            <FeedBox
-              key={questionItem.id}
-              subjectData={subjectData}
-              isFirstBox={index === 0}
-            >
+          <FeedBox subjectData={subjectData}>
+            {questions.map(questionItem => (
               <FeedCard
+                key={questionItem.id}
                 question={questionItem}
                 subjectId={subjectId}
                 subjectData={subjectData}
                 setSubjectId={setSubjectId}
               />
-            </FeedBox>
-          ))}
+            ))}
+          </FeedBox>
         </FeedContainer>
       )}
-      <QuestionWriteButton />
+      <QuestionWriteButton
+        subjectId={subjectId}
+        handleQuestion={setQuestions}
+      />
     </Wrapper>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import styled from 'styled-components';
 import { useState } from 'react';
 import thumbsUp from '../../assets/thumbs-up.svg';
@@ -6,40 +7,35 @@ import clickedThumbsUp from '../../assets/clicked-thumbs-up.svg';
 import clickedThumbsDown from '../../assets/clicked-thumbs-down.svg';
 import storeReaction from '../../services/storeReaction';
 
-export default function ReactionButton({
-  // 사용하는 페이지에서 api 받아와서 id 및 reaction개수 전달받아야함
-  id = 3634,
-  likeCount = 0,
-  dislikeCount = 0,
-}) {
+export default function ReactionButton({ question: { id, like, dislike } }) {
   const [reaction, setReaction] = useState({
-    like: likeCount,
-    dislike: dislikeCount,
+    like,
+    dislike,
     likeIcon: thumbsUp,
     dislikeIcon: thumbsDown,
   });
 
   const handleEmotion = async type => {
-    const { like, dislike } = await storeReaction({ id, type }); //  questions/{id}/reaction 보내고 받아오면 그 like, dislike 값 받아와서 상태값 업데이트
+    const likeAndDislike = await storeReaction({ id, type }); //  questions/{id}/reaction 보내고 받아오면 그 like, dislike 값 받아와서 상태값 업데이트
     if (type === 'like') {
       setReaction({
-        like,
-        dislike,
+        like: likeAndDislike.like,
+        dislike: likeAndDislike.dislike,
         likeIcon: clickedThumbsUp,
         dislikeIcon: thumbsDown,
       });
     } else {
       setReaction({
-        like,
-        dislike,
+        like: likeAndDislike.like,
+        dislike: likeAndDislike.dislike,
         likeIcon: thumbsUp,
         dislikeIcon: clickedThumbsDown,
       });
     }
     setTimeout(() => {
       setReaction({
-        like,
-        dislike,
+        like: likeAndDislike.like,
+        dislike: likeAndDislike.dislike,
         likeIcon: thumbsUp,
         dislikeIcon: thumbsDown,
       });
