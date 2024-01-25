@@ -55,6 +55,9 @@ const OrderBox = styled.div`
   position: relative;
   margin-bottom: 3rem;
   cursor: pointer;
+  @media screen and ((min-width: 375px) and (max-width: 767px)) {
+    margin-bottom: 0px;
+  }
 `;
 
 const OrderButton = styled.button`

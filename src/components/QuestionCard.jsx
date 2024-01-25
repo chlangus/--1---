@@ -22,7 +22,7 @@ export default function QuestionCard({ id, name, imageSource, questionCount }) {
   );
 }
 
-const CardBox = styled.div`
+const CardBox = styled.li`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -35,20 +35,11 @@ const CardBox = styled.div`
   background: ${({ theme }) => theme.colorGrayScale10};
 `;
 
-const ProfileWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.2rem;
-  align-self: stretch;
-`;
+const ProfileWrapper = styled.div``;
 
 const ProfileImg = styled.img`
-  display: flex;
   width: 6rem;
-  height: 6rem;
-  justify-content: center;
-  align-items: center;
+  margin-bottom: 1.2rem;
   border-radius: 50%;
 `;
 
@@ -62,7 +53,6 @@ const ProfileName = styled.h2`
 
 const ContentWrapper = styled.div`
   display: flex;
-  height: 2.2rem;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
@@ -82,4 +72,5 @@ const QuestionInfo = styled.div`
 const MessageIcon = styled.img`
   width: 1.8rem;
   height: 1.8rem;
+  margin-right: 0.4rem;
 `;

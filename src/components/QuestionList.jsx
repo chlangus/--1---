@@ -81,15 +81,13 @@ const StyledDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.2rem;
+  padding: 0 3.2rem;
+  margin: 0 auto;
 
   @media screen and ((min-width: 375px)
   and (max-width: 767px)) {
     max-width: 50rem;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 1.8rem;
-    width: 100%;
+    padding: 0 2.4rem;
   }
 `;
 
@@ -113,7 +111,7 @@ const ListTitle = styled.h1`
   font-size: var(--font-h1);
   font-weight: var(--weight-regular);
   line-height: normal;
-  margin=bottom: 1.2rem;
+  margin-bottom: 1.2rem;
 
   @media screen and ((min-width: 375px)
   and (max-width: 767px)) {
@@ -124,20 +122,13 @@ const ListTitle = styled.h1`
 `;
 
 const ButtonDiv = styled.div`
-  margin-bottom: 3rem;
-  position: relative;
   cursor: pointer;
-
-  @media screen and ((min-width: 375px)
-  and (max-width: 767px)) {
-    margin-bottom: 0;
-  }
+  display: block;
 `;
 
-const StyledList = styled.div`
+const StyledList = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 22rem);
-  grid-template-rows: repeat(2, 18.7rem);
   gap: 2rem;
   padding-bottom: 4rem;
 
@@ -149,6 +140,5 @@ const StyledList = styled.div`
   @media (max-width: 375px) {
     padding: 0 2.4rem 3.1rem;
     grid-template-columns: repeat(2, 15rem);
-    grid-template-rows: repeat(3, 16.8rem);
   }
 `;
