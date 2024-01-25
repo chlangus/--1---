@@ -1,13 +1,25 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import deleteAnswer from '../services/DeleteAnswer';
+import postAnswer from '../services/PostAnswer';
+import patchAnswer from '../services/PatchAnswer';
 
-export default function EditBoxModal({ isOpenModal, setIsOpenModal }) {
+export default function EditBoxModal({
+  isOpenModal,
+  setIsOpenModal,
+  setIsEditMode,
+  setIsRejected,
+  questionId,
+  answerId,
+}) {
   const wrapperRef = useRef();
   const handleClickOutside = e => {
-    if (wrapperRef && !wrapperRef.current.contains(e.target)) {
+    if (
+      wrapperRef &&
+      !wrapperRef.current.contains(e.target) &&
+      e.target.id !== 'kebab'
+    ) {
       setIsOpenModal(false);
-    } else {
-      setIsOpenModal(true);
     }
   };
   useEffect(() => {
@@ -18,10 +30,34 @@ export default function EditBoxModal({ isOpenModal, setIsOpenModal }) {
     };
   });
 
+  const handleEdit = () => {
+    setIsEditMode(true);
+  };
+
+  const handleDelete = async () => {
+    alert('정말로 삭제하시겠습니까?');
+    await deleteAnswer(answerId);
+  };
+
+  const handleReject = () => {
+    setIsRejected(true);
+    if (answerId) {
+      patchAnswer(answerId, {
+        isRejected: 'true',
+      });
+    } else {
+      postAnswer(questionId, {
+        content: 'default',
+        isRejected: 'true',
+      });
+    }
+  };
+
   return (
     <EditBox ref={wrapperRef} value={isOpenModal}>
-      <EditItem>수정하기</EditItem>
-      <EditItem>삭제하기</EditItem>
+      <EditItem onClick={handleEdit}>수정하기</EditItem>
+      <EditItem onClick={handleDelete}>삭제하기</EditItem>
+      <EditItem onClick={handleReject}>거절하기</EditItem>
     </EditBox>
   );
 }

@@ -5,7 +5,13 @@ import EditBoxModal from '../EditBoxModal';
 import ThemeContext from '../../contexts/ThemeContext';
 import darkKebabImg from '../../assets/dark-more-icon.svg';
 
-export default function KebabButton() {
+export default function KebabButton({
+  isEditMode,
+  setIsEditMode,
+  setIsRejected,
+  questionId,
+  answerId,
+}) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const mode = useContext(ThemeContext);
 
@@ -14,10 +20,16 @@ export default function KebabButton() {
       <EditButton type="button" onClick={() => setIsOpenModal(pre => !pre)}>
         <img src={mode === 'light' ? kebabImg : darkKebabImg} alt="show-more" />
       </EditButton>
+
       {isOpenModal && (
         <EditBoxModal
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
+          setIsRejected={setIsRejected}
+          questionId={questionId}
+          answerId={answerId}
         />
       )}
     </>
@@ -27,4 +39,8 @@ export default function KebabButton() {
 const EditButton = styled.button`
   all: unset;
   cursor: pointer;
+
+  background: url(${kebabImg}) no-repeat;
+  width: 26px;
+  height: 26px;
 `;
