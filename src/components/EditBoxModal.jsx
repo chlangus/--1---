@@ -6,7 +6,7 @@ import putAnswer from '../services/PutAnswer';
 export default function EditBoxModal({
   isOpenModal,
   setIsOpenModal,
-  setEditMode,
+  setIsEditMode,
   setIsRejected,
 }) {
   const wrapperRef = useRef();
@@ -28,7 +28,7 @@ export default function EditBoxModal({
   });
 
   const handleEdit = () => {
-    setEditMode(true);
+    setIsEditMode(true);
   };
   const handleDelete = async () => {
     alert('정말로 삭제하시겠습니까?');

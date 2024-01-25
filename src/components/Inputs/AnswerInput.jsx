@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export default function AnswerInput() {
+export default function AnswerInput({ isEditMode }) {
+  const btnText = isEditMode ? '수정 완료' : '답변 완료';
   return (
     <Input>
       <div>
         <textarea placeholder="질문을 입력해주세요" />
       </div>
-      {/* <Button>수정 완료</Button> */}
-      <Button>딥변 완료</Button>
+      <Button>{btnText}</Button>
     </Input>
   );
 }

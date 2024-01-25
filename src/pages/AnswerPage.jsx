@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
@@ -9,7 +10,10 @@ import timeSince from '../utils/TimeSince';
 import NoQuestionFeedPage from '../components/NoQuestionFeedPage';
 
 export default function AnswerPage() {
-  const [subjectId, setSubjectId] = useState();
+  const { id } = useParams();
+  console.log('params: ', id);
+
+  const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
   const [subjectData, setSubjectData] = useState({
     imageSource: '',
@@ -60,11 +64,12 @@ export default function AnswerPage() {
               isFirstBox={index === 0}
             >
               <FeedCard
+                isAnswerPage
                 question={questionItem}
                 subjectId={subjectId}
                 subjectData={subjectData}
                 setSubjectId={setSubjectId}
-                isAnswerPage
+                isRejected={questionItem?.answer?.isRejected}
                 setIsRejected={setIsRejected}
               />
             </FeedBox>

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { React, useState } from 'react';
 import styled from 'styled-components';
 import AnswerBadge from './Badges/AnswerBadge';
@@ -10,9 +11,10 @@ export default function QuestionAnswerCard({
   question,
   subjectData,
   isAnswerPage,
+  isRejected,
   setIsRejected,
 }) {
-  const [editMode, setEditMode] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   return (
     <QuestionWrapper>
@@ -20,8 +22,8 @@ export default function QuestionAnswerCard({
         <AnswerBadge $isAnswered={question.isAnswered} />
         {isAnswerPage && (
           <KebabButton
-            editMode={editMode}
-            setEditMode={setEditMode}
+            isEditMode={isEditMode}
+            setIsEditMode={setIsEditMode}
             setIsRejected={setIsRejected}
           />
         )}
@@ -39,8 +41,10 @@ export default function QuestionAnswerCard({
                 <S.AnswerName>{subjectData.name}</S.AnswerName>
                 <S.AnswerTime>{question.answer.createdAt}</S.AnswerTime>
               </AnswerNameBox>
-              {editMode ? (
-                <AnswerInput />
+              {/* <S.AnswerText>{question.answer.content}</S.AnswerText> */}
+
+              {isEditMode ? (
+                <AnswerInput isEditMode />
               ) : (
                 <S.AnswerText $isRejected>
                   {isRejected ? '답변거절' : question.answer.content}
@@ -48,7 +52,9 @@ export default function QuestionAnswerCard({
               )}
             </S.AnswerBox>
           </>
-        ) : null}
+        ) : (
+          <AnswerInput />
+        )}
       </S.AnswerFrame>
       <S.ReactionFrame>
         <ReactionButton />

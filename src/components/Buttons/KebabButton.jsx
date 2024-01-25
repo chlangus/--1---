@@ -5,7 +5,11 @@ import EditBoxModal from '../EditBoxModal';
 import ThemeContext from '../../contexts/ThemeContext';
 import darkKebabImg from '../../assets/dark-more-icon.svg';
 
-export default function KebabButton({ editMode, setEditMode, setIsRejected }) {
+export default function KebabButton({
+  isEditMode,
+  setIsEditMode,
+  setIsRejected,
+}) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const mode = useContext(ThemeContext);
 
@@ -19,8 +23,8 @@ export default function KebabButton({ editMode, setEditMode, setIsRejected }) {
         <EditBoxModal
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
-          editMode={editMode}
-          setEditMode={setEditMode}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
           setIsRejected={setIsRejected}
         />
       )}

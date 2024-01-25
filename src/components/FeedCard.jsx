@@ -5,6 +5,7 @@ export default function FeedCard({
   question,
   subjectData,
   isAnswerPage,
+  isRejected,
   setIsRejected,
 }) {
   return (
@@ -14,6 +15,7 @@ export default function FeedCard({
         question={question}
         subjectData={subjectData}
         isAnswerPage={isAnswerPage}
+        isRejected={isRejected}
         setIsRejected={setIsRejected}
       />
     </S.Container>
