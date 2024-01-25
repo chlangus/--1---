@@ -1,13 +1,22 @@
 import styled from 'styled-components';
 import QuestionAnswerCard from './QuestionAnswerCard';
 
-export default function FeedCard({ question, subjectData }) {
+export default function FeedCard({
+  question,
+  subjectData,
+  isAnswerPage,
+  isRejected,
+  setIsRejected,
+}) {
   return (
     <S.Container>
       <QuestionAnswerCard
         key={question.id}
         question={question}
         subjectData={subjectData}
+        isAnswerPage={isAnswerPage}
+        isRejected={isRejected}
+        setIsRejected={setIsRejected}
       />
     </S.Container>
   );
