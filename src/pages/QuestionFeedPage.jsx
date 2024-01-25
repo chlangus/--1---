@@ -17,42 +17,42 @@ export default function QuestionFeedPage() {
     name: '',
     questionCount: '',
   });
-  const [currentPage, setCurrentPage] = useState(1);
   const [ref, inView] = useInView();
 
   const loadMoreQuestions = async () => {
-    try {
-      const data = await fetchQuestion(subjectId, currentPage);
-      if (data.results?.length) {
-        const transformedQuestions = data.results.map(question => ({
-          ...question,
-          createdAt: timeSince(question.createdAt),
-          isAnswered: question.answer !== null,
-          answer: question.answer
-            ? {
-                ...question.answer,
-                createdAt: timeSince(question.answer.createdAt),
-              }
-            : null,
-        }));
-        setQuestions(prevQuestions => [
-          ...prevQuestions,
-          ...transformedQuestions,
-        ]);
-        setCurrentPage(prevPage => prevPage + 1); // 페이지 업데이트
-      }
-    } catch (error) {
-      console.error('질문을 불러오는 중에 오류가 발생했습니다.', error);
+    const data = await fetchQuestion(subjectId);
+    if (data.results?.length) {
+      const transformedQuestions = data.results.map(question => ({
+        ...question,
+        createdAt: timeSince(question.createdAt),
+        isAnswered: question.answer !== null,
+        answer: question.answer
+          ? {
+              ...question.answer,
+              createdAt: timeSince(question.answer.createdAt),
+            }
+          : null,
+      }));
+      setQuestions(prevQuestions => [
+        ...prevQuestions,
+        ...transformedQuestions,
+      ]);
     }
   };
 
+  // 맨 처음 렌더링 되었을 때 데이터를 한번 불러옴
+  useEffect(() => {
+    loadMoreQuestions();
+  }, []);
+
+  // isView가 true 일 때만 데이터를 불러옴!
+  // 보였다 안보이면 true에서 false로 바뀌기 때문에 useEffect가 두번 실행됨!
   useEffect(() => {
     if (inView) {
       console.log('무한스크롤해줘잉', inView);
-      // 바닥에 닿으면 실행할 함수
       loadMoreQuestions();
     }
-  }, [inView, currentPage]);
+  }, [inView]);
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
