@@ -201,8 +201,16 @@ const AnswerNameBox = styled.div`
   gap: 8px;
 `;
 
+const COLOR = {
+  normal: 'var(--color-grayscale-60)',
+  red: 'var(--color-red-50)',
+};
+
 const AnswerText = styled.p`
-  color: var(--Grayscale-60, #000);
+  // color: var(--Grayscale-60, #000);
+  // color: var(--color-red-50);
+  color: ${({ $isRejected }) =>
+    $isRejected ? COLOR.red : COLOR.normal}; //컬러가 안 먹음..why?
   font-feature-settings:
     'clig' off,
     'liga' off;
