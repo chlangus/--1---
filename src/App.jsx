@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/media-has-caption */
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import MainPage from './pages/MainPage';
@@ -10,7 +9,8 @@ import GlobalStyle from './styles/GlobalStyle';
 import NoQuestionFeedPage from './components/NoQuestionFeedPage';
 import theme from './styles/Theme';
 import ThemeContext from './contexts/ThemeContext';
-import folwerDance from './assets/flower-dance.mp3';
+import ThemeButton from './components/Buttons/ThemeButton';
+import AudioButton from './components/Buttons/AudioButton';
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -20,12 +20,10 @@ function App() {
 
   return (
     <ThemeProvider theme={theme[mode]}>
-      <ThemeButton type="button" onClick={handleMode}>
-        테마바꾸기
-      </ThemeButton>
-      <audio src={folwerDance} loop autoPlay />
-      <GlobalStyle />
       <ThemeContext.Provider value={mode}>
+        <ThemeButton type="button" onClick={handleMode} />
+        <AudioButton />
+        <GlobalStyle />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<MainPage />} />
@@ -43,9 +41,3 @@ function App() {
 }
 
 export default App;
-
-const ThemeButton = styled.button`
-  position: fixed;
-  bottom: 15px;
-  left: 15px;
-`;

@@ -5,9 +5,14 @@ import Noquestion from '../assets/noquestion.svg';
 import QuestionWriteButton from './Buttons/QuestionWriteButton';
 
 export default function NoQuestionFeedPage() {
+  const subjectData = {
+    imageSource: 'image-path',
+    name: 'Subject Name',
+    questionCount: '',
+  };
   return (
     <div>
-      <QuestionFeedHeader />
+      <QuestionFeedHeader subjectData={subjectData} />
       <NoQuestionWapper>
         <NoQuestionBox>
           <NoQuestionText>
