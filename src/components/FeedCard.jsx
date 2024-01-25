@@ -11,7 +11,6 @@ export default function FeedCard({
   return (
     <S.Container>
       <QuestionAnswerCard
-        key={question.id}
         question={question}
         subjectData={subjectData}
         isAnswerPage={isAnswerPage}

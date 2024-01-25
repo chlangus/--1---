@@ -7,7 +7,7 @@ import FeedCard from '../components/FeedCard';
 import DeleteAllButton from '../components/Buttons/DeleteAllButton';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
-import NoQuestionFeedPage from '../components/NoQuestionFeedPage';
+import NoQuestionFeed from '../components/NoQuestionFeed';
 
 export default function AnswerPage() {
   const { id } = useParams();
@@ -19,19 +19,19 @@ export default function AnswerPage() {
     name: '',
     questionCount: '',
   });
-  const [isRejected, setIsRejected] = useState(false);
+  // const [isRejected, setIsRejected] = useState(false);
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
-      if (data.results?.length) {
+      if (data.results.length) {
         const transformedQuestions = data.results.map(question => ({
           ...question,
-          createdAt: timeSince(question.createdAt),
+          createdWhen: timeSince(question.createdAt),
           isAnswered: question.answer !== null,
           answer: question.answer
             ? {
                 ...question.answer,
-                createdAt: timeSince(question.answer.createdAt),
+                createdWhen: timeSince(question.answer.createdAt),
               }
             : null,
         }));
@@ -40,12 +40,8 @@ export default function AnswerPage() {
         setQuestions([]);
       }
     });
-  }, [subjectId, isRejected]);
-
-  if (questions.length === 0) {
-    return <NoQuestionFeedPage />;
-  }
-
+  }, [subjectId]);
+  // , isRejected
   return (
     <Wrapper>
       <QuestionFeedHeader
@@ -55,25 +51,27 @@ export default function AnswerPage() {
       />
       <S.DeleteAndFeed>
         <DeleteAllButton text="삭제하기" />
-        <FeedContainer>
-          {questions.map((questionItem, index) => (
-            <FeedBox
-              key={questionItem.id}
-              subjectData={subjectData}
-              isFirstBox={index === 0}
-            >
-              <FeedCard
-                isAnswerPage
-                question={questionItem}
-                subjectId={subjectId}
-                subjectData={subjectData}
-                setSubjectId={setSubjectId}
-                isRejected={questionItem?.answer?.isRejected}
-                setIsRejected={setIsRejected}
-              />
+
+        {questions.length === 0 ? (
+          <NoQuestionFeed />
+        ) : (
+          <FeedContainer>
+            <FeedBox subjectData={subjectData}>
+              {questions.map(questionItem => (
+                <FeedCard
+                  key={questionItem.id}
+                  isAnswerPage
+                  question={questionItem}
+                  subjectId={subjectId}
+                  subjectData={subjectData}
+                  setSubjectId={setSubjectId}
+                  // isRejected={questionItem.answer.isRejected}
+                  // setIsRejected={setIsRejected}
+                />
+              ))}
             </FeedBox>
-          ))}
-        </FeedContainer>
+          </FeedContainer>
+        )}
       </S.DeleteAndFeed>
     </Wrapper>
   );
