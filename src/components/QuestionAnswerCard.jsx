@@ -6,6 +6,7 @@ import KebabButton from './Buttons/KebabButton';
 import profileImg from '../assets/sample-profile-img.svg';
 import ReactionButton from './Buttons/ReactionButton';
 import AnswerInput from './Inputs/AnswerInput';
+import DeleteQuestionButton from './Buttons/DeleteQuestionButton';
 
 export default function QuestionAnswerCard({
   question,
@@ -43,7 +44,6 @@ export default function QuestionAnswerCard({
                 <S.AnswerName>{subjectData.name}</S.AnswerName>
                 <S.AnswerTime>{question.answer.createdAt}</S.AnswerTime>
               </AnswerNameBox>
-              {/* <S.AnswerText>{question.answer.content}</S.AnswerText> */}
 
               {isEditMode ? (
                 <AnswerInput
@@ -64,7 +64,7 @@ export default function QuestionAnswerCard({
       </S.AnswerFrame>
       <S.ReactionFrame>
         <ReactionButton />
-        {/* <DeleteQuestionButton /> 질문 개별 삭제 버튼 - 추후 수정.. */}
+        <DeleteQuestionButton questionId={question.id} />
       </S.ReactionFrame>
     </QuestionWrapper>
   );
@@ -124,8 +124,10 @@ const QuestionText = styled.div`
 
 const ReactionFrame = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  // flex-direction: column;
+  justify-content: space-between;
+
+  align-items: center;
   padding-top: 2.4rem;
   align-self: stretch;
   border-top: 1px solid ${({ theme }) => theme.colorGrayScale30};

@@ -1,8 +1,15 @@
 import styled from 'styled-components';
+import deleteQuestion from '../../services/DeleteQuestion';
+import deleteIcon from '../../assets/delete-icon.svg';
 
-function DeleteQuestionButton() {
+function DeleteQuestionButton({ questionId }) {
+  const handleDelete = () => {
+    alert('정말로 삭제하시겠습니까?');
+    deleteQuestion(questionId);
+  };
   return (
-    <S.Button>
+    <S.Button onClick={handleDelete}>
+      <img src={deleteIcon} alt="delete" />
       <S.Content>
         <span>질문삭제</span>
       </S.Content>
@@ -11,11 +18,11 @@ function DeleteQuestionButton() {
 }
 const Button = styled.button`
   display: flex;
-  width: 103px;
-  padding: 4px 0px;
-  flex-direction: column;
+  // width: 120px;
+  padding: 6px 10px;
   justify-content: center;
   align-items: center;
+  gap: 0.8rem;
 
   border-radius: 8px;
   border: 1px solid var(--color-grayscale-30);
@@ -23,11 +30,15 @@ const Button = styled.button`
 
   /* 1pt */
   box-shadow: var(--shadow-1pt);
+
+  @media (min-width: 768px) {
+    padding: 6px 16px;
+  }
 `;
 
 const Content = styled.span`
-  display: flex;
-  padding: 6px 16px;
+  display: none;
+
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -41,6 +52,10 @@ const Content = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 128.571% */
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
 `;
 
 // 스타일
