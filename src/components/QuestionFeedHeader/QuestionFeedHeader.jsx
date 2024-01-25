@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import fetchSubject from '../../services/FetchSubject';
 import QuestionFeedHead from '../../assets/QuestionFeedHead.svg';
 import QuestionFeedLogo from '../../assets/QuestionFeedLogo.svg';
@@ -30,10 +31,12 @@ function QuestionFeedHeader({ subjectId, subjectData, setSubjectData }) {
           src={mode === 'light' ? QuestionFeedHead : darkQuestionFeedHead}
           alt="main-header-img"
         />
-        <LogoImg
-          src={mode === 'light' ? QuestionFeedLogo : darkQuestionFeedLogo}
-          alt="logo"
-        />
+        <Link to="/">
+          <LogoImg
+            src={mode === 'light' ? QuestionFeedLogo : darkQuestionFeedLogo}
+            alt="logo"
+          />
+        </Link>
         <ProfileImg src={subjectData?.imageSource} alt="profileimg" />
       </QuestionFeedHeaderBox>
       <QuestionProfileText>{subjectData?.name} </QuestionProfileText>
