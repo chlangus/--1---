@@ -1,26 +1,28 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import messageIcon from '../assets/message-icon.svg';
-import profileImg from '../assets/sample-profile-img.svg';
 
-export default function QuestionCard() {
+export default function QuestionCard({ id, name, imageSource, questionCount }) {
+  const navigateToFeed = useNavigate();
+
   return (
-    <CardBox>
+    <CardBox onClick={() => navigateToFeed(`/post/${id}`)}>
       <ProfileWrapper>
-        <ProfileImg src={profileImg} alt="프로필 이미지" />
-        <ProfileName>뿡빵이는 강아지</ProfileName>
+        <ProfileImg src={imageSource} alt="프로필 이미지" />
+        <ProfileName>{name}</ProfileName>
       </ProfileWrapper>
-      <QuestionInfo>
-        <QuestionCount>
-          <MessageIcon src={messageIcon} alt="메세지 아이콘" />
+      <ContentWrapper>
+        <QuestionInfo>
+          <MessageIcon src={messageIcon} alt="메시지 아이콘" />
           <span>받은 질문</span>
-        </QuestionCount>
-        <span>9개</span>
-      </QuestionInfo>
+        </QuestionInfo>
+        <span>{questionCount}개</span>
+      </ContentWrapper>
     </CardBox>
   );
 }
 
-const CardBox = styled.div`
+const CardBox = styled.li`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -33,20 +35,12 @@ const CardBox = styled.div`
   background: ${({ theme }) => theme.colorGrayScale10};
 `;
 
-const ProfileWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.2rem;
-  align-self: stretch;
-`;
+const ProfileWrapper = styled.div``;
 
 const ProfileImg = styled.img`
-  display: flex;
   width: 6rem;
-  height: 6rem;
-  justify-content: center;
-  align-items: center;
+  margin-bottom: 1.2rem;
+  border-radius: 50%;
 `;
 
 const ProfileName = styled.h2`
@@ -57,20 +51,8 @@ const ProfileName = styled.h2`
   line-height: 2.5rem;
 `;
 
-const QuestionCount = styled.div`
+const ContentWrapper = styled.div`
   display: flex;
-  align-items: center;
-  gap: 0.4rem;
-`;
-
-const MessageIcon = styled.img`
-  width: 1.8rem;
-  height: 1.8rem;
-`;
-
-const QuestionInfo = styled.div`
-  display: flex;
-  height: 2.2rem;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
@@ -79,4 +61,16 @@ const QuestionInfo = styled.div`
   font-style: normal;
   font-weight: var(--weight-regular);
   line-height: 2.2rem;
+`;
+
+const QuestionInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+`;
+
+const MessageIcon = styled.img`
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-right: 0.4rem;
 `;
