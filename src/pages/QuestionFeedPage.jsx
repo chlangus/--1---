@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
@@ -16,6 +17,42 @@ export default function QuestionFeedPage() {
     name: '',
     questionCount: '',
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ref, inView] = useInView();
+
+  const loadMoreQuestions = async () => {
+    try {
+      const data = await fetchQuestion(subjectId, currentPage);
+      if (data.results?.length) {
+        const transformedQuestions = data.results.map(question => ({
+          ...question,
+          createdAt: timeSince(question.createdAt),
+          isAnswered: question.answer !== null,
+          answer: question.answer
+            ? {
+                ...question.answer,
+                createdAt: timeSince(question.answer.createdAt),
+              }
+            : null,
+        }));
+        setQuestions(prevQuestions => [
+          ...prevQuestions,
+          ...transformedQuestions,
+        ]);
+        setCurrentPage(prevPage => prevPage + 1); // 페이지 업데이트
+      }
+    } catch (error) {
+      console.error('질문을 불러오는 중에 오류가 발생했습니다.', error);
+    }
+  };
+
+  useEffect(() => {
+    if (inView) {
+      console.log('무한스크롤해줘잉', inView);
+      // 바닥에 닿으면 실행할 함수
+      loadMoreQuestions();
+    }
+  }, [inView, currentPage]);
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
@@ -64,6 +101,7 @@ export default function QuestionFeedPage() {
             />
           </FeedBox>
         ))}
+        <div ref={ref}>하이</div>
       </FeedContainer>
       <QuestionWriteButton />
     </Wrapper>

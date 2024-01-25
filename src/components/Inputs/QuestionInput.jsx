@@ -22,7 +22,6 @@ export default function QuestionInput({ subjectId, setModalOpen }) {
       const data = await fetchQuestion(subjectId);
       console.log('질문 데이터:', data);
 
-      // mapping해서 subjectId를 가져와야할듯?
       const extractedSubjectId = data?.results?.[0]?.subjectId;
       console.log('추출된 subjectId:', extractedSubjectId);
 
