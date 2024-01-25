@@ -1,36 +1,19 @@
 import styled from 'styled-components';
 import messageIcon from '../assets/message-icon.svg';
 
-export default function FeedBox({ subjectData, children }) {
+export default function FeedBox({ subjectData, children, isFirstBox }) {
   return (
-    <S.Container>
-      <S.QuestionCount>
-        <img src={messageIcon} alt="message-icon" />
-        <S.Text>{subjectData.questionCount}개의 질문이 있습니다</S.Text>
-      </S.QuestionCount>
+    <>
+      {isFirstBox && (
+        <S.QuestionCount>
+          <img src={messageIcon} alt="message-icon" />
+          <S.Text>{subjectData.questionCount}개의 질문이 있습니다</S.Text>
+        </S.QuestionCount>
+      )}
       {children}
-    </S.Container>
+    </>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  width: 327px;
-  padding: 1.6rem;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.6rem;
-
-  border-radius: 1.6rem;
-
-  border: 1px solid ${({ theme }) => theme.colorBrown30};
-  background: ${({ theme }) => theme.colorBrown10};
-  // margin-bottom: 15rem;
-
-  @media (min-width: 768px) {
-    width: 704px;
-  }
-`;
 
 const QuestionCount = styled.div`
   display: flex;
@@ -58,7 +41,6 @@ const Text = styled.span`
 
 // 스타일
 const S = {
-  Container,
   QuestionCount,
   Text,
 };
