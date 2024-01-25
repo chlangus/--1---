@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
 import FeedCard from '../components/FeedCard';
 import QuestionWriteButton from '../components/Buttons/QuestionWriteButton';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
-import NoQuestionFeedPage from '../components/NoQuestionFeedPage';
+import NoQuestionFeed from '../components/NoQuestionFeed';
 
 export default function QuestionFeedPage() {
-  const [subjectId, setSubjectId] = useState();
+  const { id } = useParams();
+  const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
   const [subjectData, setSubjectData] = useState({
     imageSource: '',
@@ -19,7 +21,7 @@ export default function QuestionFeedPage() {
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
-      if (data.results?.length) {
+      if (data.results.length) {
         const transformedQuestions = data.results.map(question => ({
           ...question,
           createdAt: timeSince(question.createdAt),
@@ -38,10 +40,6 @@ export default function QuestionFeedPage() {
     });
   }, [subjectId]);
 
-  if (questions.length === 0) {
-    return <NoQuestionFeedPage />;
-  }
-
   return (
     <Wrapper>
       <QuestionFeedHeader
@@ -49,22 +47,26 @@ export default function QuestionFeedPage() {
         subjectData={subjectData}
         setSubjectData={setSubjectData}
       />
-      <FeedContainer>
-        {questions.map((questionItem, index) => (
-          <FeedBox
-            key={questionItem.id}
-            subjectData={subjectData}
-            isFirstBox={index === 0}
-          >
-            <FeedCard
-              question={questionItem}
-              subjectId={subjectId}
+      {questions.length === 0 ? (
+        <NoQuestionFeed />
+      ) : (
+        <FeedContainer>
+          {questions.map((questionItem, index) => (
+            <FeedBox
+              key={questionItem.id}
               subjectData={subjectData}
-              setSubjectId={setSubjectId}
-            />
-          </FeedBox>
-        ))}
-      </FeedContainer>
+              isFirstBox={index === 0}
+            >
+              <FeedCard
+                question={questionItem}
+                subjectId={subjectId}
+                subjectData={subjectData}
+                setSubjectId={setSubjectId}
+              />
+            </FeedBox>
+          ))}
+        </FeedContainer>
+      )}
       <QuestionWriteButton />
     </Wrapper>
   );
