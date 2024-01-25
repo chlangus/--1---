@@ -78,11 +78,11 @@ export default function QuestionInput({ subjectId, setModalOpen }) {
           style={{
             cursor: question ? 'pointer' : 'default',
             background: question
-              ? 'var(--Brown-30, #C7BBB5)'
-              : ' var(--Brown-10, #F5F1EE)',
+              ? ({ theme }) => theme.colorBrown30
+              : ({ theme }) => theme.colorBrown10,
             color: question
-              ? 'var(--Brown-10, #F5F1EE)'
-              : 'var(--Brown-30, #C7BBB5)',
+              ? ({ theme }) => theme.colorBrown10
+              : ({ theme }) => theme.colorBrown30,
           }}
         >
           질문 보내기
@@ -118,7 +118,6 @@ const ModalSendTo = styled.div`
 
   .nickname {
     color: ${({ theme }) => theme.colorGrayScale60};
-
     font-feature-settings:
       'clig' off,
       'liga' off;
@@ -147,6 +146,7 @@ const ModalInput = styled.div`
     align-self: stretch;
     gap: 1rem;
     border-radius: 1rem;
+    color: ${({ theme }) => theme.colorGrayScale60};
     background: ${({ theme }) => theme.colorGrayScale20};
     font-family: Pretendard;
     font-size: 1.52rem;
