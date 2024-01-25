@@ -74,16 +74,8 @@ export default function QuestionInput({ subjectId, setModalOpen }) {
           -
         </div>
         <Button
+          question={question}
           onClick={question ? handleSendQuestion : null}
-          style={{
-            cursor: question ? 'pointer' : 'default',
-            background: question
-              ? ({ theme }) => theme.colorBrown30
-              : ({ theme }) => theme.colorBrown10,
-            color: question
-              ? ({ theme }) => theme.colorBrown10
-              : ({ theme }) => theme.colorBrown30,
-          }}
         >
           질문 보내기
         </Button>
@@ -146,8 +138,8 @@ const ModalInput = styled.div`
     align-self: stretch;
     gap: 1rem;
     border-radius: 1rem;
-    color: ${({ theme }) => theme.colorGrayScale60};
     background: ${({ theme }) => theme.colorGrayScale20};
+    color: ${({ theme }) => theme.colorGrayScale60};
     font-family: Pretendard;
     font-size: 1.52rem;
     font-style: normal;
@@ -186,4 +178,9 @@ const Button = styled.button`
   margin-top: 0.8rem;
   height: 5rem;
   border: none;
+  cursor: ${({ question }) => (question ? 'pointer' : 'default')};
+  background: ${({ question, theme }) =>
+    question ? theme.colorBrown30 : theme.colorBrown10};
+  color: ${({ question, theme }) =>
+    question ? theme.colorBrown10 : theme.colorBrown30};
 `;
