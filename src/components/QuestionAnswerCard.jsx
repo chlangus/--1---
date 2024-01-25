@@ -46,7 +46,11 @@ export default function QuestionAnswerCard({
               {/* <S.AnswerText>{question.answer.content}</S.AnswerText> */}
 
               {isEditMode ? (
-                <AnswerInput isEditMode />
+                <AnswerInput
+                  isEditMode
+                  questionId={question.id}
+                  answerId={question.answer?.id}
+                />
               ) : (
                 <S.AnswerText $isRejected>
                   {isRejected ? '답변거절' : question.answer.content}
@@ -55,7 +59,7 @@ export default function QuestionAnswerCard({
             </S.AnswerBox>
           </>
         ) : (
-          <AnswerInput />
+          <AnswerInput questionId={question.id} />
         )}
       </S.AnswerFrame>
       <S.ReactionFrame>
@@ -203,7 +207,7 @@ const AnswerNameBox = styled.div`
   gap: 8px;
 `;
 
-const COLOR = {
+const COLORS = {
   normal: 'var(--color-grayscale-60)',
   red: 'var(--color-red-50)',
 };
@@ -212,7 +216,7 @@ const AnswerText = styled.p`
   // color: var(--Grayscale-60, #000);
   // color: var(--color-red-50);
   color: ${({ $isRejected }) =>
-    $isRejected ? COLOR.red : COLOR.normal}; //컬러가 안 먹음..why?
+    $isRejected ? COLORS.red : COLORS.normal}; //컬러가 안 먹음..why?
   font-feature-settings:
     'clig' off,
     'liga' off;

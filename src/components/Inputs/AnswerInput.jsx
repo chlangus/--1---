@@ -1,13 +1,51 @@
+/* eslint-disable no-nested-ternary */
+import { useState } from 'react';
 import styled from 'styled-components';
+import postAnswer from '../../services/PostAnswer';
+import patchAnswer from '../../services/PatchAnswer';
 
-export default function AnswerInput({ isEditMode }) {
+export default function AnswerInput({ isEditMode, questionId, answerId }) {
   const btnText = isEditMode ? '수정 완료' : '답변 완료';
+  const [answer, setAnswer] = useState('');
+
+  // textarea 값이 변경될 때마다 호출
+  const handleAnswerChange = e => {
+    setAnswer(e.target.value);
+  };
+
+  const handlePostClick = () => {
+    postAnswer(questionId, {
+      content: answer,
+      isRejected: 'false',
+    });
+  };
+
+  const handlePatchClick = () => {
+    patchAnswer(answerId, {
+      content: answer,
+    });
+  };
+
   return (
     <Input>
-      <div>
-        <textarea placeholder="질문을 입력해주세요" />
-      </div>
-      <Button>{btnText}</Button>
+      <textarea
+        placeholder="질문을 입력해주세요"
+        value={answer}
+        onChange={handleAnswerChange}
+      />
+      <Button
+        onClick={
+          answer ? (isEditMode ? handlePatchClick : handlePostClick) : null
+        }
+        style={{
+          cursor: answer ? 'pointer' : 'default',
+          background: answer
+            ? 'var(--color-brown-40)'
+            : 'var(--color-brown-30)',
+        }}
+      >
+        {btnText}
+      </Button>
     </Input>
   );
 }
@@ -21,7 +59,7 @@ const Input = styled.div`
 
   textarea {
     display: flex;
-    width: 53.2rem;
+    width: 100%;
     height: 18rem;
     padding: 1.6rem;
     justify-content: center;
@@ -29,12 +67,23 @@ const Input = styled.div`
     align-self: stretch;
     gap: 1rem;
     border-radius: 1rem;
-    background: var(--Grayscale-20, #f9f9f9);
+    background: ${({ theme }) => theme.colorGrayScale20};
+    font-family: Pretendard;
     font-size: 1.52rem;
     font-style: normal;
     font-weight: 400;
     border: none;
     resize: none;
+    @media (max-width: 767px) {
+      display: flex;
+      height: 35rem;
+      width: 100%;
+      padding: 1.6rem;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      align-self: stretch;
+    }
   }
 `;
 
@@ -46,13 +95,14 @@ const Button = styled.button`
   align-items: center;
   gap: 1rem;
   margin: 0.5rem;
-  color: var(--Grayscale-10, #fff);
+  color: ${({ theme }) => theme.colorGrayScale10};
+  font-family: Pretendard;
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 400;
   line-height: 2.2rem; /* 137.5% */
   border-radius: 0.8rem;
-  background: var(--Brown-30, #c7bbb5);
+  background: ${({ theme }) => theme.colorBrown30};
   margin-top: 0.8rem;
   height: 5rem;
   border: none;

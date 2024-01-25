@@ -47,7 +47,7 @@ export default function EditBoxModal({
       });
     } else {
       postAnswer(questionId, {
-        content: '',
+        content: 'default',
         isRejected: 'true',
       });
     }
