@@ -1,13 +1,16 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import deleteAnswer from '../services/DeleteAnswer';
-import putAnswer from '../services/PutAnswer';
+import postAnswer from '../services/PostAnswer';
+import patchAnswer from '../services/PatchAnswer';
 
 export default function EditBoxModal({
   isOpenModal,
   setIsOpenModal,
   setIsEditMode,
   setIsRejected,
+  questionId,
+  answerId,
 }) {
   const wrapperRef = useRef();
   const handleClickOutside = e => {
@@ -30,17 +33,24 @@ export default function EditBoxModal({
   const handleEdit = () => {
     setIsEditMode(true);
   };
+
   const handleDelete = async () => {
     alert('정말로 삭제하시겠습니까?');
-    await deleteAnswer(3655);
+    await deleteAnswer(answerId);
   };
 
   const handleReject = () => {
     setIsRejected(true);
-    putAnswer(1944, {
-      content: '답변거절',
-      isRejected: 'true',
-    });
+    if (answerId) {
+      patchAnswer(answerId, {
+        isRejected: 'true',
+      });
+    } else {
+      postAnswer(questionId, {
+        content: '',
+        isRejected: 'true',
+      });
+    }
   };
 
   return (

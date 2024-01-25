@@ -1,5 +1,4 @@
-async function fetchAnswer(id) {
-  const answerId = id;
+async function fetchAnswer(answerId) {
   try {
     const response = await fetch(
       `https://openmind-api.vercel.app/3-2/answers/${answerId}/`,

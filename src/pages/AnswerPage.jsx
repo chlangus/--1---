@@ -11,7 +11,6 @@ import NoQuestionFeedPage from '../components/NoQuestionFeedPage';
 
 export default function AnswerPage() {
   const { id } = useParams();
-  console.log('params: ', id);
 
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);

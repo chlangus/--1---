@@ -25,6 +25,8 @@ export default function QuestionAnswerCard({
             isEditMode={isEditMode}
             setIsEditMode={setIsEditMode}
             setIsRejected={setIsRejected}
+            questionId={question.id}
+            answerId={question.answer?.id}
           />
         )}
       </S.BadgeFrame>

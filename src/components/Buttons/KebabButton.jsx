@@ -9,6 +9,8 @@ export default function KebabButton({
   isEditMode,
   setIsEditMode,
   setIsRejected,
+  questionId,
+  answerId,
 }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const mode = useContext(ThemeContext);
@@ -26,6 +28,8 @@ export default function KebabButton({
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
           setIsRejected={setIsRejected}
+          questionId={questionId}
+          answerId={answerId}
         />
       )}
     </>

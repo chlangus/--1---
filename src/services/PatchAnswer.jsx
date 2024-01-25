@@ -1,10 +1,9 @@
-async function putAnswer(id, answer) {
-  const answerId = id;
+async function patchAnswer(answerId, answer) {
   try {
     const response = await fetch(
       `https://openmind-api.vercel.app/3-2/answers/${answerId}/`,
       {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -22,4 +21,4 @@ async function putAnswer(id, answer) {
   }
 }
 
-export default putAnswer;
+export default patchAnswer;
