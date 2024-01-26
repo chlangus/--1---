@@ -4,8 +4,11 @@ import QuestionCard from './QuestionCard';
 import useMobileLayout from '../utils/useMobileLayout';
 import useTabletLayout from '../utils/useTabletLayout';
 import DropDownButton from './Buttons/DropDownButton';
+import Pagination from './Pagination/Pagination';
 
 export default function QuestionList() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsCount, setCardsCount] = useState(0);
   const [sort, setSort] = useState('time');
   const [cardList, setCardList] = useState([]);
   const [orderList, setOrderList] = useState('최신순');
@@ -16,21 +19,26 @@ export default function QuestionList() {
   const isTabletSize = useTabletLayout();
   const LIMITSIZE = isMobileSize || isTabletSize ? MIN_CARDS : MAX_CARDS;
 
-  const getCardList = async ({ sort: cardSort, LIMITSIZE: cardLimitSize }) => {
-    const url = `/subjects/?limit=${cardLimitSize}&offset=0&sort=${cardSort}`;
+  const getCardList = async ({
+    sort: cardSort,
+    LIMITSIZE: cardLimitSize,
+    currentPage: current,
+  }) => {
+    const url = `/subjects/?limit=${cardLimitSize}&offset=${(current - 1) * LIMITSIZE}&sort=${cardSort}`;
     const response = await fetch(`https://openmind-api.vercel.app/3-2${url}`);
     const result = await response.json();
     return result;
   };
 
-  const handleLoad = async () => {
-    const { results } = await getCardList({ sort, LIMITSIZE });
+  const handleLoad = async options => {
+    const { results, count } = await getCardList(options);
     setCardList(results);
+    setCardsCount(count);
   };
 
   useEffect(() => {
-    handleLoad();
-  }, [sort]);
+    handleLoad({ sort, LIMITSIZE, currentPage });
+  }, [sort, LIMITSIZE, currentPage]);
 
   const handleOrderClick = e => {
     if (e === '이름순') {
@@ -68,6 +76,12 @@ export default function QuestionList() {
           ))}
         </StyledList>
       </StyledDiv>
+      <Pagination
+        cardsPerPage={LIMITSIZE}
+        totalCards={cardsCount}
+        setPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </StyledBox>
   );
 }
