@@ -72,7 +72,7 @@ export default function QuestionAnswerCard({
       </S.AnswerFrame>
       <S.ReactionFrame>
         <ReactionButton question={question} />
-        <DeleteQuestionButton questionId={question.id} />
+        {isAnswerPage && <DeleteQuestionButton questionId={question.id} />}
       </S.ReactionFrame>
     </QuestionWrapper>
   );
