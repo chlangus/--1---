@@ -26,7 +26,7 @@ export default function QuestionAnswerCard({
             setIsEditMode={setIsEditMode}
             setIsRejected={setIsRejected}
             questionId={question.id}
-            // answerId={question.answer.id}
+            answerId={question?.answer?.id}
           />
         )}
       </S.BadgeFrame>
@@ -58,7 +58,7 @@ export default function QuestionAnswerCard({
             </S.AnswerBox>
           </>
         ) : (
-          ''
+          <AnswerInput questionId={question.id} />
         )}
       </S.AnswerFrame>
       <S.ReactionFrame>

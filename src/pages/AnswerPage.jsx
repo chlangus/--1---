@@ -19,7 +19,7 @@ export default function AnswerPage() {
     name: '',
     questionCount: '',
   });
-  // const [isRejected, setIsRejected] = useState(false);
+  const [isRejected, setIsRejected] = useState(false);
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
@@ -40,8 +40,8 @@ export default function AnswerPage() {
         setQuestions([]);
       }
     });
-  }, [subjectId]);
-  // , isRejected
+  }, [subjectId, isRejected]);
+
   return (
     <Wrapper>
       <QuestionFeedHeader
@@ -65,8 +65,8 @@ export default function AnswerPage() {
                   subjectId={subjectId}
                   subjectData={subjectData}
                   setSubjectId={setSubjectId}
-                  // isRejected={questionItem.answer.isRejected}
-                  // setIsRejected={setIsRejected}
+                  isRejected={questionItem?.answer?.isRejected}
+                  setIsRejected={setIsRejected}
                 />
               ))}
             </FeedBox>
