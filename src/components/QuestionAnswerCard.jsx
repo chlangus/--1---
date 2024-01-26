@@ -35,31 +35,32 @@ export default function QuestionAnswerCard({
         <S.QuestionTime>질문 · {question.createdWhen}</S.QuestionTime>
         <S.QuestionText>{question.content}</S.QuestionText>
       </S.QuestionBox>
-      <S.AnswerFrame>
-        {question.answer ? (
-          <>
-            <S.Profile src={subjectData.imageSource} alt="profile" />
-            <S.AnswerBox>
-              <AnswerNameBox>
-                <S.AnswerName>{subjectData.name}</S.AnswerName>
-                <S.AnswerTime>{question.answer.createdWhen}</S.AnswerTime>
-              </AnswerNameBox>
 
-              {isEditMode ? (
-                <AnswerInput
-                  isEditMode
-                  questionId={question.id}
-                  answerId={question.answer.id}
-                />
-              ) : (
-                <S.AnswerText $isRejected>
-                  {isRejected ? '답변거절' : question.answer.content}
-                </S.AnswerText>
-              )}
-            </S.AnswerBox>
-          </>
-        ) : (
-          <>
+      {question.answer ? (
+        <S.AnswerFrame>
+          <S.Profile src={subjectData.imageSource} alt="profile" />
+          <S.AnswerBox>
+            <AnswerNameBox>
+              <S.AnswerName>{subjectData.name}</S.AnswerName>
+              <S.AnswerTime>{question.answer.createdWhen}</S.AnswerTime>
+            </AnswerNameBox>
+
+            {isEditMode ? (
+              <AnswerInput
+                isEditMode
+                questionId={question.id}
+                answerId={question.answer.id}
+              />
+            ) : (
+              <S.AnswerText $isRejected>
+                {isRejected ? '답변거절' : question.answer.content}
+              </S.AnswerText>
+            )}
+          </S.AnswerBox>
+        </S.AnswerFrame>
+      ) : (
+        isAnswerPage && (
+          <S.AnswerFrame>
             <S.Profile src={subjectData.imageSource} alt="profile" />
             <S.AnswerBox>
               <AnswerNameBox>
@@ -67,9 +68,10 @@ export default function QuestionAnswerCard({
               </AnswerNameBox>
               <AnswerInput questionId={question.id} />
             </S.AnswerBox>
-          </>
-        )}
-      </S.AnswerFrame>
+          </S.AnswerFrame>
+        )
+      )}
+
       <S.ReactionFrame>
         <ReactionButton question={question} />
         {isAnswerPage && <DeleteQuestionButton questionId={question.id} />}

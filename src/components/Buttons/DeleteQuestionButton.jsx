@@ -42,11 +42,6 @@ const Button = styled.button`
     color: ${({ theme }) => theme.colorGrayScale60};
     background: ${({ theme }) => theme.colorGrayScale20};
   }
-
-  &:active {
-    color: ${({ theme }) => theme.colorBlue50};
-    background: ${({ theme }) => theme.colorGrayScale10};
-  }
 `;
 
 const Content = styled.span`
