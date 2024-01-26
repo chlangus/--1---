@@ -16,6 +16,7 @@ export default function QuestionAnswerCard({
   setIsRejected,
 }) {
   const [isEditMode, setIsEditMode] = useState(false);
+
   return (
     <QuestionWrapper>
       <S.BadgeFrame>
@@ -26,7 +27,7 @@ export default function QuestionAnswerCard({
             setIsEditMode={setIsEditMode}
             setIsRejected={setIsRejected}
             questionId={question.id}
-            // answerId={question.answer.id}
+            answerId={question?.answer?.id}
           />
         )}
       </S.BadgeFrame>
@@ -58,12 +59,20 @@ export default function QuestionAnswerCard({
             </S.AnswerBox>
           </>
         ) : (
-          ''
+          <>
+            <S.Profile src={subjectData.imageSource} alt="profile" />
+            <S.AnswerBox>
+              <AnswerNameBox>
+                <S.AnswerName>{subjectData.name}</S.AnswerName>
+              </AnswerNameBox>
+              <AnswerInput questionId={question.id} />
+            </S.AnswerBox>
+          </>
         )}
       </S.AnswerFrame>
       <S.ReactionFrame>
         <ReactionButton question={question} />
-        <DeleteQuestionButton questionId={question.id} />
+        {isAnswerPage && <DeleteQuestionButton questionId={question.id} />}
       </S.ReactionFrame>
     </QuestionWrapper>
   );

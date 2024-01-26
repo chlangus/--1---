@@ -7,6 +7,7 @@ import patchAnswer from '../services/PatchAnswer';
 export default function EditBoxModal({
   isOpenModal,
   setIsOpenModal,
+  isEditMode,
   setIsEditMode,
   setIsRejected,
   questionId,
@@ -32,6 +33,7 @@ export default function EditBoxModal({
 
   const handleEdit = () => {
     setIsEditMode(true);
+    console.log(isEditMode);
   };
 
   const handleDelete = async () => {
