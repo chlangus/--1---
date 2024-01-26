@@ -10,26 +10,27 @@ function sliceArrayByLimit(array, limit) {
 }
 
 function Pagination({ cardsPerPage, totalCards, setPage, currentPage }) {
-  const [totalPages, setTotalPages] = useState(1);
   const [pageGroups, setPageGroups] = useState([]);
+  const [totalPageArray, setTotalPageArray] = useState([]);
+  const totalPages = Math.ceil(totalCards / cardsPerPage);
 
   useEffect(() => {
-    const calculatedTotalPages = Math.ceil(totalCards / cardsPerPage);
-    console.log('calculatedTotalPages:', calculatedTotalPages);
-    setTotalPages(calculatedTotalPages);
-
-    if (calculatedTotalPages > 1) {
-      const pageArray = Array.from(
-        { length: calculatedTotalPages },
-        (_, index) => index + 1,
-      );
-      console.log('pageArray:', pageArray);
-      const groupedPages = sliceArrayByLimit(pageArray, 5);
-      setPageGroups(groupedPages);
-    } else {
-      setPageGroups([]);
+    if (currentPage % 5 === 1) {
+      setPageGroups(totalPageArray[Math.floor(currentPage / 5)]);
+    } else if (currentPage % 5 === 0) {
+      setPageGroups(totalPageArray[Math.floor(currentPage / 5) - 1]);
     }
-  }, [totalCards, cardsPerPage]);
+  }, [currentPage, totalPageArray]);
+
+  useEffect(() => {
+    const pageArray = Array.from(
+      { length: totalPages },
+      (_, index) => index + 1,
+    );
+    const slicedPageArray = sliceArrayByLimit(pageArray, 5);
+    setTotalPageArray(slicedPageArray);
+    setPageGroups(slicedPageArray[0]);
+  }, [totalPages]);
 
   const handlePageChange = newPage => {
     console.log('newpage:', newPage);
@@ -48,19 +49,17 @@ function Pagination({ cardsPerPage, totalCards, setPage, currentPage }) {
         &lt;
       </button>
       <div>
-        {pageGroups.map(group => (
-          <div key={group} style={{ display: 'flex' }}>
-            {group.map(page => (
-              <button
-                key={page}
-                type="button"
-                onClick={() => handlePageChange(page)}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
-        ))}
+        <div>
+          {pageGroups?.map(page => (
+            <button
+              key={page}
+              type="button"
+              onClick={() => handlePageChange(page)}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
       </div>
       <button
         type="button"
