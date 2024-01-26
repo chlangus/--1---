@@ -1,8 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { React } from 'react';
 import styled from 'styled-components';
-// import { useRecoilState } from 'recoil';
-import { EditModeAtom, useEditMode } from './hooks/useEditMode';
+import useEditMode from './hooks/useEditMode';
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
 import profileImg from '../assets/sample-profile-img.svg';
@@ -14,22 +13,15 @@ export default function QuestionAnswerCard({
   question,
   subjectData,
   isAnswerPage,
-  isRejected,
-  setIsRejected,
 }) {
-  const [isEditMode] = useEditMode(EditModeAtom);
-  // console.log('isEditMode: ', isEditMode);
-  // console.log('EditModeAtom: ', EditModeAtom);
-
+  const [editModeId] = useEditMode();
+  console.log(question);
   return (
     <QuestionWrapper>
       <S.BadgeFrame>
         <AnswerBadge $isAnswered={question.isAnswered} />
         {isAnswerPage && (
           <KebabButton
-            // isEditMode={isEditMode}
-            // setIsEditMode={setIsEditMode}
-            setIsRejected={setIsRejected}
             questionId={question.id}
             answerId={question?.answer?.id}
           />
@@ -49,15 +41,21 @@ export default function QuestionAnswerCard({
               <S.AnswerTime>{question.answer.createdWhen}</S.AnswerTime>
             </AnswerNameBox>
 
-            {isEditMode ? (
+            {editModeId === question.id ? (
               <AnswerInput
                 isEditMode
                 questionId={question.id}
                 answerId={question.answer.id}
               />
             ) : (
-              <S.AnswerText $isRejected>
-                {isRejected ? '답변거절' : question.answer.content}
+              <S.AnswerText
+                style={{
+                  color: false
+                    ? 'var(--color-red-50)'
+                    : 'var(--color-grayscale-60)',
+                }}
+              >
+                {false ? '답변거절' : question.answer.content}
               </S.AnswerText>
             )}
           </S.AnswerBox>
@@ -223,16 +221,8 @@ const AnswerNameBox = styled.div`
   gap: 8px;
 `;
 
-const COLORS = {
-  normal: 'var(--color-grayscale-60)',
-  red: 'var(--color-red-50)',
-};
-
 const AnswerText = styled.p`
-  // color: var(--Grayscale-60, #000);
-  // color: var(--color-red-50);
-  color: ${({ $isRejected }) =>
-    $isRejected ? COLORS.red : COLORS.normal}; //컬러가 안 먹음..why?
+  color: var(--color-grayscale-60);
   font-feature-settings:
     'clig' off,
     'liga' off;

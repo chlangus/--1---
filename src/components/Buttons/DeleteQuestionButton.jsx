@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 import deleteQuestion from '../../services/DeleteQuestion';
 import binIcon from '../../assets/Trash.svg';
+import useQuestionsAtom from '../hooks/useQuestions';
 
 function DeleteQuestionButton({ questionId }) {
-  const handleDelete = () => {
+  const [questions, setQuestions, setQuestion] = useQuestionsAtom();
+  console.log(questions, setQuestions);
+  const handleDelete = async () => {
     alert('정말로 삭제하시겠습니까?');
-    deleteQuestion(questionId);
+    await deleteQuestion(questionId);
+    setQuestion(null, questionId);
   };
   return (
     <S.Button onClick={handleDelete}>

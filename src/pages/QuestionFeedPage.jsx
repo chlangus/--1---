@@ -18,6 +18,9 @@ export default function QuestionFeedPage() {
     name: '',
     questionCount: '',
   });
+  // 여기서 값을 받고 계시잖아요?
+  // 요 상태 값들을 다 리코일로 관리하실수도 있습니다!
+
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
       if (data.results.length) {
@@ -34,6 +37,7 @@ export default function QuestionFeedPage() {
             : null,
         }));
         setQuestions(transformedQuestions);
+        console.log(transformedQuestions);
       } else {
         setQuestions([]);
       }

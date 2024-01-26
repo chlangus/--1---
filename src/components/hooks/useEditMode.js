@@ -1,9 +1,13 @@
 import { atom, useRecoilState } from 'recoil';
 
-export const EditModeAtom = atom({
+const EditModeAtom = atom({
   key: 'EditModeAtom',
-  default: false,
+  default: null, // 널이 맞습니다!
 });
-export function useEditMode(editAtom) {
-  return useRecoilState(editAtom);
-}
+
+const useEditMode = () => {
+  const [editModeId, setEditModeId] = useRecoilState(EditModeAtom);
+  return [editModeId, setEditModeId];
+};
+
+export default useEditMode;
