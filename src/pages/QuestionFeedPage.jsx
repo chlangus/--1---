@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
 import FeedCard from '../components/FeedCard';
 import QuestionWriteButton from '../components/Buttons/QuestionWriteButton';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
-import NoQuestionFeedPage from '../components/NoQuestionFeedPage';
+import NoQuestionFeed from '../components/NoQuestionFeed';
 
 export default function QuestionFeedPage() {
-  const [subjectId, setSubjectId] = useState();
+  const { id } = useParams();
+  const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
   const [subjectData, setSubjectData] = useState({
     imageSource: '',
     name: '',
     questionCount: '',
   });
+
   const [ref, inView] = useInView();
 
   const loadMoreQuestions = async () => {
@@ -56,15 +59,16 @@ export default function QuestionFeedPage() {
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
-      if (data.results?.length) {
+      if (data.results.length) {
+        // 데이터 있으면 실행
         const transformedQuestions = data.results.map(question => ({
           ...question,
-          createdAt: timeSince(question.createdAt),
+          createdWhen: timeSince(question.createdAt),
           isAnswered: question.answer !== null,
           answer: question.answer
             ? {
                 ...question.answer,
-                createdAt: timeSince(question.answer.createdAt),
+                createdWhen: timeSince(question.answer.createdAt),
               }
             : null,
         }));
@@ -73,12 +77,7 @@ export default function QuestionFeedPage() {
         setQuestions([]);
       }
     });
-  }, [subjectId]);
-
-  if (questions.length === 0) {
-    return <NoQuestionFeedPage />;
-  }
-
+  }, []);
   return (
     <Wrapper>
       <QuestionFeedHeader
@@ -86,24 +85,28 @@ export default function QuestionFeedPage() {
         subjectData={subjectData}
         setSubjectData={setSubjectData}
       />
-      <FeedContainer>
-        {questions.map((questionItem, index) => (
-          <FeedBox
-            key={questionItem.id}
-            subjectData={subjectData}
-            isFirstBox={index === 0}
-          >
-            <FeedCard
-              question={questionItem}
-              subjectId={subjectId}
-              subjectData={subjectData}
-              setSubjectId={setSubjectId}
-            />
+      {questions.length === 0 ? (
+        <NoQuestionFeed />
+      ) : (
+        <FeedContainer>
+          <FeedBox subjectData={subjectData}>
+            {questions.map(questionItem => (
+              <FeedCard
+                key={questionItem.id}
+                question={questionItem}
+                subjectId={subjectId}
+                subjectData={subjectData}
+                setSubjectId={setSubjectId}
+              />
+            ))}
           </FeedBox>
-        ))}
-        <div ref={ref}>하이</div>
-      </FeedContainer>
-      <QuestionWriteButton />
+          <div ref={ref}>하이</div>
+        </FeedContainer>
+      )}
+      <QuestionWriteButton
+        subjectId={subjectId}
+        handleQuestion={setQuestions}
+      />
     </Wrapper>
   );
 }

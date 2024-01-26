@@ -58,8 +58,10 @@ export default function MainPage() {
 }
 
 const PageWrapper = styled.div`
-  background-image: url(${({ theme }) =>
-    theme.mode === 'light' ? mainBg : darkMainBg});
+  ${({ theme }) =>
+    theme.mode === 'light'
+      ? `background-image: url(${mainBg})`
+      : `background-image: url(${darkMainBg})`};
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: contain;

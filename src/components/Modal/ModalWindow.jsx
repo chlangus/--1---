@@ -4,9 +4,12 @@ import QuestionInput from '../Inputs/QuestionInput';
 import messageIcon from '../../assets/Messages.svg';
 import closeButton from '../../assets/Close.svg';
 
-// http://localhost:3000/post/no
-
-export default function ModalWindow({ closeModal, setModalOpen }) {
+export default function ModalWindow({
+  handleStoreQeustion,
+  closeModal,
+  setModalOpen,
+  subjectId,
+}) {
   const handleModalClick = e => {
     // 모달 내부를 클릭했을 때는 모달이 닫히지 않도록 처리
     if (e.target.closest('.modal-content')) {
@@ -16,7 +19,9 @@ export default function ModalWindow({ closeModal, setModalOpen }) {
     // 모달 밖의 영역을 클릭했을 때 모달을 닫도록 처리
     closeModal();
   };
-
+  const handleStoreQuestion = question => {
+    handleStoreQeustion(question);
+  };
   return (
     <>
       {createPortal(
@@ -31,7 +36,11 @@ export default function ModalWindow({ closeModal, setModalOpen }) {
                 <img src={closeButton} alt="닫기 버튼" />
               </button>
             </ModalHeader>
-            <QuestionInput setModalOpen={setModalOpen} />
+            <QuestionInput
+              subjectId={subjectId}
+              handleStoreQuestion={handleStoreQuestion}
+              setModalOpen={setModalOpen}
+            />
           </ModalContent>
         </ModalWrapper>,
         document.body,

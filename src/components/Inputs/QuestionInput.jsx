@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import fetchSubject from '../../services/FetchSubject';
-import fetchQuestion from '../../services/FetchQuestion';
+import timeSince from '../../utils/TimeSince';
 
-export default function QuestionInput({ subjectId, setModalOpen }) {
+export default function QuestionInput({
+  handleStoreQuestion,
+  subjectId,
+  setModalOpen,
+}) {
   const [question, setQuestion] = useState('');
   const [subjectData, setSubjectData] = useState({ imageSource: '', name: '' });
 
@@ -26,7 +30,7 @@ export default function QuestionInput({ subjectId, setModalOpen }) {
       console.log('추출된 subjectId:', extractedSubjectId);
 
       const response = await fetch(
-        `https://openmind-api.vercel.app/3-2/subjects/${extractedSubjectId}/questions/`,
+        `https://openmind-api.vercel.app/3-2/subjects/${subjectId}/questions/`,
         {
           method: 'POST',
           headers: {
@@ -37,7 +41,10 @@ export default function QuestionInput({ subjectId, setModalOpen }) {
       );
 
       const responseData = await response.json();
-      console.log('responseData: ', responseData);
+      handleStoreQuestion(prev => [
+        { ...responseData, createdWhen: timeSince(responseData.createdAt) },
+        ...prev,
+      ]);
       // 성공적으로 response를 받으면 모달 창을 닫음
       setModalOpen(false);
     } catch (error) {
@@ -166,7 +173,6 @@ const Button = styled.button`
   align-items: center;
   gap: 1rem;
   margin: 0.5rem;
-  color: ${({ theme }) => theme.colorGrayScale10};
   font-family: Pretendard;
   font-size: 1.6rem;
   font-style: normal;

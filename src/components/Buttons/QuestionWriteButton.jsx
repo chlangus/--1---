@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import ModalWindow from '../Modal/ModalWindow';
 
-function QuestionWriteButton() {
+function QuestionWriteButton({ subjectId, handleQuestion }) {
   const [modalOpen, setModalOpen] = useState(false);
   const outSectionRef = useRef();
 
@@ -16,10 +16,15 @@ function QuestionWriteButton() {
     }
   };
 
+  const handleStoreQuestion = data => {
+    handleQuestion(data);
+  };
   return (
     <>
       {modalOpen && (
         <ModalWindow
+          subjectId={subjectId}
+          handleStoreQeustion={handleStoreQuestion}
           setModalOpen={setModalOpen}
           closeModal={handleCloseModal}
         />

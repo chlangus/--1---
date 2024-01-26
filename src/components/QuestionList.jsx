@@ -57,7 +57,7 @@ export default function QuestionList() {
           </ButtonDiv>
         </Header>
         <StyledList>
-          {cardList?.map(data => (
+          {cardList.map(data => (
             <QuestionCard
               id={data.id}
               key={data.id}
