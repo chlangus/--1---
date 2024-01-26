@@ -3,8 +3,10 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import postAnswer from '../../services/PostAnswer';
 import patchAnswer from '../../services/PatchAnswer';
+import { EditModeAtom, useEditMode } from '../hooks/useEditMode';
 
-export default function AnswerInput({ isEditMode, questionId, answerId }) {
+export default function AnswerInput({ questionId, answerId }) {
+  const [isEditMode, setIsEditMode] = useEditMode(EditModeAtom);
   const btnText = isEditMode ? '수정 완료' : '답변 완료';
   const [answer, setAnswer] = useState('');
 
@@ -24,6 +26,7 @@ export default function AnswerInput({ isEditMode, questionId, answerId }) {
     patchAnswer(answerId, {
       content: answer,
     });
+    setIsEditMode(false);
   };
 
   return (

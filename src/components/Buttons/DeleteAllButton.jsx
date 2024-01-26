@@ -4,10 +4,7 @@ import deleteQuestion from '../../services/DeleteQuestion';
 function DeleteAllButton({ text, questions }) {
   const handleDelete = () => {
     alert('정말로 삭제하시겠습니까?'); // 얘도 모달로 만들까 고민중..
-    questions.map(item => {
-      console.log(item.id);
-      return deleteQuestion(item.id);
-    });
+    questions.map(item => deleteQuestion(item.id));
     // 아마 피드 불러오는 개수 때문인거 같은데 9개 이상부터 한번에 삭제가 안됨... 1-8개까지는 ㄱㅊ
   };
 

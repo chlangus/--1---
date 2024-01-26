@@ -6,8 +6,8 @@ import ThemeContext from '../../contexts/ThemeContext';
 import darkKebabImg from '../../assets/dark-more-icon.svg';
 
 export default function KebabButton({
-  isEditMode,
-  setIsEditMode,
+  // isEditMode,
+  // setIsEditMode,
   setIsRejected,
   questionId,
   answerId,
@@ -25,8 +25,8 @@ export default function KebabButton({
         <EditBoxModal
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
-          isEditMode={isEditMode}
-          setIsEditMode={setIsEditMode}
+          // isEditMode={isEditMode}
+          // setIsEditMode={setIsEditMode}
           setIsRejected={setIsRejected}
           questionId={questionId}
           answerId={answerId}

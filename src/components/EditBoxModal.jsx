@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { EditModeAtom, useEditMode } from './hooks/useEditMode';
 import deleteAnswer from '../services/DeleteAnswer';
 import postAnswer from '../services/PostAnswer';
 import patchAnswer from '../services/PatchAnswer';
@@ -7,12 +8,13 @@ import patchAnswer from '../services/PatchAnswer';
 export default function EditBoxModal({
   isOpenModal,
   setIsOpenModal,
-  isEditMode,
-  setIsEditMode,
+  // isEditMode,
+  // setIsEditMode,
   setIsRejected,
   questionId,
   answerId,
 }) {
+  const [isEditMode, setIsEditMode] = useEditMode(EditModeAtom);
   const wrapperRef = useRef();
   const handleClickOutside = e => {
     if (
@@ -33,7 +35,7 @@ export default function EditBoxModal({
 
   const handleEdit = () => {
     setIsEditMode(true);
-    console.log(isEditMode);
+    console.log('isEditMode', isEditMode);
   };
 
   const handleDelete = async () => {

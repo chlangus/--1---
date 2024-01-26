@@ -1,6 +1,8 @@
 /* eslint-disable no-nested-ternary */
-import { React, useState } from 'react';
+import { React } from 'react';
 import styled from 'styled-components';
+// import { useRecoilState } from 'recoil';
+import { EditModeAtom, useEditMode } from './hooks/useEditMode';
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
 import profileImg from '../assets/sample-profile-img.svg';
@@ -15,7 +17,9 @@ export default function QuestionAnswerCard({
   isRejected,
   setIsRejected,
 }) {
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [isEditMode] = useEditMode(EditModeAtom);
+  // console.log('isEditMode: ', isEditMode);
+  // console.log('EditModeAtom: ', EditModeAtom);
 
   return (
     <QuestionWrapper>
@@ -23,8 +27,8 @@ export default function QuestionAnswerCard({
         <AnswerBadge $isAnswered={question.isAnswered} />
         {isAnswerPage && (
           <KebabButton
-            isEditMode={isEditMode}
-            setIsEditMode={setIsEditMode}
+            // isEditMode={isEditMode}
+            // setIsEditMode={setIsEditMode}
             setIsRejected={setIsRejected}
             questionId={question.id}
             answerId={question?.answer?.id}
