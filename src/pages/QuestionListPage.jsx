@@ -69,7 +69,7 @@ const NavWrapper = styled.div`
   padding: 0 3.2rem;
   @media screen and ((min-width: 375px) and
   (max-width: 767px)) {
-    width: 100%
+    width: 100%;
     max-width: 50rem;
     padding: 0 2.4rem;
   }

@@ -7,11 +7,9 @@ async function fetchQuestion(subjectId) {
       throw new Error(`Error: ${response.status}`);
     }
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     return null;
   }
 }
-
 export default fetchQuestion;

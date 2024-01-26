@@ -1,29 +1,18 @@
 import styled from 'styled-components';
-import QuestionFeedHeader from './QuestionFeedHeader/QuestionFeedHeader';
 import Messages from '../assets/Messages.svg';
 import Noquestion from '../assets/noquestion.svg';
-import QuestionWriteButton from './Buttons/QuestionWriteButton';
 
-export default function NoQuestionFeedPage() {
-  const subjectData = {
-    imageSource: 'image-path',
-    name: 'Subject Name',
-    questionCount: '',
-  };
+export default function NoQuestionFeed() {
   return (
-    <div>
-      <QuestionFeedHeader subjectData={subjectData} />
-      <NoQuestionWapper>
-        <NoQuestionBox>
-          <NoQuestionText>
-            <img src={Messages} alt="메세지" />
-            <p>아직 질문이 없습니다</p>
-          </NoQuestionText>
-          <img src={Noquestion} alt="문서사진" />
-        </NoQuestionBox>
-      </NoQuestionWapper>
-      <QuestionWriteButton />
-    </div>
+    <NoQuestionWapper>
+      <NoQuestionBox>
+        <NoQuestionText>
+          <img src={Messages} alt="메세지" />
+          <p>아직 질문이 없습니다</p>
+        </NoQuestionText>
+        <img src={Noquestion} alt="문서사진" />
+      </NoQuestionBox>
+    </NoQuestionWapper>
   );
 }
 

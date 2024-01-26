@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import fetchSubject from '../../services/FetchSubject';
-import fetchQuestion from '../../services/FetchQuestion';
+import timeSince from '../../utils/TimeSince';
 
-export default function QuestionInput({ subjectId, setModalOpen }) {
+export default function QuestionInput({
+  handleStoreQuestion,
+  subjectId,
+  setModalOpen,
+}) {
   const [question, setQuestion] = useState('');
   const [subjectData, setSubjectData] = useState({ imageSource: '', name: '' });
 
@@ -16,18 +20,8 @@ export default function QuestionInput({ subjectId, setModalOpen }) {
   // 질문을 보내는 역할
   const handleSendQuestion = async () => {
     try {
-      console.log('질문 전송 중:', question);
-
-      // subject ID 받아오기
-      const data = await fetchQuestion(subjectId);
-      console.log('질문 데이터:', data);
-
-      // mapping해서 subjectId를 가져와야할듯?
-      const extractedSubjectId = data?.results?.[0]?.subjectId;
-      console.log('추출된 subjectId:', extractedSubjectId);
-
       const response = await fetch(
-        `https://openmind-api.vercel.app/3-2/subjects/${extractedSubjectId}/questions/`,
+        `https://openmind-api.vercel.app/3-2/subjects/${subjectId}/questions/`,
         {
           method: 'POST',
           headers: {
@@ -38,7 +32,10 @@ export default function QuestionInput({ subjectId, setModalOpen }) {
       );
 
       const responseData = await response.json();
-      console.log('responseData: ', responseData);
+      handleStoreQuestion(prev => [
+        { ...responseData, createdWhen: timeSince(responseData.createdAt) },
+        ...prev,
+      ]);
       // 성공적으로 response를 받으면 모달 창을 닫음
       setModalOpen(false);
     } catch (error) {
@@ -74,16 +71,8 @@ export default function QuestionInput({ subjectId, setModalOpen }) {
           -
         </div>
         <Button
+          question={question}
           onClick={question ? handleSendQuestion : null}
-          style={{
-            cursor: question ? 'pointer' : 'default',
-            background: question
-              ? 'var(--Brown-30, #C7BBB5)'
-              : ' var(--Brown-10, #F5F1EE)',
-            color: question
-              ? 'var(--Brown-10, #F5F1EE)'
-              : 'var(--Brown-30, #C7BBB5)',
-          }}
         >
           질문 보내기
         </Button>
@@ -175,7 +164,6 @@ const Button = styled.button`
   align-items: center;
   gap: 1rem;
   margin: 0.5rem;
-  color: ${({ theme }) => theme.colorGrayScale10};
   font-family: Pretendard;
   font-size: 1.6rem;
   font-style: normal;
@@ -186,4 +174,9 @@ const Button = styled.button`
   margin-top: 0.8rem;
   height: 5rem;
   border: none;
+  cursor: ${({ question }) => (question ? 'pointer' : 'default')};
+  background: ${({ question, theme }) =>
+    question ? theme.colorBrown30 : theme.colorBrown10};
+  color: ${({ question, theme }) =>
+    question ? theme.colorBrown10 : theme.colorBrown30};
 `;

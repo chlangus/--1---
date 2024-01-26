@@ -16,7 +16,6 @@ export default function QuestionAnswerCard({
   setIsRejected,
 }) {
   const [isEditMode, setIsEditMode] = useState(false);
-
   return (
     <QuestionWrapper>
       <S.BadgeFrame>
@@ -27,12 +26,12 @@ export default function QuestionAnswerCard({
             setIsEditMode={setIsEditMode}
             setIsRejected={setIsRejected}
             questionId={question.id}
-            answerId={question.answer?.id}
+            // answerId={question.answer.id}
           />
         )}
       </S.BadgeFrame>
       <S.QuestionBox>
-        <S.QuestionTime>질문 · {question.createdAt}</S.QuestionTime>
+        <S.QuestionTime>질문 · {question.createdWhen}</S.QuestionTime>
         <S.QuestionText>{question.content}</S.QuestionText>
       </S.QuestionBox>
       <S.AnswerFrame>
@@ -42,14 +41,14 @@ export default function QuestionAnswerCard({
             <S.AnswerBox>
               <AnswerNameBox>
                 <S.AnswerName>{subjectData.name}</S.AnswerName>
-                <S.AnswerTime>{question.answer.createdAt}</S.AnswerTime>
+                <S.AnswerTime>{question.answer.createdWhen}</S.AnswerTime>
               </AnswerNameBox>
 
               {isEditMode ? (
                 <AnswerInput
                   isEditMode
                   questionId={question.id}
-                  answerId={question.answer?.id}
+                  answerId={question.answer.id}
                 />
               ) : (
                 <S.AnswerText $isRejected>
@@ -59,11 +58,11 @@ export default function QuestionAnswerCard({
             </S.AnswerBox>
           </>
         ) : (
-          <AnswerInput questionId={question.id} />
+          ''
         )}
       </S.AnswerFrame>
       <S.ReactionFrame>
-        <ReactionButton />
+        <ReactionButton question={question} />
         <DeleteQuestionButton questionId={question.id} />
       </S.ReactionFrame>
     </QuestionWrapper>
