@@ -14,11 +14,6 @@ export default function AnswerPage() {
 
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
-  const [subjectData, setSubjectData] = useState({
-    imageSource: '',
-    name: '',
-    questionCount: '',
-  });
   const [isRejected, setIsRejected] = useState(false);
 
   useEffect(() => {
@@ -44,11 +39,7 @@ export default function AnswerPage() {
 
   return (
     <Wrapper>
-      <QuestionFeedHeader
-        subjectId={subjectId}
-        subjectData={subjectData}
-        setSubjectData={setSubjectData}
-      />
+      <QuestionFeedHeader subjectId={subjectId} />
       <S.DeleteAndFeed>
         <DeleteAllButton text="삭제하기" />
 
@@ -56,14 +47,13 @@ export default function AnswerPage() {
           <NoQuestionFeed />
         ) : (
           <FeedContainer>
-            <FeedBox subjectData={subjectData}>
+            <FeedBox>
               {questions.map(questionItem => (
                 <FeedCard
                   key={questionItem.id}
                   isAnswerPage
                   question={questionItem}
                   subjectId={subjectId}
-                  subjectData={subjectData}
                   setSubjectId={setSubjectId}
                   isRejected={questionItem?.answer?.isRejected}
                   setIsRejected={setIsRejected}
