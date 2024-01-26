@@ -20,6 +20,7 @@ export default function AnswerPage() {
     questionCount: '',
   });
   const [isRejected, setIsRejected] = useState(false);
+  console.log('질문 목록', questions);
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
@@ -50,7 +51,7 @@ export default function AnswerPage() {
         setSubjectData={setSubjectData}
       />
       <S.DeleteAndFeed>
-        <DeleteAllButton text="삭제하기" />
+        <DeleteAllButton text="삭제하기" questions={questions} />
 
         {questions.length === 0 ? (
           <NoQuestionFeed />
