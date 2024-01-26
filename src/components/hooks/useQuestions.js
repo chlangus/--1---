@@ -16,6 +16,13 @@ export default function useQuestionsAtom() {
     // const newQuestions = questions.splice(updatedQuestionIdx, 1, newQuestion); // splice는 새로운 참조를 반환하지 않습니다!
     // setQuestions([...newQuestions]);
     // const newQuestions = questions.splice(updatedQuestionIdx, 1, newQuestion);//  수정하기 생각좀 해보겠습니다..
+    console.log('질문과 새질문 : ', questions, newQuestion);
+    const nextQuestions = produce(questions, draftState => {
+      draftState.splice(updatedQuestionIdx, 1, newQuestion); // 여기에 newQusetion(실제로는 답변값)이 아니라 질문.answer에 newQuestion을 넣어야됨!!
+    });
+
+    console.log('nextQuestions: ', nextQuestions); // 헐!! 수정할때 질문리스트에 답변값만 들어가서 에러난듯! 여기만 수정하면 될거같아요...
+    setQuestions([...nextQuestions]);
   }
 
   return [questions, setQuestions, setQuestion];
