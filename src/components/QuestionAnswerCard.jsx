@@ -16,6 +16,7 @@ export default function QuestionAnswerCard({
   setIsRejected,
 }) {
   const [isEditMode, setIsEditMode] = useState(false);
+
   return (
     <QuestionWrapper>
       <S.BadgeFrame>
@@ -58,7 +59,15 @@ export default function QuestionAnswerCard({
             </S.AnswerBox>
           </>
         ) : (
-          <AnswerInput questionId={question.id} />
+          <>
+            <S.Profile src={subjectData.imageSource} alt="profile" />
+            <S.AnswerBox>
+              <AnswerNameBox>
+                <S.AnswerName>{subjectData.name}</S.AnswerName>
+              </AnswerNameBox>
+              <AnswerInput questionId={question.id} />
+            </S.AnswerBox>
+          </>
         )}
       </S.AnswerFrame>
       <S.ReactionFrame>
