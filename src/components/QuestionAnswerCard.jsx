@@ -1,23 +1,37 @@
-import React from 'react';
+/* eslint-disable no-nested-ternary */
+import { React, useState } from 'react';
 import styled from 'styled-components';
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
 import profileImg from '../assets/sample-profile-img.svg';
 import ReactionButton from './Buttons/ReactionButton';
+import AnswerInput from './Inputs/AnswerInput';
+import DeleteQuestionButton from './Buttons/DeleteQuestionButton';
 
 export default function QuestionAnswerCard({
   question,
   subjectData,
   isAnswerPage,
+  isRejected,
+  setIsRejected,
 }) {
+  const [isEditMode, setIsEditMode] = useState(false);
   return (
     <QuestionWrapper>
       <S.BadgeFrame>
         <AnswerBadge $isAnswered={question.isAnswered} />
-        {isAnswerPage && <KebabButton />}
+        {isAnswerPage && (
+          <KebabButton
+            isEditMode={isEditMode}
+            setIsEditMode={setIsEditMode}
+            setIsRejected={setIsRejected}
+            questionId={question.id}
+            // answerId={question.answer.id}
+          />
+        )}
       </S.BadgeFrame>
       <S.QuestionBox>
-        <S.QuestionTime>질문 · {question.createdAt}</S.QuestionTime>
+        <S.QuestionTime>질문 · {question.createdWhen}</S.QuestionTime>
         <S.QuestionText>{question.content}</S.QuestionText>
       </S.QuestionBox>
       <S.AnswerFrame>
@@ -27,15 +41,29 @@ export default function QuestionAnswerCard({
             <S.AnswerBox>
               <AnswerNameBox>
                 <S.AnswerName>{subjectData.name}</S.AnswerName>
-                <S.AnswerTime>{question.answer.createdAt}</S.AnswerTime>
+                <S.AnswerTime>{question.answer.createdWhen}</S.AnswerTime>
               </AnswerNameBox>
-              <S.AnswerText>{question.answer.content}</S.AnswerText>
+
+              {isEditMode ? (
+                <AnswerInput
+                  isEditMode
+                  questionId={question.id}
+                  answerId={question.answer.id}
+                />
+              ) : (
+                <S.AnswerText $isRejected>
+                  {isRejected ? '답변거절' : question.answer.content}
+                </S.AnswerText>
+              )}
             </S.AnswerBox>
           </>
-        ) : null}
+        ) : (
+          ''
+        )}
       </S.AnswerFrame>
       <S.ReactionFrame>
-        <ReactionButton />
+        <ReactionButton question={question} />
+        <DeleteQuestionButton questionId={question.id} />
       </S.ReactionFrame>
     </QuestionWrapper>
   );
@@ -95,8 +123,10 @@ const QuestionText = styled.div`
 
 const ReactionFrame = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  // flex-direction: column;
+  justify-content: space-between;
+
+  align-items: center;
   padding-top: 2.4rem;
   align-self: stretch;
   border-top: 1px solid ${({ theme }) => theme.colorGrayScale30};
@@ -178,8 +208,16 @@ const AnswerNameBox = styled.div`
   gap: 8px;
 `;
 
+const COLORS = {
+  normal: 'var(--color-grayscale-60)',
+  red: 'var(--color-red-50)',
+};
+
 const AnswerText = styled.p`
-  color: var(--Grayscale-60, #000);
+  // color: var(--Grayscale-60, #000);
+  // color: var(--color-red-50);
+  color: ${({ $isRejected }) =>
+    $isRejected ? COLORS.red : COLORS.normal}; //컬러가 안 먹음..why?
   font-feature-settings:
     'clig' off,
     'liga' off;

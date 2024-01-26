@@ -6,7 +6,6 @@ import QuestionListPage from './pages/QuestionListPage';
 import AnswerPage from './pages/AnswerPage';
 import QuestionFeedPage from './pages/QuestionFeedPage';
 import GlobalStyle from './styles/GlobalStyle';
-import NoQuestionFeedPage from './components/NoQuestionFeedPage';
 import theme from './styles/Theme';
 import ThemeContext from './contexts/ThemeContext';
 import ThemeButton from './components/Buttons/ThemeButton';
@@ -31,7 +30,6 @@ function App() {
             <Route path="/post">
               <Route path=":id/answer" element={<AnswerPage />} />
               <Route path=":id" element={<QuestionFeedPage />} />
-              <Route path="no" element={<NoQuestionFeedPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -1,23 +1,45 @@
+/* eslint-disable react/destructuring-assignment */
 import styled from 'styled-components';
 import { useState } from 'react';
 import thumbsUp from '../../assets/thumbs-up.svg';
 import thumbsDown from '../../assets/thumbs-down.svg';
+import clickedThumbsUp from '../../assets/clicked-thumbs-up.svg';
+import clickedThumbsDown from '../../assets/clicked-thumbs-down.svg';
 import storeReaction from '../../services/storeReaction';
 
-export default function ReactionButton({
-  // 사용하는 페이지에서 api 받아와서 id 및 reaction개수 전달받아야함
-  id = 3634,
-  likeCount = 0,
-  dislikeCount = 0,
-}) {
+export default function ReactionButton({ question: { id, like, dislike } }) {
   const [reaction, setReaction] = useState({
-    like: likeCount,
-    dislike: dislikeCount,
+    like,
+    dislike,
+    likeIcon: thumbsUp,
+    dislikeIcon: thumbsDown,
   });
 
   const handleEmotion = async type => {
-    const { like, dislike } = await storeReaction({ id, type }); //  questions/{id}/reaction 보내고 받아오면 그 like, dislike 값 받아와서 상태값 업데이트
-    setReaction({ like, dislike });
+    const likeAndDislike = await storeReaction({ id, type }); //  questions/{id}/reaction 보내고 받아오면 그 like, dislike 값 받아와서 상태값 업데이트
+    if (type === 'like') {
+      setReaction({
+        like: likeAndDislike.like,
+        dislike: likeAndDislike.dislike,
+        likeIcon: clickedThumbsUp,
+        dislikeIcon: thumbsDown,
+      });
+    } else {
+      setReaction({
+        like: likeAndDislike.like,
+        dislike: likeAndDislike.dislike,
+        likeIcon: thumbsUp,
+        dislikeIcon: clickedThumbsDown,
+      });
+    }
+    setTimeout(() => {
+      setReaction({
+        like: likeAndDislike.like,
+        dislike: likeAndDislike.dislike,
+        likeIcon: thumbsUp,
+        dislikeIcon: thumbsDown,
+      });
+    }, [400]);
   };
 
   return (
@@ -27,7 +49,7 @@ export default function ReactionButton({
           handleEmotion('like');
         }}
       >
-        <img src={thumbsUp} alt="thumbs-up" />
+        <img src={reaction.likeIcon} alt="thumbs-up" />
         <span>좋아요</span>
         <span>{reaction.like}</span>
       </S.LikeBox>
@@ -36,7 +58,7 @@ export default function ReactionButton({
           handleEmotion('dislike');
         }}
       >
-        <img src={thumbsDown} alt="thumbs-down" />
+        <img src={reaction.dislikeIcon} alt="thumbs-down" />
         <span>싫어요</span>
         <span>{reaction.dislike}</span>
       </S.LikeBox>
@@ -51,10 +73,11 @@ const ReactionBox = styled.span`
 `;
 
 const LikeBox = styled.span`
+  cursor: pointer;
+  user-select: none;
   display: flex;
   align-items: center;
   gap: 0.6rem;
-
   color: ${({ theme }) => theme.colorGrayScale40};
   font-feature-settings:
     'clig' off,
