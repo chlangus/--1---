@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { React, useState } from 'react';
 import styled from 'styled-components';
+import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
 import profileImg from '../assets/sample-profile-img.svg';
@@ -10,12 +11,13 @@ import DeleteQuestionButton from './Buttons/DeleteQuestionButton';
 
 export default function QuestionAnswerCard({
   question,
-  subjectData,
   isAnswerPage,
   isRejected,
   setIsRejected,
 }) {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [subjectData] = useSubjectDataRecoil();
+
   return (
     <QuestionWrapper>
       <S.BadgeFrame>
@@ -26,7 +28,7 @@ export default function QuestionAnswerCard({
             setIsEditMode={setIsEditMode}
             setIsRejected={setIsRejected}
             questionId={question.id}
-            // answerId={question.answer.id}
+            answerId={question?.answer?.id}
           />
         )}
       </S.BadgeFrame>
@@ -58,12 +60,20 @@ export default function QuestionAnswerCard({
             </S.AnswerBox>
           </>
         ) : (
-          ''
+          <>
+            <S.Profile src={subjectData.imageSource} alt="profile" />
+            <S.AnswerBox>
+              <AnswerNameBox>
+                <S.AnswerName>{subjectData.name}</S.AnswerName>
+              </AnswerNameBox>
+              <AnswerInput questionId={question.id} />
+            </S.AnswerBox>
+          </>
         )}
       </S.AnswerFrame>
       <S.ReactionFrame>
         <ReactionButton question={question} />
-        <DeleteQuestionButton questionId={question.id} />
+        {isAnswerPage && <DeleteQuestionButton questionId={question.id} />}
       </S.ReactionFrame>
     </QuestionWrapper>
   );
