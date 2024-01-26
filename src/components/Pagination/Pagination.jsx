@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 
 function sliceArrayByLimit(array, limit) {
   const slicedArray = [];
-  for (let i = 0; i < array.length; i += limit) {
+  const totalItems = array.length;
+  for (let i = 0; i < totalItems; i += limit) {
     slicedArray.push(array.slice(i, i + limit));
   }
   return slicedArray;
@@ -14,17 +15,24 @@ function Pagination({ cardsPerPage, totalCards, setPage, currentPage }) {
 
   useEffect(() => {
     const calculatedTotalPages = Math.ceil(totalCards / cardsPerPage);
+    console.log('calculatedTotalPages:', calculatedTotalPages);
     setTotalPages(calculatedTotalPages);
 
-    const pageArray = Array.from(
-      { length: calculatedTotalPages },
-      index => index + 1,
-    );
-    const groupedPages = sliceArrayByLimit(pageArray, 5);
-    setPageGroups(groupedPages);
+    if (calculatedTotalPages > 1) {
+      const pageArray = Array.from(
+        { length: calculatedTotalPages },
+        (_, index) => index + 1,
+      );
+      console.log('pageArray:', pageArray);
+      const groupedPages = sliceArrayByLimit(pageArray, 5);
+      setPageGroups(groupedPages);
+    } else {
+      setPageGroups([]);
+    }
   }, [totalCards, cardsPerPage]);
 
   const handlePageChange = newPage => {
+    console.log('newpage:', newPage);
     if (newPage >= 1 && newPage <= totalPages) {
       setPage(newPage);
     }
@@ -40,14 +48,18 @@ function Pagination({ cardsPerPage, totalCards, setPage, currentPage }) {
         &lt;
       </button>
       <div>
-        {pageGroups.map(page => (
-          <button
-            key={page}
-            type="button"
-            onClick={() => handlePageChange(page)}
-          >
-            {page}
-          </button>
+        {pageGroups.map(group => (
+          <div key={group} style={{ display: 'flex' }}>
+            {group.map(page => (
+              <button
+                key={page}
+                type="button"
+                onClick={() => handlePageChange(page)}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
         ))}
       </div>
       <button
