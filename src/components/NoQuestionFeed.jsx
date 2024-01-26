@@ -21,7 +21,7 @@ const NoQuestionWapper = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin: 54px auto;
+  margin: 0 auto;
 `;
 
 const NoQuestionBox = styled.div`
