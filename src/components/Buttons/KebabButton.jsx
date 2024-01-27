@@ -12,7 +12,11 @@ export default function KebabButton({ questionId, answerId }) {
   return (
     <>
       <EditButton type="button" onClick={() => setIsOpenModal(pre => !pre)}>
-        <img src={mode === 'light' ? kebabImg : darkKebabImg} alt="show-more" />
+        <img
+          id="kebab"
+          src={mode === 'light' ? kebabImg : darkKebabImg}
+          alt="show-more"
+        />
       </EditButton>
 
       {isOpenModal && (

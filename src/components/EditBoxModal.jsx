@@ -39,12 +39,14 @@ export default function EditBoxModal({
   };
 
   const handleDelete = async () => {
+    // setEditModeId(null);
     alert('정말로 삭제하시겠습니까?');
     await deleteAnswer(answerId);
     setQuestion(null, questionId);
   };
 
   const handleReject = async () => {
+    setEditModeId(null);
     if (answerId) {
       const result = await patchAnswer(answerId, {
         isRejected: 'true',

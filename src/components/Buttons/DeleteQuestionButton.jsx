@@ -9,7 +9,7 @@ function DeleteQuestionButton({ questionId }) {
   const handleDelete = async () => {
     alert('정말로 삭제하시겠습니까?');
     await deleteQuestion(questionId);
-    setQuestion(null, questionId);
+    setQuestion(null, questionId, true);
   };
   return (
     <S.Button onClick={handleDelete}>
