@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import useQuestionsAtom from '../components/hooks/useQuestions';
+import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
 import FeedCard from '../components/FeedCard';
@@ -13,8 +15,9 @@ export default function AnswerPage() {
   const { id } = useParams();
 
   const [subjectId, setSubjectId] = useState(id);
-  const [questions, setQuestions] = useState([]);
-  const [isRejected, setIsRejected] = useState(false);
+  const [questions, setQuestions] = useQuestionsAtom();
+  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+  console.log(subjectData);
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
@@ -35,13 +38,17 @@ export default function AnswerPage() {
         setQuestions([]);
       }
     });
-  }, [subjectId, isRejected]);
+  }, [setSubjectData]);
 
   return (
     <Wrapper>
       <QuestionFeedHeader subjectId={subjectId} />
       <S.DeleteAndFeed>
-        <DeleteAllButton text="삭제하기" />
+        <DeleteAllButton
+          text="삭제하기"
+          questions={questions}
+          setQuestions={setQuestions}
+        />
 
         {questions.length === 0 ? (
           <NoQuestionFeed />
@@ -55,8 +62,6 @@ export default function AnswerPage() {
                   question={questionItem}
                   subjectId={subjectId}
                   setSubjectId={setSubjectId}
-                  isRejected={questionItem?.answer?.isRejected}
-                  setIsRejected={setIsRejected}
                 />
               ))}
             </FeedBox>
@@ -73,6 +78,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 5.4rem;
+
+  padding-bottom: 5.4rem;
 `;
 
 const FeedContainer = styled.div`

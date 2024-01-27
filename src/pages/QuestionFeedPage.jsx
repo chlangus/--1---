@@ -14,9 +14,11 @@ export default function QuestionFeedPage() {
   const { id } = useParams();
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
+
   const [subjectData, setSubjectData] = useSubjectDataRecoil();
 
   console.log(subjectData);
+
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
       if (data.results.length) {
@@ -33,6 +35,7 @@ export default function QuestionFeedPage() {
             : null,
         }));
         setQuestions(transformedQuestions);
+        console.log(transformedQuestions);
       } else {
         setQuestions([]);
       }

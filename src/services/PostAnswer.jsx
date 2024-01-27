@@ -14,7 +14,8 @@ async function postAnswer(questionId, answer) {
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
-    return null;
+    const result = await response.json();
+    return result;
   } catch (error) {
     console.error(error);
     return null;
