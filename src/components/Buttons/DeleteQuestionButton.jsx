@@ -1,25 +1,59 @@
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import deleteQuestion from '../../services/DeleteQuestion';
 import binIcon from '../../assets/Trash.svg';
 import useQuestionsAtom from '../hooks/useQuestions';
+import AlertModal from '../Modal/AlertModal';
 
 function DeleteQuestionButton({ questionId }) {
   const [questions, setQuestions, setQuestion] = useQuestionsAtom();
   console.log(questions, setQuestions);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const modalRef = useRef();
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const clickOutside = e => {
+    if (modalRef.current && modalRef.current === e.target) {
+      setModalOpen(false);
+    }
+  };
+
   const handleDelete = async () => {
-    alert('정말로 삭제하시겠습니까?');
     await deleteQuestion(questionId);
     setQuestion(null, questionId, true);
   };
   return (
-    <S.Button onClick={handleDelete}>
-      <img src={binIcon} alt="delete" />
-      <S.Content>
-        <span>질문삭제</span>
-      </S.Content>
-    </S.Button>
+    <>
+      <S.Button onClick={() => setModalOpen(true)}>
+        <img src={binIcon} alt="delete" />
+        <S.Content>
+          <span>질문삭제</span>
+        </S.Content>
+      </S.Button>
+      {modalOpen && (
+        <AlertModal
+          setModalOpen={setModalOpen}
+          handleDelete={handleDelete}
+          closeModal={handleCloseModal}
+        />
+      )}
+      <OutSide
+        tabIndex={0}
+        role="button"
+        ref={modalRef}
+        onClick={clickOutside}
+        onKeyDown={clickOutside}
+        aria-label="외부 클릭시 닫힘"
+      />
+    </>
   );
 }
+const OutSide = styled.div`
+  display: none;
+`;
 const Button = styled.button`
   display: flex;
   // width: 120px;

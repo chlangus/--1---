@@ -1,10 +1,10 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import useEditMode from './hooks/useEditMode';
-import deleteAnswer from '../services/DeleteAnswer';
-import postAnswer from '../services/PostAnswer';
-import patchAnswer from '../services/PatchAnswer';
-import useQuestionsAtom from './hooks/useQuestions';
+import useEditMode from '../hooks/useEditMode';
+import deleteAnswer from '../../services/DeleteAnswer';
+import postAnswer from '../../services/PostAnswer';
+import patchAnswer from '../../services/PatchAnswer';
+import useQuestionsAtom from '../hooks/useQuestions';
 
 export default function EditBoxModal({
   isOpenModal,
