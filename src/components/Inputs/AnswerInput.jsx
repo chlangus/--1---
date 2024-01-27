@@ -7,7 +7,6 @@ import useQuestionsAtom from '../hooks/useQuestions';
 import useEditMode from '../hooks/useEditMode';
 
 export default function AnswerInput({ questionId, answerId, isEditMode }) {
-  // const [editModeId, setEditModeId] = useEditMode();
   const btnText = isEditMode ? '수정 완료' : '답변 완료';
   const [answer, setAnswer] = useState('');
   const [questions, setQuestions, setQuestion] = useQuestionsAtom();
@@ -20,10 +19,11 @@ export default function AnswerInput({ questionId, answerId, isEditMode }) {
   };
 
   const handlePostClick = async () => {
-    await postAnswer(questionId, {
+    const result = await postAnswer(questionId, {
       content: answer,
       isRejected: 'false',
     });
+    setQuestion(result, result.questionId);
   };
 
   const handlePatchClick = async () => {
@@ -32,7 +32,7 @@ export default function AnswerInput({ questionId, answerId, isEditMode }) {
     });
     setQuestion(result, result.questionId);
     setEditModeId(null);
-    console.log('editModeId: ', editModeId);
+    console.log('editModeId', editModeId);
   };
   return (
     <Input>

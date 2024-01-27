@@ -16,11 +16,6 @@ export default function AnswerPage() {
 
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useQuestionsAtom();
-  // const [subjectData, setSubjectData] = useState({
-  //   imageSource: '',
-  //   name: '',
-  //   questionCount: '',
-  // });
   const [subjectData, setSubjectData] = useSubjectDataRecoil();
   console.log(subjectData);
 

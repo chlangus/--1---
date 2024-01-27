@@ -41,6 +41,7 @@ export default function EditBoxModal({
   const handleDelete = async () => {
     alert('정말로 삭제하시겠습니까?');
     await deleteAnswer(answerId);
+    setQuestion(null, questionId);
   };
 
   const handleReject = async () => {
@@ -48,14 +49,14 @@ export default function EditBoxModal({
       const result = await patchAnswer(answerId, {
         isRejected: 'true',
       });
-      console.log('거절: ', result);
+      console.log(' patch거절: ', result);
       setQuestion(result, result.questionId);
     } else {
       const result = await postAnswer(questionId, {
         content: 'default',
         isRejected: 'true',
       });
-      console.log('거절: ', result);
+      console.log('post거절: ', result);
       setQuestion(result, result.questionId);
     }
   };

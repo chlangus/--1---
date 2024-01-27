@@ -8,6 +8,7 @@ const questionsAtom = atom({
 export default function useQuestionsAtom() {
   const [questions, setQuestions] = useRecoilState(questionsAtom);
   function setQuestion(newAnswer, questionId) {
+    console.log('newAnswer, questionId', newAnswer, questionId);
     const updatedQuestionIdx = questions.findIndex(q => q.id === questionId);
     const newQuestion = { ...questions[updatedQuestionIdx], answer: newAnswer };
 

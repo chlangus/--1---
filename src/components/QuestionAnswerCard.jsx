@@ -13,7 +13,6 @@ import DeleteQuestionButton from './Buttons/DeleteQuestionButton';
 
 export default function QuestionAnswerCard({ question, isAnswerPage }) {
   const [editModeId] = useEditMode();
-
   const [subjectData] = useSubjectDataRecoil();
 
   return (
@@ -50,12 +49,14 @@ export default function QuestionAnswerCard({ question, isAnswerPage }) {
             ) : (
               <S.AnswerText
                 style={{
-                  color: false
+                  color: question.answer.isRejected
                     ? 'var(--color-red-50)'
                     : 'var(--color-grayscale-60)',
                 }}
               >
-                {false ? '답변거절' : question.answer.content}
+                {question.answer.isRejected
+                  ? '답변거절'
+                  : question.answer.content}
               </S.AnswerText>
             )}
           </S.AnswerBox>
