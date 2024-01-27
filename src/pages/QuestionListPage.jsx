@@ -11,15 +11,13 @@ function Navbar() {
   const navigateToPage = useNavigate();
 
   const handleIsUserID = () => {
-    const userAccounts = JSON.parse(localStorage.getItem('userAccounts'));
-    const firstUserId =
-      userAccounts && userAccounts.length > 0 ? userAccounts[0].id : null;
-    if (firstUserId === null) {
+    const userAccount = JSON.parse(localStorage.getItem('id'));
+    if (userAccount === null) {
       // eslint-disable-next-line no-console
       console.log('로컬 스토리지에 아이디가 없습니다');
       navigateToPage(`/`);
     } else {
-      navigateToPage(`/post/${firstUserId}/answer`);
+      navigateToPage(`/post/${userAccount}/answer`);
     }
   };
 

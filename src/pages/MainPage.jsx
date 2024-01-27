@@ -10,9 +10,12 @@ import GetQuestionButton from '../components/Buttons/GetQuestionButton';
 import storeId from '../services/storeId';
 import SendQuestionButton from '../components/Buttons/SendQuestionButton';
 import ThemeContext from '../contexts/ThemeContext';
+import IdSelectButton from '../components/Buttons/IdSelectButton';
 
 export default function MainPage() {
   const [inputValue, setInputValue] = useState('');
+  const [connectType, setConnectType] = useState('');
+  const [nicknames, setNicknames] = useState([]);
   const navigate = useNavigate();
   const handleInputValue = name => {
     setInputValue(name);
@@ -23,6 +26,8 @@ export default function MainPage() {
     if (localStorage.getItem('userAccounts') === null) {
       // 저장된 데이터 없으면 배열로 초기화
       localStorage.setItem('userAccounts', JSON.stringify([]));
+    } else {
+      setNicknames(JSON.parse(localStorage.getItem('userAccounts')));
     }
   }, []);
 
@@ -34,8 +39,14 @@ export default function MainPage() {
     const values = JSON.parse(localStorage.getItem('userAccounts')); // 기존 데이터 불러와서 데이터타입 변환
 
     values.unshift({ id, name: inputValue }); // 배열 앞에 유저정보 저장
+    localStorage.setItem('id', JSON.stringify(id)); // 현재 유저 정보 저장
     localStorage.setItem('userAccounts', JSON.stringify(values)); // 이 브라우저의 모든 유저 정보 저장
     navigate(`/post/${id}/answer`); // id에따른 answer페이지로 이동
+  };
+
+  const selectNickname = id => {
+    localStorage.setItem('id', JSON.stringify(id)); // 현재 유저 정보 저장
+    navigate(`/post/${id}/answer`);
   };
   return (
     <PageWrapper>
@@ -47,10 +58,26 @@ export default function MainPage() {
           </ButtonWrapper>
         </Link>
         <InputAndButtonBox>
-          <NameInput onHandleInput={handleInputValue} />
-          <GetQuestionButton onHandleButton={sendName}>
-            질문 받기
-          </GetQuestionButton>
+          <IdSelectButton setConnectType={setConnectType} />
+          {connectType &&
+            (connectType === 'ordinary' ? (
+              nicknames.map(nickname => (
+                <button
+                  type="button"
+                  key={nickname.id}
+                  onClick={() => selectNickname(nickname.id)}
+                >
+                  {nickname.name}
+                </button>
+              ))
+            ) : (
+              <>
+                <NameInput onHandleInput={handleInputValue} />
+                <GetQuestionButton onHandleButton={sendName}>
+                  질문 받기
+                </GetQuestionButton>
+              </>
+            ))}
         </InputAndButtonBox>
       </MainLogoAndInputWrapper>
     </PageWrapper>
