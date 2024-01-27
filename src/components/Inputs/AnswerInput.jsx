@@ -4,13 +4,15 @@ import styled from 'styled-components';
 import postAnswer from '../../services/PostAnswer';
 import patchAnswer from '../../services/PatchAnswer';
 import useQuestionsAtom from '../hooks/useQuestions';
-// import useEditMode from '../hooks/useEditMode';
+import useEditMode from '../hooks/useEditMode';
 
 export default function AnswerInput({ questionId, answerId, isEditMode }) {
   // const [editModeId, setEditModeId] = useEditMode();
   const btnText = isEditMode ? '수정 완료' : '답변 완료';
   const [answer, setAnswer] = useState('');
   const [questions, setQuestions, setQuestion] = useQuestionsAtom();
+  const [editModeId, setEditModeId] = useEditMode();
+
   console.log(questions, setQuestions);
   // textarea 값이 변경될 때마다 호출
   const handleAnswerChange = e => {
@@ -29,6 +31,8 @@ export default function AnswerInput({ questionId, answerId, isEditMode }) {
       content: answer,
     });
     setQuestion(result, result.questionId);
+    setEditModeId(null);
+    console.log('editModeId: ', editModeId);
   };
   return (
     <Input>

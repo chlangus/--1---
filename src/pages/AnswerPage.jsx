@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import useQuestionsAtom from '../components/hooks/useQuestions';
+import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
 import FeedCard from '../components/FeedCard';
-import useQuestionsAtom from '../components/hooks/useQuestions';
 import DeleteAllButton from '../components/Buttons/DeleteAllButton';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';

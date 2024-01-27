@@ -13,7 +13,6 @@ import DeleteQuestionButton from './Buttons/DeleteQuestionButton';
 
 export default function QuestionAnswerCard({ question, isAnswerPage }) {
   const [editModeId] = useEditMode();
-  console.log(question);
 
   const [subjectData] = useSubjectDataRecoil();
 
