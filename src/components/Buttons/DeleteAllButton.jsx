@@ -1,21 +1,55 @@
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import deleteQuestion from '../../services/DeleteQuestion';
+import AlertModal from '../Modal/AlertModal';
 
 function DeleteAllButton({ text, questions, setQuestions }) {
-  const handleDelete = () => {
-    alert('정말로 삭제하시겠습니까?'); // 얘도 모달로 만들까 고민중..
-    questions.map(item => deleteQuestion(item.id));
+  const [modalOpen, setModalOpen] = useState(false);
+  const modalRef = useRef();
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const clickOutside = e => {
+    if (modalRef.current && modalRef.current === e.target) {
+      setModalOpen(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    await questions.map(item => deleteQuestion(item.id));
     // 아마 피드 불러오는 개수 때문인거 같은데 9개 이상부터 한번에 삭제가 안됨... 1-8개까지는 ㄱㅊ
     setQuestions([]);
+    setModalOpen(false);
   };
 
   return (
-    <Button onClick={handleDelete}>
-      <ButtonText>{text}</ButtonText>
-    </Button>
+    <>
+      <Button onClick={() => setModalOpen(true)}>
+        <ButtonText>{text}</ButtonText>
+      </Button>
+      {modalOpen && (
+        <AlertModal
+          setModalOpen={setModalOpen}
+          handleDelete={handleDelete}
+          closeModal={handleCloseModal}
+        />
+      )}
+      <OutSide
+        tabIndex={0}
+        role="button"
+        ref={modalRef}
+        onClick={clickOutside}
+        onKeyDown={clickOutside}
+        aria-label="외부 클릭시 닫힘"
+      />
+    </>
   );
 }
-
+const OutSide = styled.div`
+  display: none;
+`;
 const Button = styled.button`
   display: flex;
   width: 70px;
