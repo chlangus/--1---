@@ -19,43 +19,11 @@ export default function QuestionFeedPage() {
     name: '',
     questionCount: '',
   });
-
-  const [ref, inView] = useInView();
-
-  const loadMoreQuestions = async () => {
-    const data = await fetchQuestion(subjectId);
-    if (data.results?.length) {
-      const transformedQuestions = data.results.map(question => ({
-        ...question,
-        createdAt: timeSince(question.createdAt),
-        isAnswered: question.answer !== null,
-        answer: question.answer
-          ? {
-              ...question.answer,
-              createdAt: timeSince(question.answer.createdAt),
-            }
-          : null,
-      }));
-      setQuestions(prevQuestions => [
-        ...prevQuestions,
-        ...transformedQuestions,
-      ]);
-    }
-  };
-
-  // 맨 처음 렌더링 되었을 때 데이터를 한번 불러옴
-  useEffect(() => {
-    loadMoreQuestions();
-  }, []);
-
-  // isView가 true 일 때만 데이터를 불러옴!
-  // 보였다 안보이면 true에서 false로 바뀌기 때문에 useEffect가 두번 실행됨!
-  useEffect(() => {
-    if (inView) {
-      console.log('무한스크롤해줘잉', inView);
-      loadMoreQuestions();
-    }
-  }, [inView]);
+  const [ref, inView] = useInView({
+    triggerOnce: false,
+    rootMargin: '100px',
+  });
+  // const [moreData, setMoreData] = useState([]);
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
@@ -78,6 +46,35 @@ export default function QuestionFeedPage() {
       }
     });
   }, []);
+
+  const loadMoreQuestions = async () => {
+    try {
+      const data = await fetchQuestion(subjectId, offset, limit);
+      const transformedQuestions = data.results.map(question => ({
+        ...question,
+      }));
+
+      setQuestions(prevData => [...prevData, ...transformedQuestions]);
+
+      console.log('data:', data);
+    } catch (error) {
+      console.error('데이터를 가져오는 중 오류 발생:', error);
+    }
+  };
+
+  // 맨 처음 렌더링 되었을 때 데이터를 한번 불러옴
+  // useEffect(() => {
+  //   loadMoreQuestions();
+  // }, [subjectId]);
+
+  // inView가 true 일 때만 데이터를 불러옴!
+  // 보였다 안보이면 true에서 false로 바뀌기 때문에 useEffect가 두번 실행됨!
+  useEffect(() => {
+    if (inView) {
+      loadMoreQuestions();
+    }
+  }, [inView, subjectId]);
+
   return (
     <Wrapper>
       <QuestionFeedHeader
@@ -100,7 +97,12 @@ export default function QuestionFeedPage() {
               />
             ))}
           </FeedBox>
-          <div ref={ref}>하이</div>
+          <div>
+            {questions.map(data => (
+              <div key={data.subjectId}>{data.content}</div>
+            ))}
+            <div ref={ref}>하이</div>
+          </div>
         </FeedContainer>
       )}
       <QuestionWriteButton

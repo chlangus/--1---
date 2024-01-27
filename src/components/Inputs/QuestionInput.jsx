@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import fetchSubject from '../../services/FetchSubject';
+import fetchQuestion from '../../services/FetchQuestion';
 import timeSince from '../../utils/TimeSince';
 
 export default function QuestionInput({
@@ -77,7 +78,6 @@ export default function QuestionInput({
             value={question}
             onChange={handleQuestionChange}
           />
-          -
         </div>
         <Button
           question={question}
@@ -185,7 +185,6 @@ const Button = styled.button`
   border: none;
   cursor: ${({ question }) => (question ? 'pointer' : 'default')};
   background: ${({ question, theme }) =>
-    question ? theme.colorBrown30 : theme.colorBrown10};
-  color: ${({ question, theme }) =>
-    question ? theme.colorBrown10 : theme.colorBrown30};
+    question ? theme.colorBrown50 : theme.colorBrown30};
+  color: ${({ theme }) => theme.colorBrown10};
 `;
