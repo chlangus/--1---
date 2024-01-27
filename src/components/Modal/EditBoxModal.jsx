@@ -1,10 +1,10 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import useEditMode from './hooks/useEditMode';
-import deleteAnswer from '../services/DeleteAnswer';
-import postAnswer from '../services/PostAnswer';
-import patchAnswer from '../services/PatchAnswer';
-import useQuestionsAtom from './hooks/useQuestions';
+import useEditMode from '../hooks/useEditMode';
+import deleteAnswer from '../../services/DeleteAnswer';
+import postAnswer from '../../services/PostAnswer';
+import patchAnswer from '../../services/PatchAnswer';
+import useQuestionsAtom from '../hooks/useQuestions';
 
 export default function EditBoxModal({
   isOpenModal,
@@ -39,12 +39,14 @@ export default function EditBoxModal({
   };
 
   const handleDelete = async () => {
+    // setEditModeId(null);
     alert('정말로 삭제하시겠습니까?');
     await deleteAnswer(answerId);
     setQuestion(null, questionId);
   };
 
   const handleReject = async () => {
+    setEditModeId(null);
     if (answerId) {
       const result = await patchAnswer(answerId, {
         isRejected: 'true',

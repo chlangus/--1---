@@ -29,6 +29,7 @@ export default function AnswerInput({ questionId, answerId, isEditMode }) {
   const handlePatchClick = async () => {
     const result = await patchAnswer(answerId, {
       content: answer,
+      isRejected: 'false',
     });
     setQuestion(result, result.questionId);
     setEditModeId(null);
@@ -37,7 +38,7 @@ export default function AnswerInput({ questionId, answerId, isEditMode }) {
   return (
     <Input>
       <textarea
-        placeholder="질문을 입력해주세요"
+        placeholder="답변을 입력해주세요"
         value={answer}
         onChange={handleAnswerChange}
       />
