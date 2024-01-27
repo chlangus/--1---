@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 // 페이지 단위 기준으로 배열 그룹화하는 함수
 function sliceArrayByLimit(array, limit) {
@@ -11,11 +11,17 @@ function sliceArrayByLimit(array, limit) {
   return slicedArray;
 }
 
-function Pagination({ cardsPerPage, totalCards, setPage, currentPage }) {
+export default function Pagination({
+  cardsPerPage,
+  totalCards,
+  setPage,
+  currentPage,
+}) {
   const [pageGroups, setPageGroups] = useState([]);
   const [totalPageArray, setTotalPageArray] = useState([]);
   const totalPages = Math.ceil(totalCards / cardsPerPage);
   const PAGE_BUNDLE = 5;
+  const FIRST_PAGE = 1;
 
   // 페이지 단위로 그룹 업데이트 (1 ~ 5)->(6 ~ 10)
   useEffect(() => {
@@ -27,12 +33,9 @@ function Pagination({ cardsPerPage, totalCards, setPage, currentPage }) {
   }, [currentPage, totalPageArray]);
 
   // 각 페이지들에 숫자 부여, 배열 그룹화
+  const pageArray = Array.from({ length: totalPages }, (_, index) => index + 1);
+  const slicedPageArray = sliceArrayByLimit(pageArray, PAGE_BUNDLE);
   useEffect(() => {
-    const pageArray = Array.from(
-      { length: totalPages },
-      (_, index) => index + 1,
-    );
-    const slicedPageArray = sliceArrayByLimit(pageArray, PAGE_BUNDLE);
     setTotalPageArray(slicedPageArray);
     setPageGroups(slicedPageArray[0]);
   }, [totalPages]);
@@ -41,59 +44,79 @@ function Pagination({ cardsPerPage, totalCards, setPage, currentPage }) {
   const handlePageChange = newPage => {
     console.log('newpage:', newPage);
     console.log('totalPages:', totalPages);
-    if (newPage >= 1 && newPage <= totalPages) {
+    console.log('current:', currentPage);
+    if (newPage >= FIRST_PAGE && newPage <= totalPages) {
       setPage(newPage);
       setPageGroups(
         totalPageArray.find(group => group.includes(newPage)) || [],
       );
     }
   };
-
   return (
-    <div>
-      <button
-        type="button"
-        onClick={() => handlePageChange(1)}
-        disabled={currentPage === 1}
-      >
-        처음
-      </button>
-      <button
-        type="button"
-        onClick={() => handlePageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        &lt;
-      </button>
-      <div>
-        <div>
-          {pageGroups?.map(page => (
-            <button
-              key={page}
-              type="button"
-              onClick={() => handlePageChange(page)}
-            >
-              {page}
-            </button>
-          ))}
-        </div>
-      </div>
-      <button
-        type="button"
-        onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        &gt;
-      </button>
-      <button
-        type="button"
-        onClick={() => handlePageChange(totalPages)}
-        disabled={currentPage === totalPages}
-      >
-        마지막
-      </button>
-    </div>
+    <PageButtonWrap>
+      {currentPage > FIRST_PAGE && currentPage !== 2 && (
+        <PageButton type="button" onClick={() => handlePageChange(FIRST_PAGE)}>
+          {'<<'}
+        </PageButton>
+      )}
+      {currentPage > FIRST_PAGE && (
+        <PageButton
+          type="button"
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          {'<'}
+        </PageButton>
+      )}
+
+      {pageGroups?.map(page => (
+        <PageButton
+          $currentPage={currentPage}
+          key={page}
+          type="button"
+          onClick={() => handlePageChange(page)}
+        >
+          {page}
+        </PageButton>
+      ))}
+      {currentPage < totalPages && (
+        <PageButton
+          type="button"
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          {'>'}
+        </PageButton>
+      )}
+      {currentPage < totalPages && currentPage !== totalPages - 1 && (
+        <PageButton type="button" onClick={() => handlePageChange(totalPages)}>
+          {'>>'}
+        </PageButton>
+      )}
+    </PageButtonWrap>
   );
 }
+const PageButtonWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50rem;
+  height: 4rem;
+  gap: 1.8rem;
+`;
 
-export default Pagination;
+const PageButton = styled.button`
+  color: var(--color-grayscale-60);
+  font-size: 2rem;
+  border: none;
+  cursor: pointer;
+  background-color: var(--color-grayscale-20);
+
+  &:hover {
+    color: var(--color-blue-50);
+  }
+
+  &.currentPage {
+    color: var(--color-yellow-50);
+  }
+`;
