@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useQuestionsAtom from '../components/hooks/useQuestions';
-import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
+import useSubjectData from '../components/hooks/useSubjectData';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
 import FeedCard from '../components/FeedCard';
@@ -13,10 +13,9 @@ import NoQuestionFeed from '../components/NoQuestionFeed';
 
 export default function AnswerPage() {
   const { id } = useParams();
-
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useQuestionsAtom();
-  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+  const [subjectData, setSubjectData] = useSubjectData();
   console.log(subjectData);
 
   useEffect(() => {

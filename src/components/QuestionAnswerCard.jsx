@@ -2,8 +2,7 @@
 import { React } from 'react';
 import styled from 'styled-components';
 import useEditMode from './hooks/useEditMode';
-import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
-
+import useSubjectData from './hooks/useSubjectData';
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
 import profileImg from '../assets/sample-profile-img.svg';
@@ -13,7 +12,7 @@ import DeleteQuestionButton from './Buttons/DeleteQuestionButton';
 
 export default function QuestionAnswerCard({ question, isAnswerPage }) {
   const [editModeId] = useEditMode();
-  const [subjectData] = useSubjectDataRecoil();
+  const [subjectData] = useSubjectData();
 
   return (
     <QuestionWrapper>

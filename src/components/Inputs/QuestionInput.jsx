@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import fetchSubject from '../../services/FetchSubject';
 import timeSince from '../../utils/TimeSince';
-import useSubjectDataRecoil from '../../contexts/useSubjectDataRecoil';
+import useSubjectData from '../hooks/useSubjectData';
 
 export default function QuestionInput({
   handleStoreQuestion,
@@ -10,7 +10,7 @@ export default function QuestionInput({
   setModalOpen,
 }) {
   const [question, setQuestion] = useState('');
-  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+  const [subjectData, setSubjectData] = useSubjectData();
 
   // 텍스트 에어리어 값이 변경될 때마다 호출되는 함수
   // 현재 값으로 question 상태를 업데이트

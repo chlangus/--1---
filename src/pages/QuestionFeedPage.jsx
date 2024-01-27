@@ -8,14 +8,14 @@ import QuestionWriteButton from '../components/Buttons/QuestionWriteButton';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
 import NoQuestionFeed from '../components/NoQuestionFeed';
-import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
+import useSubjectData from '../components/hooks/useSubjectData';
 
 export default function QuestionFeedPage() {
   const { id } = useParams();
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
 
-  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+  const [subjectData, setSubjectData] = useSubjectData();
 
   console.log(subjectData);
 

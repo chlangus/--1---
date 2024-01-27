@@ -10,11 +10,11 @@ import LinkShareIcon from '../Buttons/LinkShareIcon';
 import FacebookShareIcon from '../Buttons/FacebookShareIcon';
 import KakaoShareIcon from '../Buttons/KakaoShareIcon';
 import ThemeContext from '../../contexts/ThemeContext';
-import useSubjectDataRecoil from '../../contexts/useSubjectDataRecoil';
+import useSubjectData from '../hooks/useSubjectData';
 
 function QuestionFeedHeader({ subjectId }) {
   const mode = useContext(ThemeContext);
-  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+  const [subjectData, setSubjectData] = useSubjectData();
 
   useEffect(() => {
     if (typeof setSubjectData === 'function') {
