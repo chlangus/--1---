@@ -8,18 +8,16 @@ import QuestionWriteButton from '../components/Buttons/QuestionWriteButton';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
 import NoQuestionFeed from '../components/NoQuestionFeed';
+import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
 
 export default function QuestionFeedPage() {
   const { id } = useParams();
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
-  const [subjectData, setSubjectData] = useState({
-    imageSource: '',
-    name: '',
-    questionCount: '',
-  });
-  // 여기서 값을 받고 계시잖아요?
-  // 요 상태 값들을 다 리코일로 관리하실수도 있습니다!
+
+  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+
+  console.log(subjectData);
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
@@ -42,25 +40,20 @@ export default function QuestionFeedPage() {
         setQuestions([]);
       }
     });
-  }, []);
+  }, [setSubjectData]);
   return (
     <Wrapper>
-      <QuestionFeedHeader
-        subjectId={subjectId}
-        subjectData={subjectData}
-        setSubjectData={setSubjectData}
-      />
+      <QuestionFeedHeader subjectId={subjectId} />
       {questions.length === 0 ? (
         <NoQuestionFeed />
       ) : (
         <FeedContainer>
-          <FeedBox subjectData={subjectData}>
+          <FeedBox>
             {questions.map(questionItem => (
               <FeedCard
                 key={questionItem.id}
                 question={questionItem}
                 subjectId={subjectId}
-                subjectData={subjectData}
                 setSubjectId={setSubjectId}
               />
             ))}

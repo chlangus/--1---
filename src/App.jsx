@@ -1,6 +1,7 @@
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
+import { RecoilRoot } from 'recoil';
 import MainPage from './pages/MainPage';
 import QuestionListPage from './pages/QuestionListPage';
 import AnswerPage from './pages/AnswerPage';
@@ -18,23 +19,25 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={theme[mode]}>
-      <ThemeContext.Provider value={mode}>
-        <ThemeButton type="button" onClick={handleMode} />
-        <AudioButton />
-        <GlobalStyle />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/list" element={<QuestionListPage />} />
-            <Route path="/post">
-              <Route path=":id/answer" element={<AnswerPage />} />
-              <Route path=":id" element={<QuestionFeedPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </ThemeContext.Provider>
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={theme[mode]}>
+        <ThemeContext.Provider value={mode}>
+          <ThemeButton type="button" onClick={handleMode} />
+          <AudioButton />
+          <GlobalStyle />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/list" element={<QuestionListPage />} />
+              <Route path="/post">
+                <Route path=":id/answer" element={<AnswerPage />} />
+                <Route path=":id" element={<QuestionFeedPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </ThemeContext.Provider>
+      </ThemeProvider>
+    </RecoilRoot>
   );
 }
 

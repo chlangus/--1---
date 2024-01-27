@@ -5,7 +5,6 @@ import ModalWindow from '../Modal/ModalWindow';
 function QuestionWriteButton({ subjectId, handleQuestion }) {
   const [modalOpen, setModalOpen] = useState(false);
   const outSectionRef = useRef();
-
   const handleCloseModal = () => {
     setModalOpen(false);
   };

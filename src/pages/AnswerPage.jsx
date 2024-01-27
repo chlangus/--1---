@@ -14,21 +14,14 @@ export default function AnswerPage() {
   const { id } = useParams();
 
   const [subjectId, setSubjectId] = useState(id);
-  // const [questions, setQuestions] = useState([]);
   const [questions, setQuestions] = useQuestionsAtom();
-  const [subjectData, setSubjectData] = useState({
-    imageSource: '',
-    name: '',
-    questionCount: '',
-  });
-
-  // answer이 question 내부에 포함되어 있다면, 데이터를 하나로 관리하는 게 편하실 거에요
-  // 그리고 실제로 우리가 렌더링하고 있는 데이터는 서버에서 받아오는 question 객체 잖아요? 이 question 객체를 업데이트하고 리렌더링하는 식으로 접근하시는 것이 좋겠습니다!
-  // setQuestion({...oldQuestion, answer: newAnswer }) 이런 느낌...?
-  // 요거는 쓰셔도 되고 안쓰셔도 되는데, 상태값을 업데이트 할 때는 늘 새로운 참조를 보내줘야 하잖아요? 근데 그 객체가 뎁스가 깊어지면 새로운 참조를 만들기가 번거로워지는데,https://immerjs.github.io/immer/ 요런거 쓰시면 좋습니당
-
-  // 그래서 리코일로 퀘스천 상태관리를 하고 그걸로 변경될때마다 리렌더링이 되도록 하면 된다는 말씀인가용..?!ㅇ
-  // 예에에에스!
+  // const [subjectData, setSubjectData] = useState({
+  //   imageSource: '',
+  //   name: '',
+  //   questionCount: '',
+  // });
+  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+  console.log(subjectData);
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
@@ -49,15 +42,11 @@ export default function AnswerPage() {
         setQuestions([]);
       }
     });
-  }, [subjectId]);
+  }, [setSubjectData]);
 
   return (
     <Wrapper>
-      <QuestionFeedHeader
-        subjectId={subjectId}
-        subjectData={subjectData}
-        setSubjectData={setSubjectData}
-      />
+      <QuestionFeedHeader subjectId={subjectId} />
       <S.DeleteAndFeed>
         <DeleteAllButton
           text="삭제하기"
@@ -69,14 +58,13 @@ export default function AnswerPage() {
           <NoQuestionFeed />
         ) : (
           <FeedContainer>
-            <FeedBox subjectData={subjectData}>
+            <FeedBox>
               {questions.map(questionItem => (
                 <FeedCard
                   key={questionItem.id}
                   isAnswerPage
                   question={questionItem}
                   subjectId={subjectId}
-                  subjectData={subjectData}
                   setSubjectId={setSubjectId}
                 />
               ))}
