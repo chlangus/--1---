@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 import deleteQuestion from '../../services/DeleteQuestion';
-import deleteIcon from '../../assets/delete-icon.svg';
+import binIcon from '../../assets/Trash.svg';
+import useQuestionsAtom from '../hooks/useQuestions';
 
 function DeleteQuestionButton({ questionId }) {
-  const handleDelete = () => {
+  const [questions, setQuestions, setQuestion] = useQuestionsAtom();
+  console.log(questions, setQuestions);
+  const handleDelete = async () => {
     alert('정말로 삭제하시겠습니까?');
-    deleteQuestion(questionId);
+    await deleteQuestion(questionId);
+    setQuestion(null, questionId);
   };
   return (
     <S.Button onClick={handleDelete}>
-      <img src={deleteIcon} alt="delete" />
+      <img src={binIcon} alt="delete" />
       <S.Content>
         <span>질문삭제</span>
       </S.Content>
@@ -22,7 +26,7 @@ const Button = styled.button`
   padding: 6px 10px;
   justify-content: center;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.6rem;
 
   border-radius: 8px;
   border: 1px solid var(--color-grayscale-30);
@@ -30,9 +34,17 @@ const Button = styled.button`
 
   /* 1pt */
   box-shadow: var(--shadow-1pt);
+  color: var(--color-grayscale-50);
+
+  cursor: pointer;
 
   @media (min-width: 768px) {
     padding: 6px 16px;
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.colorGrayScale60};
+    background: ${({ theme }) => theme.colorGrayScale20};
   }
 `;
 
@@ -44,7 +56,7 @@ const Content = styled.span`
   gap: 8px;
   align-self: stretch;
 
-  color: var(--color-grayscale-50);
+  // color: var(--color-grayscale-50);
   font-feature-settings:
     'clig' off,
     'liga' off;

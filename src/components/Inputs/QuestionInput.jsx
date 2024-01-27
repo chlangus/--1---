@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import fetchSubject from '../../services/FetchSubject';
-import fetchQuestion from '../../services/FetchQuestion';
 import timeSince from '../../utils/TimeSince';
+import useSubjectDataRecoil from '../../contexts/useSubjectDataRecoil';
 
 export default function QuestionInput({
   handleStoreQuestion,
@@ -10,26 +10,16 @@ export default function QuestionInput({
   setModalOpen,
 }) {
   const [question, setQuestion] = useState('');
-  const [subjectData, setSubjectData] = useState({ imageSource: '', name: '' });
+  const [subjectData, setSubjectData] = useSubjectDataRecoil();
 
   // 텍스트 에어리어 값이 변경될 때마다 호출되는 함수
   // 현재 값으로 question 상태를 업데이트
   const handleQuestionChange = e => {
     setQuestion(e.target.value);
   };
-
   // 질문을 보내는 역할
   const handleSendQuestion = async () => {
     try {
-      console.log('질문 전송 중:', question);
-
-      // subject ID 받아오기
-      const data = await fetchQuestion(subjectId);
-      console.log('질문 데이터:', data);
-
-      const extractedSubjectId = data?.results?.[0]?.subjectId;
-      console.log('추출된 subjectId:', extractedSubjectId);
-
       const response = await fetch(
         `https://openmind-api.vercel.app/3-2/subjects/${subjectId}/questions/`,
         {
@@ -46,6 +36,11 @@ export default function QuestionInput({
         { ...responseData, createdWhen: timeSince(responseData.createdAt) },
         ...prev,
       ]);
+      setSubjectData(prev => ({
+        ...prev,
+        questionCount: prev.questionCount + 1,
+      }));
+
       // 성공적으로 response를 받으면 모달 창을 닫음
       setModalOpen(false);
     } catch (error) {

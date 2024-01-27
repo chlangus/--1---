@@ -1,17 +1,20 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import useEditMode from './hooks/useEditMode';
 import deleteAnswer from '../services/DeleteAnswer';
 import postAnswer from '../services/PostAnswer';
 import patchAnswer from '../services/PatchAnswer';
+import useQuestionsAtom from './hooks/useQuestions';
 
 export default function EditBoxModal({
   isOpenModal,
   setIsOpenModal,
-  setIsEditMode,
-  setIsRejected,
   questionId,
   answerId,
 }) {
+  const [questions, setQuestions, setQuestion] = useQuestionsAtom();
+  console.log(questions, setQuestions);
+  const [editModeId, setEditModeId] = useEditMode();
   const wrapperRef = useRef();
   const handleClickOutside = e => {
     if (
@@ -31,25 +34,30 @@ export default function EditBoxModal({
   });
 
   const handleEdit = () => {
-    setIsEditMode(true);
+    setEditModeId(questionId); // id를 넘겨주고
+    console.log('editModeId: ', editModeId);
   };
 
   const handleDelete = async () => {
     alert('정말로 삭제하시겠습니까?');
     await deleteAnswer(answerId);
+    setQuestion(null, questionId);
   };
 
-  const handleReject = () => {
-    setIsRejected(true);
+  const handleReject = async () => {
     if (answerId) {
-      patchAnswer(answerId, {
+      const result = await patchAnswer(answerId, {
         isRejected: 'true',
       });
+      console.log(' patch거절: ', result);
+      setQuestion(result, result.questionId);
     } else {
-      postAnswer(questionId, {
+      const result = await postAnswer(questionId, {
         content: 'default',
         isRejected: 'true',
       });
+      console.log('post거절: ', result);
+      setQuestion(result, result.questionId);
     }
   };
 

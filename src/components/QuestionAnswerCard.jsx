@@ -1,6 +1,9 @@
 /* eslint-disable no-nested-ternary */
-import { React, useState } from 'react';
+import { React } from 'react';
 import styled from 'styled-components';
+import useEditMode from './hooks/useEditMode';
+import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
+
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
 import profileImg from '../assets/sample-profile-img.svg';
@@ -8,25 +11,18 @@ import ReactionButton from './Buttons/ReactionButton';
 import AnswerInput from './Inputs/AnswerInput';
 import DeleteQuestionButton from './Buttons/DeleteQuestionButton';
 
-export default function QuestionAnswerCard({
-  question,
-  subjectData,
-  isAnswerPage,
-  isRejected,
-  setIsRejected,
-}) {
-  const [isEditMode, setIsEditMode] = useState(false);
+export default function QuestionAnswerCard({ question, isAnswerPage }) {
+  const [editModeId] = useEditMode();
+  const [subjectData] = useSubjectDataRecoil();
+
   return (
     <QuestionWrapper>
       <S.BadgeFrame>
         <AnswerBadge $isAnswered={question.isAnswered} />
         {isAnswerPage && (
           <KebabButton
-            isEditMode={isEditMode}
-            setIsEditMode={setIsEditMode}
-            setIsRejected={setIsRejected}
             questionId={question.id}
-            // answerId={question.answer.id}
+            answerId={question?.answer?.id}
           />
         )}
       </S.BadgeFrame>
@@ -34,36 +30,54 @@ export default function QuestionAnswerCard({
         <S.QuestionTime>질문 · {question.createdWhen}</S.QuestionTime>
         <S.QuestionText>{question.content}</S.QuestionText>
       </S.QuestionBox>
-      <S.AnswerFrame>
-        {question.answer ? (
-          <>
+
+      {question.answer ? (
+        <S.AnswerFrame>
+          <S.Profile src={subjectData.imageSource} alt="profile" />
+          <S.AnswerBox>
+            <AnswerNameBox>
+              <S.AnswerName>{subjectData.name}</S.AnswerName>
+              <S.AnswerTime>{question.answer.createdWhen}</S.AnswerTime>
+            </AnswerNameBox>
+
+            {editModeId === question.id ? (
+              <AnswerInput
+                isEditMode
+                questionId={question.id}
+                answerId={question.answer.id}
+              />
+            ) : (
+              <S.AnswerText
+                style={{
+                  color: question.answer.isRejected
+                    ? 'var(--color-red-50)'
+                    : 'var(--color-grayscale-60)',
+                }}
+              >
+                {question.answer.isRejected
+                  ? '답변거절'
+                  : question.answer.content}
+              </S.AnswerText>
+            )}
+          </S.AnswerBox>
+        </S.AnswerFrame>
+      ) : (
+        isAnswerPage && (
+          <S.AnswerFrame>
             <S.Profile src={subjectData.imageSource} alt="profile" />
             <S.AnswerBox>
               <AnswerNameBox>
                 <S.AnswerName>{subjectData.name}</S.AnswerName>
-                <S.AnswerTime>{question.answer.createdWhen}</S.AnswerTime>
               </AnswerNameBox>
-
-              {isEditMode ? (
-                <AnswerInput
-                  isEditMode
-                  questionId={question.id}
-                  answerId={question.answer.id}
-                />
-              ) : (
-                <S.AnswerText $isRejected>
-                  {isRejected ? '답변거절' : question.answer.content}
-                </S.AnswerText>
-              )}
+              <AnswerInput questionId={question.id} />
             </S.AnswerBox>
-          </>
-        ) : (
-          ''
-        )}
-      </S.AnswerFrame>
+          </S.AnswerFrame>
+        )
+      )}
+
       <S.ReactionFrame>
         <ReactionButton question={question} />
-        <DeleteQuestionButton questionId={question.id} />
+        {isAnswerPage && <DeleteQuestionButton questionId={question.id} />}
       </S.ReactionFrame>
     </QuestionWrapper>
   );
@@ -208,16 +222,8 @@ const AnswerNameBox = styled.div`
   gap: 8px;
 `;
 
-const COLORS = {
-  normal: 'var(--color-grayscale-60)',
-  red: 'var(--color-red-50)',
-};
-
 const AnswerText = styled.p`
-  // color: var(--Grayscale-60, #000);
-  // color: var(--color-red-50);
-  color: ${({ $isRejected }) =>
-    $isRejected ? COLORS.red : COLORS.normal}; //컬러가 안 먹음..why?
+  color: var(--color-grayscale-60);
   font-feature-settings:
     'clig' off,
     'liga' off;

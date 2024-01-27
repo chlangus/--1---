@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import messageIcon from '../assets/message-icon.svg';
+import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
 
-export default function FeedBox({ subjectData, children }) {
+export default function FeedBox({ children }) {
+  const [subjectData] = useSubjectDataRecoil();
+
   return (
     <>
       <S.QuestionCount>

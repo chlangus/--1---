@@ -9,21 +9,21 @@ import QuestionWriteButton from '../components/Buttons/QuestionWriteButton';
 import fetchQuestion from '../services/FetchQuestion';
 import timeSince from '../utils/TimeSince';
 import NoQuestionFeed from '../components/NoQuestionFeed';
+import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
 
 export default function QuestionFeedPage() {
   const { id } = useParams();
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
-  const [subjectData, setSubjectData] = useState({
-    imageSource: '',
-    name: '',
-    questionCount: '',
-  });
   const [ref, inView] = useInView({
     triggerOnce: false,
     rootMargin: '100px',
   });
   // const [moreData, setMoreData] = useState([]);
+
+  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+
+  console.log(subjectData);
 
   useEffect(() => {
     fetchQuestion(subjectId).then(data => {
@@ -41,6 +41,7 @@ export default function QuestionFeedPage() {
             : null,
         }));
         setQuestions(transformedQuestions);
+        console.log(transformedQuestions);
       } else {
         setQuestions([]);
       }
@@ -86,13 +87,12 @@ export default function QuestionFeedPage() {
         <NoQuestionFeed />
       ) : (
         <FeedContainer>
-          <FeedBox subjectData={subjectData}>
+          <FeedBox>
             {questions.map(questionItem => (
               <FeedCard
                 key={questionItem.id}
                 question={questionItem}
                 subjectId={subjectId}
-                subjectData={subjectData}
                 setSubjectId={setSubjectId}
               />
             ))}
