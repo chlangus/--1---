@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useQuestionsAtom from '../components/hooks/useQuestions';
-import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
 import FeedCard from '../components/FeedCard';
@@ -13,14 +12,19 @@ import NoQuestionFeed from '../components/NoQuestionFeed';
 
 export default function AnswerPage() {
   const { id } = useParams();
-
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useQuestionsAtom();
-  const [subjectData, setSubjectData] = useSubjectDataRecoil();
-  console.log(subjectData);
 
-  useEffect(() => {
-    fetchQuestion(subjectId).then(data => {
+  // =============무한스크롤
+  const [offset, setOffset] = useState(0); // 스크롤이 닿았을 때 새롭게 offset을 바꿈
+  const [loading, setLoading] = useState(false); // 로딩 성공, 실패를 담음
+  const pageEnd = useRef();
+
+  const loadMore = () => {
+    setOffset(prev => prev + 5); // 일단 한번에 5개씩 로드하도록 임의로 만들었어용...
+  };
+  const fetchPins = async (_id, _offset) => {
+    fetchQuestion(_id, _offset).then(data => {
       if (data.results.length) {
         const transformedQuestions = data.results.map(question => ({
           ...question,
@@ -33,12 +37,32 @@ export default function AnswerPage() {
               }
             : null,
         }));
-        setQuestions(transformedQuestions);
-      } else {
-        setQuestions([]);
+        setQuestions(prev => [...prev, ...transformedQuestions]);
       }
+      setLoading(true);
     });
-  }, [setSubjectData]);
+  };
+
+  useEffect(() => {
+    fetchPins(subjectId, offset);
+  }, [offset]);
+
+  useEffect(() => {
+    if (loading) {
+      // 로딩되었을 때만 실행
+      const observer = new IntersectionObserver(
+        entries => {
+          if (entries[0].isIntersecting) {
+            loadMore();
+          }
+        },
+        { threshold: 1 },
+      );
+      // 옵저버 탐색 시작
+      if (pageEnd.current) observer.observe(pageEnd.current);
+    }
+  }, [loading]);
+  // =============
 
   return (
     <Wrapper>
@@ -64,6 +88,7 @@ export default function AnswerPage() {
                   setSubjectId={setSubjectId}
                 />
               ))}
+              <Loading ref={pageEnd} />
             </FeedBox>
           </FeedContainer>
         )}
@@ -72,6 +97,11 @@ export default function AnswerPage() {
   );
 }
 
+// 무한스크롤 ===========
+const Loading = styled.div`
+  display: flex;
+`;
+// =========
 const Wrapper = styled.div`
   background: ${({ theme }) => theme.colorGrayScale20};
   display: flex;
