@@ -6,8 +6,8 @@ import useQuestionsAtom from '../hooks/useQuestions';
 import AlertModal from '../Modal/AlertModal';
 
 function DeleteQuestionButton({ questionId }) {
+  // eslint-disable-next-line no-unused-vars
   const [questions, setQuestions, setQuestion] = useQuestionsAtom();
-  console.log(questions, setQuestions);
 
   const [modalOpen, setModalOpen] = useState(false);
   const modalRef = useRef();

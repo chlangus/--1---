@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import useEditMode from '../hooks/useEditMode';
@@ -13,7 +14,6 @@ export default function EditBoxModal({
   answerId,
 }) {
   const [questions, setQuestions, setQuestion] = useQuestionsAtom();
-  console.log(questions, setQuestions);
   const [editModeId, setEditModeId] = useEditMode();
   const wrapperRef = useRef();
   const handleClickOutside = e => {
@@ -34,13 +34,11 @@ export default function EditBoxModal({
   });
 
   const handleEdit = () => {
-    setEditModeId(questionId); // id를 넘겨주고
-    console.log('editModeId: ', editModeId);
+    setEditModeId(questionId);
   };
 
   const handleDelete = async () => {
     // setEditModeId(null);
-    alert('정말로 삭제하시겠습니까?');
     await deleteAnswer(answerId);
     setQuestion(null, questionId);
   };
@@ -51,14 +49,12 @@ export default function EditBoxModal({
       const result = await patchAnswer(answerId, {
         isRejected: 'true',
       });
-      console.log(' patch거절: ', result);
       setQuestion(result, result.questionId);
     } else {
       const result = await postAnswer(questionId, {
         content: 'default',
         isRejected: 'true',
       });
-      console.log('post거절: ', result);
       setQuestion(result, result.questionId);
     }
   };
