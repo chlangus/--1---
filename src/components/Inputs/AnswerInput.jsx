@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -9,10 +10,10 @@ import useEditMode from '../hooks/useEditMode';
 export default function AnswerInput({ questionId, answerId, isEditMode }) {
   const btnText = isEditMode ? '수정 완료' : '답변 완료';
   const [answer, setAnswer] = useState('');
+
   const [questions, setQuestions, setQuestion] = useQuestionsAtom();
   const [editModeId, setEditModeId] = useEditMode();
 
-  console.log(questions, setQuestions);
   // textarea 값이 변경될 때마다 호출
   const handleAnswerChange = e => {
     setAnswer(e.target.value);
@@ -29,15 +30,15 @@ export default function AnswerInput({ questionId, answerId, isEditMode }) {
   const handlePatchClick = async () => {
     const result = await patchAnswer(answerId, {
       content: answer,
+      isRejected: 'false',
     });
     setQuestion(result, result.questionId);
     setEditModeId(null);
-    console.log('editModeId', editModeId);
   };
   return (
     <Input>
       <textarea
-        placeholder="질문을 입력해주세요"
+        placeholder="답변을 입력해주세요"
         value={answer}
         onChange={handleAnswerChange}
       />

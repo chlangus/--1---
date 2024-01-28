@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import kebabImg from '../../assets/more-icon.svg';
-import EditBoxModal from '../EditBoxModal';
+import EditBoxModal from '../Modal/EditBoxModal';
 import ThemeContext from '../../contexts/ThemeContext';
 import darkKebabImg from '../../assets/dark-more-icon.svg';
 
@@ -12,7 +12,11 @@ export default function KebabButton({ questionId, answerId }) {
   return (
     <>
       <EditButton type="button" onClick={() => setIsOpenModal(pre => !pre)}>
-        <img src={mode === 'light' ? kebabImg : darkKebabImg} alt="show-more" />
+        <img
+          id="kebab"
+          src={mode === 'light' ? kebabImg : darkKebabImg}
+          alt="show-more"
+        />
       </EditButton>
 
       {isOpenModal && (
