@@ -75,13 +75,15 @@ export default function QuestionList() {
             />
           ))}
         </StyledList>
+        <StyledPage>
+          <Pagination
+            cardsPerPage={LIMITSIZE}
+            totalCards={cardsCount}
+            setPage={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </StyledPage>
       </StyledDiv>
-      <Pagination
-        cardsPerPage={LIMITSIZE}
-        totalCards={cardsCount}
-        setPage={setCurrentPage}
-        currentPage={currentPage}
-      />
     </StyledBox>
   );
 }
@@ -156,3 +158,5 @@ const StyledList = styled.ul`
     grid-template-columns: repeat(2, 15rem);
   }
 `;
+
+const StyledPage = styled.div``;
