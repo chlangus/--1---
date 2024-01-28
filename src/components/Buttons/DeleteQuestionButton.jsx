@@ -1,13 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import deleteQuestion from '../../services/DeleteQuestion';
 import binIcon from '../../assets/Trash.svg';
 import useQuestionsAtom from '../hooks/useQuestions';
+import useSubjectDataRecoil from '../../contexts/useSubjectDataRecoil';
 import AlertModal from '../Modal/AlertModal';
 
 function DeleteQuestionButton({ questionId }) {
-  // eslint-disable-next-line no-unused-vars
   const [questions, setQuestions, setQuestion] = useQuestionsAtom();
+  const [subjectData, setSubjectData] = useSubjectDataRecoil();
 
   const [modalOpen, setModalOpen] = useState(false);
   const modalRef = useRef();
@@ -24,6 +26,10 @@ function DeleteQuestionButton({ questionId }) {
   const handleDelete = async () => {
     await deleteQuestion(questionId);
     setQuestion(null, questionId, true);
+    setSubjectData(prev => ({
+      ...prev,
+      questionCount: prev.questionCount - 1,
+    }));
   };
   return (
     <>

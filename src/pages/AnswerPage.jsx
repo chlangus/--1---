@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useQuestionsAtom from '../components/hooks/useQuestions';
-import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
 import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
 import FeedBox from '../components/FeedBox';
 import FeedCard from '../components/FeedCard';
@@ -13,35 +12,10 @@ import NoQuestionFeed from '../components/NoQuestionFeed';
 
 export default function AnswerPage() {
   const { id } = useParams();
-
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useQuestionsAtom();
-  // eslint-disable-next-line no-unused-vars
-  const [subjectData, setSubjectData] = useSubjectDataRecoil();
-
-  // useEffect(() => {
-  //   fetchQuestion(subjectId).then(data => {
-  //     if (data.results.length) {
-  //       const transformedQuestions = data.results.map(question => ({
-  //         ...question,
-  //         createdWhen: timeSince(question.createdAt),
-  //         isAnswered: question.answer !== null,
-  //         answer: question.answer
-  //           ? {
-  //               ...question.answer,
-  //               createdWhen: timeSince(question.answer.createdAt),
-  //             }
-  //           : null,
-  //       }));
-  //       setQuestions(transformedQuestions);
-  //     } else {
-  //       setQuestions([]);
-  //     }
-  //   });
-  // }, [setSubjectData]);
 
   // =============무한스크롤
-  // eslint-disable-next-line no-unused-vars
   const [offset, setOffset] = useState(0); // 스크롤이 닿았을 때 새롭게 offset을 바꿈
   const [loading, setLoading] = useState(false); // 로딩 성공, 실패를 담음
   const pageEnd = useRef();
@@ -123,7 +97,7 @@ export default function AnswerPage() {
   );
 }
 
-// 무한스크롤===========
+// 무한스크롤 ===========
 const Loading = styled.div`
   display: flex;
 `;
