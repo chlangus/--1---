@@ -10,7 +10,6 @@ async function patchAnswer(answerId, answer) {
         body: JSON.stringify(answer),
       },
     );
-    console.log('답변 수정 실행');
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }

@@ -120,23 +120,31 @@ const ButtonSelect = styled.div`
   justify-content: space-between;
   gap: 1rem;
 `;
+
+const COLORS = {
+  brown40: ({ theme }) => theme.colorBrown40,
+  brown50: ({ theme }) => theme.colorBrown50,
+  grayscale10: ({ theme }) => theme.colorGrayScale10,
+  grayscale20: ({ theme }) => theme.colorGrayScale20,
+  grayscale40: ({ theme }) => theme.colorGrayScale40,
+  grayscale50: ({ theme }) => theme.colorGrayScale50,
+};
 const Button = styled.button`
   border-radius: 8px;
   background: ${({ $isDelete }) =>
-    $isDelete ? 'var(--color-brown-40)' : 'var(--color-grayscale-10)'};
+    $isDelete ? COLORS.brown40 : COLORS.grayscale10};
   width: 208px;
   height: 45px;
   font-size: var(--font-body3);
   color: ${({ $isDelete }) =>
-    $isDelete ? 'var(--color-grayscale-10)' : 'var(--color-grayscale-50)'};
+    $isDelete ? COLORS.grayscale10 : COLORS.grayscale50};
   border: 1px solid
-    ${({ $isDelete }) =>
-      $isDelete ? 'var(--color-brown-40)' : 'var(--color-grayscale-40)'};
+    ${({ $isDelete }) => ($isDelete ? COLORS.brown40 : COLORS.grayscale40)};
   box-shadow: var(--shadow-1pt);
   cursor: pointer;
 
   &:hover {
     background: ${({ $isDelete }) =>
-      $isDelete ? 'var(--color-brown-50)' : 'var(--color-grayscale-20)'};
+      $isDelete ? COLORS.brown50 : COLORS.grayscale20};
   }
 `;
