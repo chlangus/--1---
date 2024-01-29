@@ -27,7 +27,7 @@ const CardBox = styled.li`
   width: 100%;
   height: 18.7rem;
   padding: 2rem;
-
+  gap: 3rem;
   border-radius: 16px;
   border: 1px solid ${({ theme }) => theme.colorGrayScale40};
   background: ${({ theme }) => theme.colorGrayScale10};
