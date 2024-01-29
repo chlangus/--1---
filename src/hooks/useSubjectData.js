@@ -9,9 +9,9 @@ const subjectData = atom({
   },
 });
 
-const useSubjectDataRecoil = () => {
+const useSubjectData = () => {
   const [subjectDataRecoil, setSubjectDataRecoil] = useRecoilState(subjectData);
   return [subjectDataRecoil, setSubjectDataRecoil];
 };
 
-export default useSubjectDataRecoil;
+export default useSubjectData;

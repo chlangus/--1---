@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Messages from '../assets/Messages.svg';
-import Noquestion from '../assets/noquestion.svg';
+import Messages from '../../assets/Messages.svg';
+import Noquestion from '../../assets/noquestion.svg';
 
 export default function NoQuestionFeed() {
   return (

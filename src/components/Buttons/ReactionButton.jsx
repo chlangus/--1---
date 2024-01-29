@@ -13,8 +13,9 @@ export default function ReactionButton({ question: { id, like, dislike } }) {
     dislike,
     likeIcon: thumbsUp,
     dislikeIcon: thumbsDown,
+    disabled: false,
   });
-
+  //  reaction 누르면 빨리 누른거 못따라감
   const handleEmotion = async type => {
     const likeAndDislike = await storeReaction({ id, type }); //  questions/{id}/reaction 보내고 받아오면 그 like, dislike 값 받아와서 상태값 업데이트
     if (type === 'like') {
@@ -23,6 +24,7 @@ export default function ReactionButton({ question: { id, like, dislike } }) {
         dislike: likeAndDislike.dislike,
         likeIcon: clickedThumbsUp,
         dislikeIcon: thumbsDown,
+        disabled: true,
       });
     } else {
       setReaction({
@@ -30,6 +32,7 @@ export default function ReactionButton({ question: { id, like, dislike } }) {
         dislike: likeAndDislike.dislike,
         likeIcon: thumbsUp,
         dislikeIcon: clickedThumbsDown,
+        disabled: true,
       });
     }
     setTimeout(() => {
@@ -38,6 +41,7 @@ export default function ReactionButton({ question: { id, like, dislike } }) {
         dislike: likeAndDislike.dislike,
         likeIcon: thumbsUp,
         dislikeIcon: thumbsDown,
+        disabled: false,
       });
     }, [400]);
   };
@@ -48,6 +52,7 @@ export default function ReactionButton({ question: { id, like, dislike } }) {
         onClick={() => {
           handleEmotion('like');
         }}
+        disabled={reaction.disabled}
       >
         <img src={reaction.likeIcon} alt="thumbs-up" />
         <span>좋아요</span>
@@ -57,6 +62,7 @@ export default function ReactionButton({ question: { id, like, dislike } }) {
         onClick={() => {
           handleEmotion('dislike');
         }}
+        disabled={reaction.disabled}
       >
         <img src={reaction.dislikeIcon} alt="thumbs-down" />
         <span>싫어요</span>
@@ -72,7 +78,9 @@ const ReactionBox = styled.span`
   gap: 3.2rem;
 `;
 
-const LikeBox = styled.span`
+const LikeBox = styled.button`
+  background-color: inherit;
+  border-style: none;
   cursor: pointer;
   user-select: none;
   display: flex;
