@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export default function GetQuestionButton({ children, onHandleButton }) {
+  return <Button onClick={onHandleButton}>{children}</Button>;
+}
+
 const Button = styled.button`
   display: flex;
   padding: 12px 24px;
@@ -19,7 +23,3 @@ const Button = styled.button`
   font-weight: 400;
   line-height: 22px; /* 137.5% */
 `;
-
-export default function GetQuestionButton({ children, onHandleButton }) {
-  return <Button onClick={onHandleButton}>{children}</Button>;
-}

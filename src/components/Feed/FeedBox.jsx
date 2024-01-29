@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import messageIcon from '../assets/message-icon.svg';
-import useSubjectDataRecoil from './hooks/useSubjectData';
+import messageIcon from '../../assets/message-icon.svg';
+import useSubjectData from '../../hooks/useSubjectData';
 
 export default function FeedBox({ children }) {
-  const [subjectData] = useSubjectDataRecoil();
+  const [subjectData] = useSubjectData();
 
   return (
     <>

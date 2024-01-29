@@ -1,36 +1,22 @@
 import styled from 'styled-components';
 
-export default function IdSelectButton({ setConnectType }) {
-  const handle = e => {
-    setConnectType(e.target.value);
-  };
-
-  return (
-    <IdTypeSelectorWrapper>
-      <Label>
-        <Input onChange={handle} type="radio" name="type" value="new" />
-        <span>새 아이디로 접속</span>
-      </Label>
-      <Label>
-        <Input onChange={handle} type="radio" name="type" value="ordinary" />
-        <span>기존 아이디로 접속</span>
-      </Label>
-    </IdTypeSelectorWrapper>
-  );
+export default function IdSelectButton({ children, onClick }) {
+  return <Button onClick={onClick}>{children}</Button>;
 }
 
-const Label = styled.label`
-  color: ${({ theme }) => theme.colorScaleGray40};
+const Button = styled.button`
   display: flex;
+  padding: 12px 24px;
+  justify-content: center;
   align-items: center;
-  font-size: 14px;
-`;
-
-const IdTypeSelectorWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Input = styled.input`
-  margin: 0 5px;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.colorBrown10};
+  color: ${({ theme }) => theme.colorBrown40};
+  border: 1px solid ${({ theme }) => theme.colorBrown40};
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
 `;

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import fetchSubject from '../../services/FetchSubject';
-import timeSince from '../../utils/TimeSince';
-import useSubjectData from '../hooks/useSubjectData';
+import fetchSubject from '../../services/fetchSubject';
+import timeSince from '../../utils/timeSince';
+import useSubjectData from '../../hooks/useSubjectData';
 
 export default function QuestionInput({
   handleStoreQuestion,

@@ -10,11 +10,12 @@ import GetQuestionButton from '../components/Buttons/GetQuestionButton';
 import storeId from '../services/storeId';
 import SendQuestionButton from '../components/Buttons/SendQuestionButton';
 import ThemeContext from '../contexts/ThemeContext';
+import IdTypeSelectButton from '../components/Buttons/IdTypeSelectButton';
 import IdSelectButton from '../components/Buttons/IdSelectButton';
 
 export default function MainPage() {
   const [inputValue, setInputValue] = useState('');
-  const [connectType, setConnectType] = useState('');
+  const [connectType, setConnectType] = useState('new');
   const [nicknames, setNicknames] = useState([]);
   const navigate = useNavigate();
   const handleInputValue = name => {
@@ -22,17 +23,6 @@ export default function MainPage() {
   };
   const mode = useContext(ThemeContext);
 
-  useEffect(() => {
-    if (localStorage.getItem('userAccounts') === null) {
-      // 저장된 데이터 없으면 배열로 초기화
-      localStorage.setItem('userAccounts', JSON.stringify([]));
-    } else {
-      setNicknames(JSON.parse(localStorage.getItem('userAccounts')));
-    }
-  }, []);
-
-  // useEffect로 감싸기
-  // parse로 바꿔준 객체 저장해줌
   const sendName = async () => {
     setInputValue(inputValue);
     const { id } = await storeId(inputValue); // 이름 post요청으로 보내주고 결과 id 받아옴
@@ -48,6 +38,15 @@ export default function MainPage() {
     localStorage.setItem('id', JSON.stringify(id)); // 현재 유저 정보 저장
     navigate(`/post/${id}/answer`);
   };
+  useEffect(() => {
+    if (localStorage.getItem('userAccounts') === null) {
+      // 저장된 데이터 없으면 배열로 초기화
+      localStorage.setItem('userAccounts', JSON.stringify([]));
+    } else {
+      setNicknames(JSON.parse(localStorage.getItem('userAccounts')));
+    }
+  }, []);
+
   return (
     <PageWrapper>
       <MainLogoAndInputWrapper>
@@ -58,17 +57,20 @@ export default function MainPage() {
           </ButtonWrapper>
         </Link>
         <InputAndButtonBox>
-          <IdSelectButton setConnectType={setConnectType} />
+          <IdTypeSelectButton
+            connectType={connectType}
+            setConnectType={setConnectType}
+          />
           {connectType &&
             (connectType === 'ordinary' ? (
               nicknames.map(nickname => (
-                <button
+                <IdSelectButton
                   type="button"
                   key={nickname.id}
                   onClick={() => selectNickname(nickname.id)}
                 >
                   {nickname.name}
-                </button>
+                </IdSelectButton>
               ))
             ) : (
               <>
