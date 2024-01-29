@@ -46,13 +46,7 @@ export default function QuestionAnswerCard({ question, isAnswerPage }) {
                 answerId={question.answer.id}
               />
             ) : (
-              <S.AnswerText
-                style={{
-                  color: question.answer.isRejected
-                    ? 'var(--color-red-50)'
-                    : 'var(--color-grayscale-60)',
-                }}
-              >
+              <S.AnswerText $isRejected={question.answer.isRejected}>
                 {question.answer.isRejected
                   ? '답변거절'
                   : question.answer.content}
@@ -190,7 +184,7 @@ const QuestionWrapper = styled.div`
 `;
 
 const AnswerName = styled.p`
-  color: var(--Grayscale-60, #000);
+  color: ${({ theme }) => theme.colorGrayScale60};
   font-feature-settings:
     'clig' off,
     'liga' off;
@@ -222,7 +216,8 @@ const AnswerNameBox = styled.div`
 `;
 
 const AnswerText = styled.p`
-  color: var(--color-grayscale-60);
+  color: ${({ $isRejected, theme }) =>
+    $isRejected ? theme.colorRed50 : theme.colorGrayScale60};
   font-feature-settings:
     'clig' off,
     'liga' off;

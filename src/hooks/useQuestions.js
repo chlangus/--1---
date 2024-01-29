@@ -9,7 +9,20 @@ export default function useQuestionsAtom() {
   const [questions, setQuestions] = useRecoilState(questionsAtom);
   function setQuestion(newAnswer, questionId, isDeleteQuestion = false) {
     const updatedQuestionIdx = questions.findIndex(q => q.id === questionId);
-    const newQuestion = { ...questions[updatedQuestionIdx], answer: newAnswer };
+    let newQuestion; // = { ...questions[updatedQuestionIdx], answer: newAnswer };
+    if (newAnswer === null) {
+      newQuestion = {
+        ...questions[updatedQuestionIdx],
+        isAnswered: false,
+        answer: newAnswer,
+      };
+    } else {
+      newQuestion = {
+        ...questions[updatedQuestionIdx],
+        isAnswered: true,
+        answer: newAnswer,
+      };
+    }
 
     if (isDeleteQuestion) {
       setQuestions(prev => [

@@ -10,7 +10,6 @@ async function postAnswer(questionId, answer) {
         body: JSON.stringify(answer),
       },
     );
-    console.log('답변 달기');
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
