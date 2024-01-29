@@ -43,6 +43,10 @@ export default function AnswerPage() {
   };
 
   useEffect(() => {
+    setQuestions([]);
+  }, []);
+
+  useEffect(() => {
     fetchPins(subjectId, offset);
   }, [offset]);
 

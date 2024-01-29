@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import fetchSubject from '../../services/fetchSubject';
+import postQuestion from '../../services/postQuestion';
 import timeSince from '../../utils/timeSince';
 import useSubjectData from '../../hooks/useSubjectData';
 
@@ -20,26 +21,13 @@ export default function QuestionInput({
   // 질문을 보내는 역할
   const handleSendQuestion = async () => {
     try {
-      const response = await fetch(
-        `https://openmind-api.vercel.app/3-2/subjects/${subjectId}/questions/`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ content: question }),
-        },
-      );
+      const responseData = await postQuestion(subjectId, question);
 
-      const responseData = await response.json();
       handleStoreQuestion(prev => [
         { ...responseData, createdWhen: timeSince(responseData.createdAt) },
         ...prev,
       ]);
-      setSubjectData(prev => ({
-        ...prev,
-        questionCount: prev.questionCount + 1,
-      }));
+
       // 성공적으로 response를 받으면 모달 창을 닫음
       setModalOpen(false);
     } catch (error) {
@@ -111,7 +99,6 @@ const ModalSendTo = styled.div`
 
   .nickname {
     color: ${({ theme }) => theme.colorGrayScale60};
-
     font-feature-settings:
       'clig' off,
       'liga' off;
@@ -141,6 +128,7 @@ const ModalInput = styled.div`
     gap: 1rem;
     border-radius: 1rem;
     background: ${({ theme }) => theme.colorGrayScale20};
+    color: ${({ theme }) => theme.colorGrayScale60};
     font-family: Pretendard;
     font-size: 1.52rem;
     font-style: normal;
@@ -180,7 +168,6 @@ const Button = styled.button`
   border: none;
   cursor: ${({ question }) => (question ? 'pointer' : 'default')};
   background: ${({ question, theme }) =>
-    question ? theme.colorBrown30 : theme.colorBrown10};
-  color: ${({ question, theme }) =>
-    question ? theme.colorBrown10 : theme.colorBrown30};
+    question ? theme.colorBrown50 : theme.colorBrown30};
+  color: ${({ theme }) => theme.colorBrown10};
 `;
