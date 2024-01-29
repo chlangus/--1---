@@ -46,12 +46,7 @@ export default function AnswerInput({ questionId, answerId, isEditMode }) {
         onClick={
           answer ? (isEditMode ? handlePatchClick : handlePostClick) : null
         }
-        style={{
-          cursor: answer ? 'pointer' : 'default',
-          background: answer
-            ? 'var(--color-brown-40)'
-            : 'var(--color-brown-30)',
-        }}
+        $answer={answer}
       >
         {btnText}
       </Button>
@@ -77,6 +72,7 @@ const Input = styled.div`
     gap: 1rem;
     border-radius: 1rem;
     background: ${({ theme }) => theme.colorGrayScale20};
+    color: ${({ theme }) => theme.colorGrayScale60};
     font-family: Pretendard;
     font-size: 1.52rem;
     font-style: normal;
@@ -115,5 +111,9 @@ const Button = styled.button`
   margin-top: 0.8rem;
   height: 5rem;
   border: none;
-  cursor: pointer;
+  // cursor: pointer;
+  cursor: ${({ $answer }) => ($answer ? 'pointer' : 'default')};
+
+  background: ${({ $answer, theme }) =>
+    $answer ? theme.colorBrown40 : theme.colorBrown30};
 `;

@@ -62,7 +62,8 @@ const Button = styled.button`
   flex-shrink: 0;
 
   border-radius: 20rem;
-  background: var(--color-brown-40);
+  background: ${({ theme }) => theme.colorBrown40};
+
   box-shadow: var(--shadow-2pt);
   border: none;
   cursor: pointer;
@@ -74,7 +75,7 @@ const Button = styled.button`
 `;
 
 const ButtonText = styled.p`
-  color: var(--color-grayscale-10);
+  color: ${({ theme }) => theme.colorGrayScale10};
   font-feature-settings:
     'clig' off,
     'liga' off;
