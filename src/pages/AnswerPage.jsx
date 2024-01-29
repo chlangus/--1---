@@ -65,7 +65,6 @@ export default function AnswerPage() {
       if (pageEnd.current) observer.observe(pageEnd.current);
     }
   }, [loading]);
-  // =============
 
   return (
     <Wrapper>

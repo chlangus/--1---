@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import logo from '../assets/logo.svg';
@@ -9,7 +9,6 @@ import NameInput from '../components/Inputs/NameInput';
 import GetQuestionButton from '../components/Buttons/GetQuestionButton';
 import storeId from '../services/storeId';
 import SendQuestionButton from '../components/Buttons/SendQuestionButton';
-import ThemeContext from '../contexts/ThemeContext';
 import IdTypeSelectButton from '../components/Buttons/IdTypeSelectButton';
 import IdSelectButton from '../components/Buttons/IdSelectButton';
 
@@ -21,7 +20,7 @@ export default function MainPage() {
   const handleInputValue = name => {
     setInputValue(name);
   };
-  const mode = useContext(ThemeContext);
+  const { mode } = useContext(ThemeContext);
 
   const sendName = async () => {
     setInputValue(inputValue);
@@ -36,7 +35,6 @@ export default function MainPage() {
 
   const selectNickname = id => {
     localStorage.setItem('id', JSON.stringify(id)); // 현재 유저 정보 저장
-    console.log(id);
     navigate(`/post/${id}/answer`);
   };
   useEffect(() => {

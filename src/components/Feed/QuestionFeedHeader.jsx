@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import { Link } from 'react-router-dom';
 import fetchSubject from '../../services/fetchSubject';
 import QuestionFeedHead from '../../assets/QuestionFeedHead.svg';
@@ -9,11 +9,10 @@ import darkQuestionFeedLogo from '../../assets/darkQuestionFeedLogo.svg';
 import LinkShareIcon from '../Buttons/LinkShareIcon';
 import FacebookShareIcon from '../Buttons/FacebookShareIcon';
 import KakaoShareIcon from '../Buttons/KakaoShareIcon';
-import ThemeContext from '../../contexts/ThemeContext';
 import useSubjectData from '../../hooks/useSubjectData';
 
 function QuestionFeedHeader({ subjectId }) {
-  const mode = useContext(ThemeContext);
+  const { mode } = useContext(ThemeContext);
   const [subjectData, setSubjectData] = useSubjectData();
 
   useEffect(() => {

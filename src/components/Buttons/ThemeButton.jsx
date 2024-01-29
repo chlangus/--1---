@@ -1,11 +1,10 @@
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import { useContext } from 'react';
 import sun from '../../assets/sun.svg';
 import moon from '../../assets/moon.svg';
-import ThemeContext from '../../contexts/ThemeContext';
 
 export default function ThemeButton({ onClick }) {
-  const mode = useContext(ThemeContext);
+  const { mode } = useContext(ThemeContext);
   return (
     <Button onClick={onClick}>
       <img src={mode === 'light' ? sun : moon} alt="sun" />

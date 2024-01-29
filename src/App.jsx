@@ -8,7 +8,6 @@ import AnswerPage from './pages/AnswerPage';
 import QuestionFeedPage from './pages/QuestionFeedPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
-import ThemeContext from './contexts/ThemeContext';
 import ThemeButton from './components/Buttons/ThemeButton';
 import AudioButton from './components/Buttons/AudioButton';
 
@@ -21,21 +20,19 @@ function App() {
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme[mode]}>
-        <ThemeContext.Provider value={mode}>
-          <ThemeButton type="button" onClick={handleMode} />
-          <AudioButton />
-          <GlobalStyle />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="/list" element={<QuestionListPage />} />
-              <Route path="/post">
-                <Route path=":id/answer" element={<AnswerPage />} />
-                <Route path=":id" element={<QuestionFeedPage />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </ThemeContext.Provider>
+        <ThemeButton type="button" onClick={handleMode} />
+        <AudioButton />
+        <GlobalStyle />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/list" element={<QuestionListPage />} />
+            <Route path="/post">
+              <Route path=":id/answer" element={<AnswerPage />} />
+              <Route path=":id" element={<QuestionFeedPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </RecoilRoot>
   );

@@ -9,19 +9,17 @@ import QuestionWriteButton from '../components/Buttons/QuestionWriteButton';
 import fetchQuestion from '../services/fetchQuestion';
 import timeSince from '../utils/timeSince';
 import NoQuestionFeed from '../components/Feed/NoQuestionFeed';
-import useSubjectData from '../hooks/useSubjectData';
 
 export default function QuestionFeedPage() {
   const { id } = useParams();
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
-  const [subjectData, setSubjectData] = useSubjectData();
   const [offset, setOffset] = useState(0); // 스크롤이 닿았을 때 새롭게 offset을 바꿈
   const [loading, setLoading] = useState(false); // 로딩 성공, 실패를 담음
   const pageEnd = useRef();
 
   const loadMore = () => {
-    setOffset(prev => prev + 5); // 일단 한번에 5개씩 로드하도록 임의로 만들었어용...
+    setOffset(prev => prev + 5);
   };
 
   const fetchPins = async (_id, _offset) => {
@@ -67,11 +65,7 @@ export default function QuestionFeedPage() {
 
   return (
     <Wrapper>
-      <QuestionFeedHeader
-        subjectId={subjectId}
-        subjectData={subjectData}
-        setSubjectData={setSubjectData}
-      />
+      <QuestionFeedHeader subjectId={subjectId} />
       {questions.length === 0 ? (
         <NoQuestionFeed />
       ) : (
