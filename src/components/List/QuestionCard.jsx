@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import messageIcon from '../assets/message-icon.svg';
+import messageIcon from '../../assets/message-icon.svg';
 
 export default function QuestionCard({ id, name, imageSource, questionCount }) {
   const navigateToFeed = useNavigate();

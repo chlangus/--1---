@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
-import deleteQuestion from '../../services/DeleteQuestion';
+import deleteQuestion from '../../services/deleteQuestion';
 import binIcon from '../../assets/Trash.svg';
-import useQuestionsAtom from '../hooks/useQuestions';
-import useSubjectDataRecoil from '../../contexts/useSubjectDataRecoil';
+import useQuestionsAtom from '../../hooks/useQuestions';
+import useSubjectData from '../../hooks/useSubjectData';
 import AlertModal from '../Modal/AlertModal';
 
 function DeleteQuestionButton({ questionId }) {
   const [questions, setQuestions, setQuestion] = useQuestionsAtom();
-  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+  const [subjectData, setSubjectData] = useSubjectData();
 
   const [modalOpen, setModalOpen] = useState(false);
   const modalRef = useRef();

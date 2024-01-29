@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
-import useMobileLayout from '../utils/useMobileLayout';
-import useTabletLayout from '../utils/useTabletLayout';
-import DropDownButton from './Buttons/DropDownButton';
+import useMobileLayout from '../../utils/useMobileLayout';
+import useTabletLayout from '../../utils/useTabletLayout';
+import DropDownButton from '../Buttons/DropDownButton';
 import Pagination from './Pagination/Pagination';
 
 export default function QuestionList() {

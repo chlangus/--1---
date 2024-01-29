@@ -2,14 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 // import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
-import FeedBox from '../components/FeedBox';
-import FeedCard from '../components/FeedCard';
+import QuestionFeedHeader from '../components/Feed/QuestionFeedHeader';
+import FeedBox from '../components/Feed/FeedBox';
+import FeedCard from '../components/Feed/FeedCard';
 import QuestionWriteButton from '../components/Buttons/QuestionWriteButton';
-import fetchQuestion from '../services/FetchQuestion';
-import timeSince from '../utils/TimeSince';
-import NoQuestionFeed from '../components/NoQuestionFeed';
-import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
+import fetchQuestion from '../services/fetchQuestion';
+import timeSince from '../utils/timeSince';
+import NoQuestionFeed from '../components/Feed/NoQuestionFeed';
+import useSubjectData from '../hooks/useSubjectData';
 
 export default function QuestionFeedPage() {
   const { id } = useParams();
