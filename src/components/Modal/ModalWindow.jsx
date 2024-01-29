@@ -1,8 +1,10 @@
 import { createPortal } from 'react-dom';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
+import { useContext } from 'react';
 import QuestionInput from '../Inputs/QuestionInput';
 import messageIcon from '../../assets/Messages.svg';
-import closeButton from '../../assets/Close.svg';
+import closeButton from '../../assets/close.svg';
+import darkCloseButton from '../../assets/dark-close.svg';
 
 export default function ModalWindow({
   handleStoreQeustion,
@@ -10,6 +12,8 @@ export default function ModalWindow({
   setModalOpen,
   subjectId,
 }) {
+  const { mode } = useContext(ThemeContext);
+  console.log(mode);
   const handleModalClick = e => {
     // 모달 내부를 클릭했을 때는 모달이 닫히지 않도록 처리
     if (e.target.closest('.modal-content')) {
@@ -33,7 +37,10 @@ export default function ModalWindow({
                 <div>질문을 작성하세요</div>
               </div>
               <button type="button" onClick={closeModal}>
-                <img src={closeButton} alt="닫기 버튼" />
+                <img
+                  src={mode === 'light' ? closeButton : darkCloseButton}
+                  alt="닫기 버튼"
+                />
               </button>
             </ModalHeader>
             <QuestionInput
