@@ -1,6 +1,4 @@
-async function deleteAnswer(id) {
-  const answerId = id;
-  console.log('id: ', answerId);
+async function deleteAnswer(answerId) {
   try {
     const response = await fetch(
       `https://openmind-api.vercel.app/3-2/answers/${answerId}/`,

@@ -6,6 +6,7 @@ import AlertModal from '../Modal/AlertModal';
 function DeleteAllButton({ text, questions, setQuestions }) {
   const [modalOpen, setModalOpen] = useState(false);
   const modalRef = useRef();
+  console.log('불러온 질문 개수 확인', questions);
 
   const handleCloseModal = () => {
     setModalOpen(false);
