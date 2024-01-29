@@ -5,7 +5,7 @@ const useTabletLayout = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsTabletSize(window.innerWidth <= 768);
+      setIsTabletSize(window.innerWidth <= 865);
     };
 
     window.addEventListener('resize', handleResize);
