@@ -63,6 +63,9 @@ export default function QuestionFeedPage() {
   // 오 어떤가요 먼가 달라졌죠
   const loadMoreQuestions = async () => {
     // 좋은 접근입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    if (loading) return; // 이미 로딩 중이면 중복 호출 방지
+    setLoading(true);
+
     try {
       const data = await getQuestions();
       const transformedQuestions = data.results.map(question => ({
@@ -78,6 +81,8 @@ export default function QuestionFeedPage() {
       setLoading(true);
     } catch (error) {
       console.error('데이터를 가져오는 중 오류 발생:', error);
+    } finally {
+      setLoading(false);
     }
   };
   // 라이브러리를 안 쓰는 것이 덜 복잡할 수도 있습니다!
@@ -85,7 +90,6 @@ export default function QuestionFeedPage() {
   // 스크롤 시 추가 데이터 로딩
   // if(results.length < limit) limit = results.length // 저는 가보겠습니다!! 나중에 좀 더 코드 정리를.. 하시죠..!!
   useEffect(() => {
-    limit = 8;
     loadMoreQuestions();
   }, [inView]);
 
@@ -109,7 +113,6 @@ export default function QuestionFeedPage() {
                 setSubjectId={setSubjectId}
               />
             ))}
-            <div ref={ref}>하이</div>
           </FeedBox>
         </FeedContainer>
       )}
@@ -117,6 +120,7 @@ export default function QuestionFeedPage() {
         subjectId={subjectId}
         handleQuestion={setQuestions}
       />
+      <div ref={ref}>하이</div>
     </Wrapper>
   );
 }
