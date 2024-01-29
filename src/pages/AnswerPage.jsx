@@ -14,7 +14,6 @@ export default function AnswerPage() {
   const { id } = useParams();
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useQuestionsAtom();
-
   // =============무한스크롤
   const [offset, setOffset] = useState(0); // 스크롤이 닿았을 때 새롭게 offset을 바꿈
   const [loading, setLoading] = useState(false); // 로딩 성공, 실패를 담음
@@ -42,6 +41,10 @@ export default function AnswerPage() {
       setLoading(true);
     });
   };
+
+  useEffect(() => {
+    setQuestions([]);
+  }, []);
 
   useEffect(() => {
     fetchPins(subjectId, offset);
