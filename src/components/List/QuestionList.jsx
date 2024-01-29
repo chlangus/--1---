@@ -5,6 +5,7 @@ import useMobileLayout from '../../utils/useMobileLayout';
 import useTabletLayout from '../../utils/useTabletLayout';
 import DropDownButton from '../Buttons/DropDownButton';
 import Pagination from './Pagination/Pagination';
+import getCardList from '../../services/fetchQuestionList';
 
 export default function QuestionList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,17 +19,6 @@ export default function QuestionList() {
   const isMobileSize = useMobileLayout();
   const isTabletSize = useTabletLayout();
   const LIMITSIZE = isMobileSize || isTabletSize ? MIN_CARDS : MAX_CARDS;
-
-  const getCardList = async ({
-    sort: cardSort,
-    LIMITSIZE: cardLimitSize,
-    currentPage: current,
-  }) => {
-    const url = `/subjects/?limit=${cardLimitSize}&offset=${(current - 1) * LIMITSIZE}&sort=${cardSort}`;
-    const response = await fetch(`https://openmind-api.vercel.app/3-2${url}`);
-    const result = await response.json();
-    return result;
-  };
 
   const handleLoad = async options => {
     const { results, count } = await getCardList(options);
@@ -144,18 +134,17 @@ const ButtonDiv = styled.div`
 
 const StyledList = styled.ul`
   display: grid;
-  grid-template-columns: repeat(4, 22rem);
+  grid-template-columns: repeat(4, minmax(18.6rem, 22rem));
   gap: 2rem;
   padding-bottom: 4rem;
-
-  @media (max-width: 768px) {
+  @media (max-width: 865px) {
     padding-bottom: 6.1rem;
-    grid-template-columns: repeat(3, 22rem);
+    grid-template-columns: repeat(3, minmax(18.6rem, 22rem));
   }
 
-  @media (max-width: 375px) {
-    padding: 0 2.4rem 3.1rem;
-    grid-template-columns: repeat(2, 15rem);
+  @media screen and ((min-width: 375px) and (max-width: 767px)) {
+    gap: 1.6rem;
+    grid-template-columns: repeat(2, minmax(15.5rem, 22rem));
   }
 `;
 

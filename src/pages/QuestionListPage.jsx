@@ -51,27 +51,27 @@ function Navbar() {
 
 export default function QuestionListPage() {
   return (
-    <>
+    <ListContainer>
       <Navbar />
       <QuestionList />
-    </>
+    </ListContainer>
   );
 }
 
+const ListContainer = styled.div`
+  width: 100%;
+`;
+
 const NavWrapper = styled.div`
-  display: block;
   width: 100%;
   max-width: 120rem;
   margin: 0 auto;
-  padding: 0 3.2rem;
-  @media screen and ((min-width: 375px) and
-  (max-width: 767px)) {
-    width: 100%;
-    max-width: 50rem;
-    padding: 0 2.4rem;
+  padding: 0 8rem;
+  @media screen and ((min-width: 375px)
+and (max-width: 950px)) {
+    padding: 0 5rem;
   }
 `;
-
 const Nav = styled.div`
   display: flex;
   justify-content: space-between;

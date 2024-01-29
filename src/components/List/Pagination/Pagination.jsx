@@ -71,10 +71,10 @@ export default function Pagination({
 
       {pageGroups?.map(page => (
         <PageButton
-          $currentPage={currentPage}
           key={page}
           type="button"
           onClick={() => handlePageChange(page)}
+          className={currentPage === page ? 'active' : ''}
         >
           {page}
         </PageButton>
@@ -116,7 +116,7 @@ const PageButton = styled.button`
     color: var(--color-blue-50);
   }
 
-  &.currentPage {
-    color: var(--color-yellow-50);
+  &.active {
+    color: red; /* 클릭된 버튼 색 */
   }
 `;
