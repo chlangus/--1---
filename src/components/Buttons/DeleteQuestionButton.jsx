@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ThemeContext from '../../contexts/ThemeContext';
 import binIcon from '../../assets/Trash.svg';
 import binIconDark from '../../assets/Trash-dark.svg';
-import useSubjectDataRecoil from '../../hooks/useSubjectData';
+import useSubjectData from '../../hooks/useSubjectData';
 import deleteQuestion from '../../services/deleteQuestion';
 import useQuestionsAtom from '../../hooks/useQuestions';
 import AlertModal from '../Modal/AlertModal';
@@ -13,7 +13,7 @@ function DeleteQuestionButton({ questionId }) {
   const mode = useContext(ThemeContext);
 
   const [questions, setQuestions, setQuestion] = useQuestionsAtom();
-  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+  const [subjectData, setSubjectData] = useSubjectData();
 
   const [modalOpen, setModalOpen] = useState(false);
   const modalRef = useRef();
