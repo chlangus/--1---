@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+// import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import QuestionFeedHeader from '../components/Feed/QuestionFeedHeader';
@@ -14,13 +15,17 @@ export default function QuestionFeedPage() {
   const { id } = useParams();
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
-
   const [subjectData, setSubjectData] = useSubjectData();
+  const [offset, setOffset] = useState(0); // 스크롤이 닿았을 때 새롭게 offset을 바꿈
+  const [loading, setLoading] = useState(false); // 로딩 성공, 실패를 담음
+  const pageEnd = useRef();
 
-  console.log(subjectData);
+  const loadMore = () => {
+    setOffset(prev => prev + 5); // 일단 한번에 5개씩 로드하도록 임의로 만들었어용...
+  };
 
-  useEffect(() => {
-    fetchQuestion(subjectId).then(data => {
+  const fetchPins = async (_id, _offset) => {
+    fetchQuestion(_id, _offset, subjectId).then(data => {
       if (data.results.length) {
         // 데이터 있으면 실행
         const transformedQuestions = data.results.map(question => ({
@@ -34,15 +39,39 @@ export default function QuestionFeedPage() {
               }
             : null,
         }));
-        setQuestions(transformedQuestions);
-      } else {
-        setQuestions([]);
+        setQuestions(prev => [...prev, ...transformedQuestions]);
       }
+      setLoading(true);
     });
-  }, [setSubjectData]);
+  };
+
+  useEffect(() => {
+    fetchPins(subjectId, offset);
+  }, [offset]);
+
+  useEffect(() => {
+    if (loading) {
+      // 로딩되었을 때만 실행
+      const observer = new IntersectionObserver(
+        entries => {
+          if (entries[0].isIntersecting) {
+            loadMore();
+          }
+        },
+        { threshold: 1 },
+      );
+      // 옵저버 탐색 시작
+      if (pageEnd.current) observer.observe(pageEnd.current);
+    }
+  }, [loading]);
+
   return (
     <Wrapper>
-      <QuestionFeedHeader subjectId={subjectId} />
+      <QuestionFeedHeader
+        subjectId={subjectId}
+        subjectData={subjectData}
+        setSubjectData={setSubjectData}
+      />
       {questions.length === 0 ? (
         <NoQuestionFeed />
       ) : (
@@ -56,6 +85,7 @@ export default function QuestionFeedPage() {
                 setSubjectId={setSubjectId}
               />
             ))}
+            <Loading ref={pageEnd} />
           </FeedBox>
         </FeedContainer>
       )}
@@ -66,6 +96,10 @@ export default function QuestionFeedPage() {
     </Wrapper>
   );
 }
+
+const Loading = styled.div`
+  display: flex;
+`;
 
 const Wrapper = styled.div`
   background: ${({ theme }) => theme.colorGrayScale20};
