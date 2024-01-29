@@ -27,8 +27,7 @@ const CardBox = styled.li`
   width: 100%;
   height: 18.7rem;
   padding: 2rem;
-  justify-content: space-between;
-  align-items: flex-start;
+
   border-radius: 16px;
   border: 1px solid ${({ theme }) => theme.colorGrayScale40};
   background: ${({ theme }) => theme.colorGrayScale10};
@@ -54,12 +53,10 @@ const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  align-self: stretch;
   color: ${({ theme }) => theme.colorGrayScale40};
   font-size: var(--font-body3);
   font-style: normal;
   font-weight: var(--weight-regular);
-  line-height: 2.2rem;
 `;
 
 const QuestionInfo = styled.div`
@@ -70,6 +67,5 @@ const QuestionInfo = styled.div`
 
 const MessageIcon = styled.img`
   width: 1.8rem;
-  height: 1.8rem;
   margin-right: 0.4rem;
 `;

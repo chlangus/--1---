@@ -144,18 +144,17 @@ const ButtonDiv = styled.div`
 
 const StyledList = styled.ul`
   display: grid;
-  grid-template-columns: repeat(4, 22rem);
+  grid-template-columns: repeat(4, minmax(18.6rem, 22rem));
   gap: 2rem;
   padding-bottom: 4rem;
-
-  @media (max-width: 768px) {
+  @media (max-width: 865px) {
     padding-bottom: 6.1rem;
-    grid-template-columns: repeat(3, 22rem);
+    grid-template-columns: repeat(3, minmax(18.6rem, 22rem));
   }
 
-  @media (max-width: 375px) {
-    padding: 0 2.4rem 3.1rem;
-    grid-template-columns: repeat(2, 15rem);
+  @media screen and ((min-width: 375px) and (max-width: 767px)) {
+    gap: 1.6rem;
+    grid-template-columns: repeat(2, minmax(15.5rem, 22rem));
   }
 `;
 
