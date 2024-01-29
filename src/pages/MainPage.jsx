@@ -36,6 +36,7 @@ export default function MainPage() {
 
   const selectNickname = id => {
     localStorage.setItem('id', JSON.stringify(id)); // 현재 유저 정보 저장
+    console.log(id);
     navigate(`/post/${id}/answer`);
   };
   useEffect(() => {
