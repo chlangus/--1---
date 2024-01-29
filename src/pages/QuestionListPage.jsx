@@ -2,8 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled, { ThemeContext } from 'styled-components';
 import { useContext } from 'react';
 import QuestionList from '../components/List/QuestionList';
-import logo from '../assets/logo.svg';
-import darkLogo from '../assets/dark-logo.svg';
+import logo from '../assets/headerLogo.png';
+import darkLogo from '../assets/headerLogo-dark.png';
 import AnswerButton from '../components/Buttons/SendQuestionButton';
 
 function Navbar() {
