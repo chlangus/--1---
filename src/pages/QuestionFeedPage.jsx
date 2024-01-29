@@ -35,7 +35,6 @@ export default function QuestionFeedPage() {
             : null,
         }));
         setQuestions(transformedQuestions);
-        console.log(transformedQuestions);
       } else {
         setQuestions([]);
       }
