@@ -4,7 +4,6 @@ async function deleteQuestion(questionId) {
       `https://openmind-api.vercel.app/3-2/questions/${questionId}/`,
       { method: 'DELETE' },
     );
-    console.log('질문 삭제 실행');
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
