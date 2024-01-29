@@ -11,7 +11,6 @@ export default function FeedCard({ question, isAnswerPage }) {
 
 const Container = styled.div`
   display: flex;
-  // width: 684px;
   width: 100%;
 
   flex-direction: column;

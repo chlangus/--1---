@@ -1,13 +1,12 @@
 import { useContext, useState } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import kebabImg from '../../assets/more-icon.svg';
 import EditBoxModal from '../Modal/EditBoxModal';
-import ThemeContext from '../../contexts/ThemeContext';
 import darkKebabImg from '../../assets/dark-more-icon.svg';
 
 export default function KebabButton({ questionId, answerId }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const mode = useContext(ThemeContext);
+  const { mode } = useContext(ThemeContext);
 
   return (
     <>

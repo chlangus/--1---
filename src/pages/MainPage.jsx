@@ -1,15 +1,14 @@
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import logo from '../assets/logo.svg';
-import darkLogo from '../assets/dark-logo.svg';
-import mainBg from '../assets/main-bg.svg';
-import darkMainBg from '../assets/dark-main-bg.svg';
+import logo from '../assets/MainLogo.png';
+import darkLogo from '../assets/MainLogo-dark.png';
+import mainBg from '../assets/backGround.svg';
+import darkMainBg from '../assets/backGround-dark.png';
 import NameInput from '../components/Inputs/NameInput';
 import GetQuestionButton from '../components/Buttons/GetQuestionButton';
 import storeId from '../services/storeId';
 import SendQuestionButton from '../components/Buttons/SendQuestionButton';
-import ThemeContext from '../contexts/ThemeContext';
 import IdTypeSelectButton from '../components/Buttons/IdTypeSelectButton';
 import IdSelectButton from '../components/Buttons/IdSelectButton';
 
@@ -21,7 +20,7 @@ export default function MainPage() {
   const handleInputValue = name => {
     setInputValue(name);
   };
-  const mode = useContext(ThemeContext);
+  const { mode } = useContext(ThemeContext);
 
   const sendName = async () => {
     setInputValue(inputValue);
@@ -100,6 +99,7 @@ const PageWrapper = styled.div`
 const Img = styled.img`
   max-width: 456px;
   max-height: 180px;
+
   @media (max-width: 768px) {
     width: 248px;
     height: 98px;

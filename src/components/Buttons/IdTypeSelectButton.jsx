@@ -26,7 +26,7 @@ export default function IdTypeSelectButton({ connectType, setConnectType }) {
 }
 
 const Label = styled.label`
-  color: ${({ theme }) => theme.colorScaleGray40};
+  color: ${({ theme }) => theme.colorGrayScale50};
   display: flex;
   align-items: center;
   font-size: 14px;

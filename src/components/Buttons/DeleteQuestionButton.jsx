@@ -1,13 +1,16 @@
 /* eslint-disable no-unused-vars */
-import { useState, useRef } from 'react';
-import styled from 'styled-components';
-import deleteQuestion from '../../services/deleteQuestion';
+import { useState, useRef, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import binIcon from '../../assets/Trash.svg';
-import useQuestionsAtom from '../../hooks/useQuestions';
+import binIconDark from '../../assets/Trash-dark.svg';
 import useSubjectData from '../../hooks/useSubjectData';
+import deleteQuestion from '../../services/deleteQuestion';
+import useQuestionsAtom from '../../hooks/useQuestions';
 import AlertModal from '../Modal/AlertModal';
 
 function DeleteQuestionButton({ questionId }) {
+  const { mode } = useContext(ThemeContext);
+
   const [questions, setQuestions, setQuestion] = useQuestionsAtom();
   const [subjectData, setSubjectData] = useSubjectData();
 
@@ -34,7 +37,7 @@ function DeleteQuestionButton({ questionId }) {
   return (
     <>
       <S.Button onClick={() => setModalOpen(true)}>
-        <img src={binIcon} alt="delete" />
+        <img src={mode === 'light' ? binIcon : binIconDark} alt="delete" />
         <S.Content>
           <span>질문삭제</span>
         </S.Content>
@@ -69,12 +72,12 @@ const Button = styled.button`
   gap: 0.6rem;
 
   border-radius: 8px;
-  border: 1px solid var(--color-grayscale-30);
-  background: var(--color-grayscale-10);
+  border: 1px solid ${({ theme }) => theme.colorGrayScale30};
+  background: ${({ theme }) => theme.colorGrayScale10};
 
   /* 1pt */
   box-shadow: var(--shadow-1pt);
-  color: var(--color-grayscale-50);
+  color: ${({ theme }) => theme.colorGrayScale50};
 
   cursor: pointer;
 
@@ -96,7 +99,6 @@ const Content = styled.span`
   gap: 8px;
   align-self: stretch;
 
-  // color: var(--color-grayscale-50);
   font-feature-settings:
     'clig' off,
     'liga' off;
