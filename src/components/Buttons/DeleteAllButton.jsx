@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
-import deleteQuestion from '../../services/DeleteQuestion';
+import deleteQuestion from '../../services/deleteQuestion';
 import AlertModal from '../Modal/AlertModal';
 
 function DeleteAllButton({ text, questions, setQuestions }) {

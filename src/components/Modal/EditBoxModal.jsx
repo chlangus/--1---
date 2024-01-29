@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import useEditMode from '../hooks/useEditMode';
-import deleteAnswer from '../../services/DeleteAnswer';
-import postAnswer from '../../services/PostAnswer';
-import patchAnswer from '../../services/PatchAnswer';
-import useQuestionsAtom from '../hooks/useQuestions';
+import useEditMode from '../../hooks/useEditMode';
+import postAnswer from '../../services/postAnswer';
+import patchAnswer from '../../services/patchAnswer';
+import useQuestionsAtom from '../../hooks/useQuestions';
+import deleteAnswer from '../../services/deleteAnswer';
 
 export default function EditBoxModal({
   isOpenModal,

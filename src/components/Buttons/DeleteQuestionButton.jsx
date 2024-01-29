@@ -2,11 +2,11 @@
 import { useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
 import ThemeContext from '../../contexts/ThemeContext';
-import deleteQuestion from '../../services/DeleteQuestion';
 import binIcon from '../../assets/Trash.svg';
 import binIconDark from '../../assets/Trash-dark.svg';
-import useQuestionsAtom from '../hooks/useQuestions';
-import useSubjectDataRecoil from '../../contexts/useSubjectDataRecoil';
+import useSubjectDataRecoil from '../../hooks/useSubjectData';
+import deleteQuestion from '../../services/deleteQuestion';
+import useQuestionsAtom from '../../hooks/useQuestions';
 import AlertModal from '../Modal/AlertModal';
 
 function DeleteQuestionButton({ questionId }) {

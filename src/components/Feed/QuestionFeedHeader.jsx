@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import fetchSubject from '../../services/FetchSubject';
+import fetchSubject from '../../services/fetchSubject';
 import QuestionFeedHead from '../../assets/QuestionFeedHead.svg';
 import QuestionFeedLogo from '../../assets/QuestionFeedLogo.svg';
 import darkQuestionFeedHead from '../../assets/darkQuestionFeedHead.svg';
@@ -10,11 +10,11 @@ import LinkShareIcon from '../Buttons/LinkShareIcon';
 import FacebookShareIcon from '../Buttons/FacebookShareIcon';
 import KakaoShareIcon from '../Buttons/KakaoShareIcon';
 import ThemeContext from '../../contexts/ThemeContext';
-import useSubjectDataRecoil from '../../contexts/useSubjectDataRecoil';
+import useSubjectData from '../../hooks/useSubjectData';
 
 function QuestionFeedHeader({ subjectId }) {
   const mode = useContext(ThemeContext);
-  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+  const [subjectData, setSubjectData] = useSubjectData();
 
   useEffect(() => {
     if (typeof setSubjectData === 'function') {

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useContext } from 'react';
-import QuestionList from '../components/QuestionList';
+import QuestionList from '../components/List/QuestionList';
 import logo from '../assets/logo.svg';
 import darkLogo from '../assets/dark-logo.svg';
 import AnswerButton from '../components/Buttons/SendQuestionButton';
@@ -11,15 +11,13 @@ function Navbar() {
   const navigateToPage = useNavigate();
 
   const handleIsUserID = () => {
-    const userAccounts = JSON.parse(localStorage.getItem('userAccounts'));
-    const firstUserId =
-      userAccounts && userAccounts.length > 0 ? userAccounts[0].id : null;
-    if (firstUserId === null) {
+    const userAccount = JSON.parse(localStorage.getItem('id'));
+    if (userAccount === null) {
       // eslint-disable-next-line no-console
       console.log('로컬 스토리지에 아이디가 없습니다');
       navigateToPage(`/`);
     } else {
-      navigateToPage(`/post/${firstUserId}/answer`);
+      navigateToPage(`/post/${userAccount}/answer`);
     }
   };
 

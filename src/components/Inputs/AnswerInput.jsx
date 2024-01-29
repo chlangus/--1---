@@ -2,10 +2,10 @@
 /* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 import styled from 'styled-components';
-import postAnswer from '../../services/PostAnswer';
-import patchAnswer from '../../services/PatchAnswer';
-import useQuestionsAtom from '../hooks/useQuestions';
-import useEditMode from '../hooks/useEditMode';
+import postAnswer from '../../services/postAnswer';
+import patchAnswer from '../../services/patchAnswer';
+import useQuestionsAtom from '../../hooks/useQuestions';
+import useEditMode from '../../hooks/useEditMode';
 
 export default function AnswerInput({ questionId, answerId, isEditMode }) {
   const btnText = isEditMode ? '수정 완료' : '답변 완료';

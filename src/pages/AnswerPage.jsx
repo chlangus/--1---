@@ -1,14 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import useQuestionsAtom from '../components/hooks/useQuestions';
-import QuestionFeedHeader from '../components/QuestionFeedHeader/QuestionFeedHeader';
-import FeedBox from '../components/FeedBox';
-import FeedCard from '../components/FeedCard';
+import useQuestionsAtom from '../hooks/useQuestions';
+import QuestionFeedHeader from '../components/Feed/QuestionFeedHeader';
+import FeedBox from '../components/Feed/FeedBox';
+import FeedCard from '../components/Feed/FeedCard';
 import DeleteAllButton from '../components/Buttons/DeleteAllButton';
-import fetchQuestion from '../services/FetchQuestion';
-import timeSince from '../utils/TimeSince';
-import NoQuestionFeed from '../components/NoQuestionFeed';
+import fetchQuestion from '../services/fetchQuestion';
+import timeSince from '../utils/timeSince';
+import NoQuestionFeed from '../components/Feed/NoQuestionFeed';
 
 export default function AnswerPage() {
   const { id } = useParams();

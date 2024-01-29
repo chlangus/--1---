@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Messages from '../assets/Messages.svg';
-import Noquestion from '../assets/noquestion.svg';
+import Messages from '../../assets/Messages.svg';
+import Noquestion from '../../assets/noquestion.svg';
 
 export default function NoQuestionFeed() {
   return (
@@ -21,7 +21,7 @@ const NoQuestionWapper = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin: 54px auto;
+  margin: 0 auto;
 `;
 
 const NoQuestionBox = styled.div`
