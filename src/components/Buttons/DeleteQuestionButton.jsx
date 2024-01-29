@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState, useRef, useContext } from 'react';
-import styled from 'styled-components';
-import ThemeContext from '../../contexts/ThemeContext';
+import styled, { ThemeContext } from 'styled-components';
 import binIcon from '../../assets/Trash.svg';
 import binIconDark from '../../assets/Trash-dark.svg';
 import useSubjectData from '../../hooks/useSubjectData';
@@ -10,7 +9,7 @@ import useQuestionsAtom from '../../hooks/useQuestions';
 import AlertModal from '../Modal/AlertModal';
 
 function DeleteQuestionButton({ questionId }) {
-  const mode = useContext(ThemeContext);
+  const { mode } = useContext(ThemeContext);
 
   const [questions, setQuestions, setQuestion] = useQuestionsAtom();
   const [subjectData, setSubjectData] = useSubjectData();
