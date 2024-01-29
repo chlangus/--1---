@@ -61,9 +61,9 @@ export default function EditBoxModal({
 
   return (
     <EditBox ref={wrapperRef} value={isOpenModal}>
-      <EditItem onClick={handleEdit}>수정하기</EditItem>
-      <EditItem onClick={handleDelete}>삭제하기</EditItem>
-      <EditItem onClick={handleReject}>거절하기</EditItem>
+      <EditItem onClick={handleEdit}>답변수정</EditItem>
+      <EditItem onClick={handleDelete}>답변삭제</EditItem>
+      <EditItem onClick={handleReject}>답변거절</EditItem>
     </EditBox>
   );
 }

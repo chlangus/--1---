@@ -3,7 +3,6 @@ import { React } from 'react';
 import styled from 'styled-components';
 import useEditMode from './hooks/useEditMode';
 import useSubjectDataRecoil from '../contexts/useSubjectDataRecoil';
-
 import AnswerBadge from './Badges/AnswerBadge';
 import KebabButton from './Buttons/KebabButton';
 import profileImg from '../assets/sample-profile-img.svg';

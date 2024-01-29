@@ -15,13 +15,12 @@ export default function AnswerPage() {
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useQuestionsAtom();
 
-  // =============무한스크롤
   const [offset, setOffset] = useState(0); // 스크롤이 닿았을 때 새롭게 offset을 바꿈
   const [loading, setLoading] = useState(false); // 로딩 성공, 실패를 담음
   const pageEnd = useRef();
 
   const loadMore = () => {
-    setOffset(prev => prev + 5); // 일단 한번에 5개씩 로드하도록 임의로 만들었어용...
+    setOffset(prev => prev + 5);
   };
   const fetchPins = async (_id, _offset) => {
     fetchQuestion(_id, _offset).then(data => {
@@ -62,7 +61,6 @@ export default function AnswerPage() {
       if (pageEnd.current) observer.observe(pageEnd.current);
     }
   }, [loading]);
-  // =============
 
   return (
     <Wrapper>
@@ -97,11 +95,10 @@ export default function AnswerPage() {
   );
 }
 
-// 무한스크롤 ===========
 const Loading = styled.div`
   display: flex;
 `;
-// =========
+
 const Wrapper = styled.div`
   background: ${({ theme }) => theme.colorGrayScale20};
   display: flex;
