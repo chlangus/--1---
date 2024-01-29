@@ -5,7 +5,7 @@ import messageIcon from '../../assets/Messages.svg';
 import closeButton from '../../assets/Close.svg';
 
 export default function ModalWindow({
-  handleQuestion,
+  handleStoreQeustion,
   closeModal,
   setModalOpen,
   subjectId,
@@ -20,7 +20,7 @@ export default function ModalWindow({
     closeModal();
   };
   const handleStoreQuestion = question => {
-    handleQuestion(question);
+    handleStoreQeustion(question);
   };
   return (
     <>

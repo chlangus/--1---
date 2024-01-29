@@ -15,7 +15,7 @@ export default function QuestionFeedPage() {
   const { id } = useParams();
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
-  const [subjectData, setSubjectData] = useSubjectDataRecoil();
+  const [subjectData, setSubjectData] = useSubjectData();
   const [offset, setOffset] = useState(0); // 스크롤이 닿았을 때 새롭게 offset을 바꿈
   const [loading, setLoading] = useState(false); // 로딩 성공, 실패를 담음
   const pageEnd = useRef();

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import fetchSubject from '../../services/fetchSubject';
+import postQuestion from '../../services/postQuestion';
 import timeSince from '../../utils/timeSince';
 import useSubjectData from '../../hooks/useSubjectData';
 
@@ -20,26 +21,12 @@ export default function QuestionInput({
   // 질문을 보내는 역할
   const handleSendQuestion = async () => {
     try {
-      const response = await fetch(
-        `https://openmind-api.vercel.app/3-2/subjects/${subjectId}/questions/`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ content: question }),
-        },
-      );
+      const responseData = await postQuestion(subjectId, question);
 
-      const responseData = await response.json();
       handleStoreQuestion(prev => [
         { ...responseData, createdWhen: timeSince(responseData.createdAt) },
         ...prev,
       ]);
-      setSubjectData(prev => ({
-        ...prev,
-        questionCount: prev.questionCount + 1,
-      }));
 
       // 성공적으로 response를 받으면 모달 창을 닫음
       setModalOpen(false);
@@ -73,6 +60,7 @@ export default function QuestionInput({
             value={question}
             onChange={handleQuestionChange}
           />
+          -
         </div>
         <Button
           question={question}
