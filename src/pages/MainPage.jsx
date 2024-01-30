@@ -52,7 +52,6 @@ export default function MainPage() {
       }
     }
   };
-
   useEffect(() => {
     if (localStorage.getItem('userAccounts') === null) {
       // 저장된 데이터 없으면 배열로 초기화
@@ -82,7 +81,10 @@ export default function MainPage() {
           />
           {connectType &&
             (connectType === 'ordinary' ? (
-              <NicknamesListButton nicknames={nicknames} />
+              <NicknamesListButton
+                nicknames={nicknames}
+                setNicknames={setNicknames}
+              />
             ) : (
               <NameInput onHandleInput={handleInputValue} />
             ))}
