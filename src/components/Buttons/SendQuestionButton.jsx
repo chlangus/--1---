@@ -34,6 +34,7 @@ export const StyledButton = styled.button`
   font-style: normal;
   font-weight: 400;
   line-height: 22px; /* 137.5% */
+  cursor: pointer;
 
   @media (max-width: 768px) {
     font-size: 14px;

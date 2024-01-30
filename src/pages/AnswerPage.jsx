@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useQuestionsAtom from '../hooks/useQuestions';
 import useSubjectData from '../hooks/useSubjectData';
@@ -11,6 +11,7 @@ import DeleteAllButton from '../components/Buttons/DeleteAllButton';
 import fetchQuestion from '../services/fetchQuestion';
 import timeSince from '../utils/timeSince';
 import NoQuestionFeed from '../components/Feed/NoQuestionFeed';
+import NavigateButton from '../components/Buttons/SendQuestionButton';
 
 export default function AnswerPage() {
   const { id } = useParams();
@@ -28,7 +29,7 @@ export default function AnswerPage() {
   };
   const fetchPins = async (_id, _offset, _limit) => {
     fetchQuestion(_id, _offset, _limit).then(data => {
-      if (data.results.length) {
+      if (data?.results?.length) {
         const transformedQuestions = data.results.map(question => ({
           ...question,
           createdWhen: timeSince(question.createdAt),
@@ -100,9 +101,20 @@ export default function AnswerPage() {
           </FeedContainer>
         )}
       </S.DeleteAndFeed>
+      <Link to="/list">
+        <ButtonWrapper>
+          <NavigateButton>질문하러 가기</NavigateButton>
+        </ButtonWrapper>
+      </Link>
     </Wrapper>
   );
 }
+
+const ButtonWrapper = styled.div`
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+`;
 
 const Loading = styled.div`
   display: flex;

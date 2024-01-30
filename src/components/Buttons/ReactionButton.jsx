@@ -75,7 +75,11 @@ export default function ReactionButton({ question: { id, like, dislike } }) {
 const ReactionBox = styled.span`
   display: flex;
   align-items: flex-start;
-  gap: 3.2rem;
+  gap: 1.6rem;
+
+  @media (min-width: 768px) {
+    gap: 3.2rem;
+  }
 `;
 
 const LikeBox = styled.button`
@@ -85,7 +89,7 @@ const LikeBox = styled.button`
   user-select: none;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.4rem;
   color: ${({ theme }) => theme.colorGrayScale40};
   font-feature-settings:
     'clig' off,
@@ -94,6 +98,10 @@ const LikeBox = styled.button`
   font-style: normal;
   font-weight: var(--weight-medium);
   line-height: 1.8rem; /* 128.571% */
+
+  @media (min-width: 768px) {
+    gap: 0.6rem;
+  }
 `;
 
 const S = {

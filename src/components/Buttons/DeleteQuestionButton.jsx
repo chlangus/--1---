@@ -66,10 +66,9 @@ const OutSide = styled.div`
 const Button = styled.button`
   display: flex;
   // width: 120px;
-  padding: 6px 10px;
+  padding: 6px 8px;
   justify-content: center;
   align-items: center;
-  gap: 0.6rem;
 
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colorGrayScale30};
