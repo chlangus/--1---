@@ -47,6 +47,11 @@ const ProfileName = styled.h2`
   font-style: normal;
   font-weight: var(--weight-regular);
   line-height: 2.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
 
 const ContentWrapper = styled.div`
