@@ -14,6 +14,7 @@ export default function QuestionFeedPage() {
   const { id } = useParams();
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useState([]);
+  const limit = 5;
   const [offset, setOffset] = useState(0); // 스크롤이 닿았을 때 새롭게 offset을 바꿈
   const [loading, setLoading] = useState(false); // 로딩 성공, 실패를 담음
   const pageEnd = useRef();
@@ -22,8 +23,8 @@ export default function QuestionFeedPage() {
     setOffset(prev => prev + 5);
   };
 
-  const fetchPins = async (_id, _offset) => {
-    fetchQuestion(_id, _offset, subjectId).then(data => {
+  const fetchPins = async (_id, _offset, _limit) => {
+    fetchQuestion(_id, _offset, _limit).then(data => {
       if (data.results.length) {
         // 데이터 있으면 실행
         const transformedQuestions = data.results.map(question => ({
@@ -44,7 +45,7 @@ export default function QuestionFeedPage() {
   };
 
   useEffect(() => {
-    fetchPins(subjectId, offset);
+    fetchPins(subjectId, offset, limit);
   }, [offset]);
 
   useEffect(() => {

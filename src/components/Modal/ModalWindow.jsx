@@ -3,7 +3,7 @@ import styled, { ThemeContext } from 'styled-components';
 import { useContext } from 'react';
 import QuestionInput from '../Inputs/QuestionInput';
 import messageIcon from '../../assets/Messages.svg';
-import closeButton from '../../assets/close.svg';
+import closeButton from '../../assets/Close.svg';
 import darkCloseButton from '../../assets/dark-close.svg';
 
 export default function ModalWindow({
