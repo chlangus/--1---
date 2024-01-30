@@ -1,3 +1,5 @@
+/* eslint-disable import/no-named-as-default-member */
+/* eslint-disable no-unused-vars */
 import styled, { ThemeContext } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
@@ -10,12 +12,13 @@ import GetQuestionButton from '../components/Buttons/GetQuestionButton';
 import storeId from '../services/storeId';
 import SendQuestionButton from '../components/Buttons/SendQuestionButton';
 import IdTypeSelectButton from '../components/Buttons/IdTypeSelectButton';
-import IdSelectButton from '../components/Buttons/IdSelectButton';
+import NicknamesListButton from '../components/Buttons/NicknameListButton';
 
 export default function MainPage() {
   const [inputValue, setInputValue] = useState('');
   const [connectType, setConnectType] = useState('new');
   const [nicknames, setNicknames] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const handleInputValue = name => {
     setInputValue(name);
@@ -62,15 +65,10 @@ export default function MainPage() {
           />
           {connectType &&
             (connectType === 'ordinary' ? (
-              nicknames.map(nickname => (
-                <IdSelectButton
-                  type="button"
-                  key={nickname.id}
-                  onClick={() => selectNickname(nickname.id)}
-                >
-                  {nickname.name}
-                </IdSelectButton>
-              ))
+              <NicknamesListButton
+                selectNickname={selectNickname}
+                nicknames={nicknames}
+              />
             ) : (
               <>
                 <NameInput onHandleInput={handleInputValue} />
@@ -116,6 +114,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const InputAndButtonBox = styled.div`
+  position: relative;
   width: 100%;
   max-width: 400px;
   display: inline-flex;
@@ -137,5 +136,7 @@ const MainLogoAndInputWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  @media (max-width: 768px) {
+    gap: 24px;
+  }
 `;
