@@ -41,11 +41,22 @@ export default function QuestionList() {
     }
   };
 
+  const userAccountsString = localStorage.getItem('userAccounts');
+
+  const userAccounts = JSON.parse(userAccountsString);
+
+  const userName = userAccounts[0].name;
+
   return (
     <StyledBox>
       <StyledDiv>
         <Header>
-          <ListTitle>누구에게 질문할까요?</ListTitle>
+          <ListTitle>
+            {'< '}
+            {userName}
+            {' >'} <br />
+            누구에게 질문할까요?
+          </ListTitle>
           <ButtonDiv>
             <DropDownButton
               orderType={orderType}
@@ -116,7 +127,7 @@ const ListTitle = styled.h1`
   text-align: center;
   font-size: var(--font-h1);
   font-weight: var(--weight-regular);
-  line-height: normal;
+  line-height: 6rem;
   margin-bottom: 1.2rem;
 
   @media screen and ((min-width: 375px)
@@ -124,6 +135,7 @@ const ListTitle = styled.h1`
     display: flex;
     font-size: var(--font-h3);
     margin-bottom: 0;
+    line-height: 3rem;
   }
 `;
 
