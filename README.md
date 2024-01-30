@@ -1,11 +1,13 @@
 # 📚 코드잇 스프린트 3기 2팀 OpenMind
 
-메인 이미지
+![image](https://github.com/chlangus/Codeit-First-Project/assets/129745640/68c68c8e-9fb1-400a-807f-334bfcbce7a9)
+
 
 ## ✏ 프로젝트 소개
 
-소개
+익명을 통하여 질문과 답변을 통해 마음을 열고 대화 나누는 소통 플랫폼
 
+</br>
 
 
 
