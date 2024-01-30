@@ -6,39 +6,76 @@
 
 소개
 
+
+
+
+
 ## 👉🏻 멤버 소개 및 역할
 
 
-|   <img width="100"  alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/816b9f86-7e37-44b2-92d5-897a311b0c80"> | <img width="100" alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/548d922f-afbe-487c-b86d-bb10c5895f60">  | <img width="100" alt="image" src='https://github.com/chlangus/Codeit-First-Project/assets/129745640/e09fae30-a6e4-42ea-a613-4d1d298275f7'> | <img width="100"  alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/b8390cce-09e1-48dd-96ef-0938cb9bdce2"> | <img width="100" alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/7dce75d5-3492-4213-b947-8ac9eb5a021d"> |
+|   <img width="100" height="100" alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/1db4a57f-45d6-4b52-9e02-124ad91f0f25"> | <img width="100" alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/04aee599-2eb7-4bc4-9725-f68d60f74b19">  | <img width="100" alt="image" src='https://github.com/chlangus/Codeit-First-Project/assets/129745640/525791d7-9700-4580-b7c6-721a48144a00'> | <img width="100" height="100"  alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/140d6f03-7f48-4c0b-b4e2-24b9f610b2dd"> | <img width="100" height="100" alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/c23a67cd-7d55-4765-991b-2327da520862"> |
 |:------------------------------------------------:|:--------------------------------------------:|:---------------------------------------------:|:--------------------------------------------:|:--------------------------------------------:|
 |         [최무현](https://github.com/chlangus)         |       [김성훈](https://github.com/huniiiiii)       |      [조예진](https://github.com/yejiniee)       |      [최유정](https://github.com/yoojungChoii)       |      [박소연](https://github.com/soyxxn)       |
 
-### 최무현
+### 🙍‍♂️최무현
 
--
--
+페이지: 랜딩 페이지 </br>
 
-###  김성훈
+공통: 질문하러가기 컴포넌트 </br>
 
--
--
+기능: </br>
+- 로그인(로컬스토리지)
+- 다크모드
+- BGM
+- 좋아요 싫어요 기능
+- 로그인 타입 설정 기능
 
-###  조예진
+###  🙍‍♂️김성훈
 
--
--
+페이지: 피드 페이지, 질문없을때 피드페이지 </br>
 
-###  최유정
+공통:  프로필 불러오기 및 공유하기버튼 적용, 질답 불러오기, 홈페이지 디자인</br>
 
--
--
-
-###  박소연
-
--
--
+기능: </br>
+- 질문 시간 표시
 
 
+###  🙍‍♀️조예진
+
+페이지: 답변 페이지 </br>
+
+공통: 글로벌 스타일, 피드 무한스크롤 적용 </br>
+
+기능: </br> 
+- 답변 등록, 수정, 삭제, 거절 기능
+- 질문 개별 삭제, 전체 삭제 기능
+- 답변 등록 여부 표시
+
+###  🙍‍♀️최유정
+
+페이지 : 모달 창 </br>
+
+공통: 피드 무한스크롤 적용 </br>
+
+기능: </br> 
+- 질문 게시 기능 구현
+- 모달 밖을 클릭했을 때, 성공적으로 게시했을 시 모달 닫힘 처리
+- 내용이 없을 때는 질문 게시 비활성화
+
+###  🙍‍♀️박소연
+
+페이지: 질문 목록(list) 페이지 </br>
+
+공통: Dropdown 버튼 </br>
+
+기능: </br> 
+- 질문 리스트 불러오기
+- 최신순/ 이름순 Dropdown 정렬 기능
+- 사용자의 로컬스토리 상태에 따른 답변페이지 이동 기능
+- 질문 목록 카드 리스트 반응형 적용
+- 페이지네이션 기능
+
+</br>
 
 ## 📃 배포주소
 
