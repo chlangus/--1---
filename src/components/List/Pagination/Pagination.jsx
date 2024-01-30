@@ -106,17 +106,17 @@ const PageButtonWrap = styled.div`
 `;
 
 const PageButton = styled.button`
-  color: var(--color-grayscale-60);
+  color: ${({ theme }) => theme.colorGrayScale60};
   font-size: 2rem;
   border: none;
   cursor: pointer;
-  background-color: var(--color-grayscale-20);
+  background-color: inherit;
 
   &:hover {
-    color: var(--color-blue-50);
+    color: ${({ theme }) => theme.colorBlue50};
   }
 
   &.active {
-    color: red; /* 클릭된 버튼 색 */
+    color: ${({ theme }) => theme.colorRed50}; /* 클릭된 버튼 색 */
   }
 `;
