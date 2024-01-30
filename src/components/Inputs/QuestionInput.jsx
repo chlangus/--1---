@@ -60,10 +60,9 @@ export default function QuestionInput({
             value={question}
             onChange={handleQuestionChange}
           />
-          -
         </div>
         <Button
-          question={question}
+          $question={question}
           onClick={question ? handleSendQuestion : null}
         >
           질문 보내기
@@ -166,8 +165,8 @@ const Button = styled.button`
   margin-top: 0.8rem;
   height: 5rem;
   border: none;
-  cursor: ${({ question }) => (question ? 'pointer' : 'default')};
-  background: ${({ question, theme }) =>
-    question ? theme.colorBrown50 : theme.colorBrown30};
+  cursor: ${({ $question }) => ($question ? 'pointer' : 'default')};
+  background: ${({ $question, theme }) =>
+    $question ? theme.colorBrown50 : theme.colorBrown30};
   color: ${({ theme }) => theme.colorBrown10};
 `;
