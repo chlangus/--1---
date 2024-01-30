@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useQuestionsAtom from '../hooks/useQuestions';
+import useSubjectData from '../hooks/useSubjectData';
 import QuestionFeedHeader from '../components/Feed/QuestionFeedHeader';
 import FeedBox from '../components/Feed/FeedBox';
 import FeedCard from '../components/Feed/FeedCard';
@@ -14,16 +16,18 @@ export default function AnswerPage() {
   const { id } = useParams();
   const [subjectId, setSubjectId] = useState(id);
   const [questions, setQuestions] = useQuestionsAtom();
+  const [subjectData, setSubjectData] = useSubjectData();
 
+  const limit = 5;
   const [offset, setOffset] = useState(0); // 스크롤이 닿았을 때 새롭게 offset을 바꿈
   const [loading, setLoading] = useState(false); // 로딩 성공, 실패를 담음
   const pageEnd = useRef();
 
   const loadMore = () => {
-    setOffset(prev => prev + 5);
+    setOffset(prev => prev + limit);
   };
-  const fetchPins = async (_id, _offset) => {
-    fetchQuestion(_id, _offset).then(data => {
+  const fetchPins = async (_id, _offset, _limit) => {
+    fetchQuestion(_id, _offset, _limit).then(data => {
       if (data.results.length) {
         const transformedQuestions = data.results.map(question => ({
           ...question,
@@ -47,7 +51,7 @@ export default function AnswerPage() {
   }, []);
 
   useEffect(() => {
-    fetchPins(subjectId, offset);
+    fetchPins(subjectId, offset, limit);
   }, [offset]);
 
   useEffect(() => {
@@ -72,8 +76,9 @@ export default function AnswerPage() {
       <S.DeleteAndFeed>
         <DeleteAllButton
           text="삭제하기"
-          questions={questions}
+          subjectId={subjectId}
           setQuestions={setQuestions}
+          questionCount={subjectData?.questionCount}
         />
 
         {questions.length === 0 ? (

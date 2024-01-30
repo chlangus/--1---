@@ -1,7 +1,7 @@
-async function fetchQuestion(subjectId, offset) {
+async function fetchQuestion(subjectId, offset, limit) {
   try {
     const response = await fetch(
-      `https://openmind-api.vercel.app/3-2/subjects/${subjectId}/questions/?limit=5&offset=${offset}`,
+      `https://openmind-api.vercel.app/3-2/subjects/${subjectId}/questions/?limit=${limit}&offset=${offset}`,
     );
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
