@@ -1,12 +1,13 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import deleteQuestion from '../../services/deleteQuestion';
+import fetchQuestion from '../../services/fetchQuestion';
 import AlertModal from '../Modal/AlertModal';
 
-function DeleteAllButton({ text, questions, setQuestions }) {
+function DeleteAllButton({ text, subjectId, setQuestions, questionCount }) {
   const [modalOpen, setModalOpen] = useState(false);
   const modalRef = useRef();
-  console.log('불러온 질문 개수 확인', questions);
+  // console.log('불러온 질문 개수 확인', questions);
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -19,8 +20,10 @@ function DeleteAllButton({ text, questions, setQuestions }) {
   };
 
   const handleDelete = async () => {
-    await questions.map(item => deleteQuestion(item.id));
-    // 아마 피드 불러오는 개수 때문인거 같은데 9개 이상부터 한번에 삭제가 안됨... 1-8개까지는 ㄱㅊ
+    const result = await fetchQuestion(subjectId, 0, questionCount);
+    const questionId = result.results.map(item => item.id);
+
+    await questionId.map(item => deleteQuestion(item));
     setQuestions([]);
     setModalOpen(false);
   };
