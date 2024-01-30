@@ -12,8 +12,8 @@ function Navbar() {
   const handleIsUserID = () => {
     const userAccount = JSON.parse(localStorage.getItem('id'));
     if (userAccount === null) {
-      // eslint-disable-next-line no-console
-      console.log('로컬 스토리지에 아이디가 없습니다');
+      // eslint-disable-next-line no-alert
+      alert('헉~ 아이디 없삼~');
       navigateToPage(`/`);
     } else {
       navigateToPage(`/post/${userAccount}/answer`);
