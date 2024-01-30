@@ -79,16 +79,6 @@ const Input = styled.div`
     font-weight: 400;
     border: none;
     resize: none;
-    @media (max-width: 767px) {
-      display: flex;
-      height: 35rem;
-      width: 100%;
-      padding: 1.6rem;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      align-self: stretch;
-    }
   }
 `;
 
