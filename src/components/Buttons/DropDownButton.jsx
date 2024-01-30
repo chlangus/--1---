@@ -67,18 +67,18 @@ const OrderButton = styled.button`
   gap: 0.4rem;
   padding: 0.8rem 1.2rem;
   margin-bottom: ${({ $dropDownView }) => ($dropDownView ? '0.5rem' : '0')};
-  border: ${({ $dropDownView }) =>
+  border: ${({ $dropDownView, theme }) =>
     $dropDownView
-      ? '0.1rem solid var(--color-grayscale-60)'
-      : '0.1rem solid var(--color-grayscale-40)'};
+      ? `0.1rem solid ${theme.colorGrayScale60}`
+      : `0.1rem solid ${theme.colorGrayScale40}`};
   border-radius: 0.8rem;
-  background: var(--color-grayscale-10);
+  background: ${({ theme }) => theme.colorGrayScale10};
 
   span {
-    color: ${({ $dropDownView }) =>
+    color: ${({ $dropDownView, theme }) =>
       $dropDownView
-        ? 'var(--color-grayscale-60)'
-        : 'var(--color-grayscale-40)'};
+        ? `${theme.colorGrayScale60}`
+        : `${theme.colorGrayScale40}`};
     font-size: var(--font-caption1);
     font-weight: var(--weight-medium);
   }
@@ -96,10 +96,10 @@ const OrderList = styled.ul`
   justify-content: center;
   padding: 0.4rem 0rem;
   width: 100%;
-  color: var(--color-grayscale-50);
-  background: var(--color-grayscale-10);
+  color: ${({ theme }) => theme.colorGrayScale50};
+  background: ${({ theme }) => theme.colorGrayScale10};
   border-radius: 0.8rem;
-  border: 0.1rem solid var(--color-grayscale-30);
+  border: 0.1rem solid ${({ theme }) => theme.colorGrayScale30};
   box-shadow: var(--shadow-1pt);
   font-weight: var(--weight-medium);
   font-size: var(--font-caption1);
@@ -113,6 +113,6 @@ const OrderItem = styled.li`
   cursor: pointer;
 
   &:hover {
-    color: var(--color-blue-50);
+    color: ${({ theme }) => theme.colorBlue50};
   }
 `;

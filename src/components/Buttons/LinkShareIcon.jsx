@@ -34,14 +34,15 @@ const LinkShareicon = styled.img`
 const ToastMessage = styled.div`
   position: fixed;
   display: inline-flex;
+  font-size: 14px;
   bottom: 30px;
   padding: 12px 20px;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  width: 167px;
-  height: 42px;
-  color: #666666;
+  width: 200px;
+  height: 60px;
+  color: ${({ theme }) => theme.colorGrayScale10};
   background: ${({ theme }) => theme.colorGrayScale60};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   transform: translateX(-50%);

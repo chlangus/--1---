@@ -10,11 +10,18 @@ export default function NicknamesListButton({ selectNickname, nicknames }) {
   const handleClickContainer = () => {
     setDropDownView(!dropDownView);
   };
+
+  const handleBlurContainer = () => {
+    setTimeout(() => {
+      setDropDownView(false);
+    }, 200);
+  };
   return (
     <>
       <DropDownButton
         $dropDownView={dropDownView}
         onClick={handleClickContainer}
+        onBlur={handleBlurContainer}
       >
         닉네임 목록
         <ArrowIcon
@@ -75,7 +82,7 @@ const Id = styled.li`
   cursor: pointer;
 
   &:hover {
-    color: var(--color-blue-50);
+    color: ${({ theme }) => theme.colorBlue50};
   }
 `;
 
