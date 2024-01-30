@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
 import useMobileLayout from '../../utils/useMobileLayout';
@@ -40,12 +41,15 @@ export default function QuestionList() {
       setOrderList(e);
     }
   };
-
-  const userAccountsString = localStorage.getItem('userAccounts');
-
-  const userAccounts = JSON.parse(userAccountsString);
-
-  const userName = userAccounts[0].name;
+  // 메인페이지에서 선택한 로컬아이디로 해당 객체의 이름에 접근
+  const dataArrayString = localStorage.getItem('userAccounts');
+  const dataArray = JSON.parse(dataArrayString) || [];
+  console.log(dataArray);
+  const targetId = localStorage.getItem('id');
+  console.log(targetId);
+  const targetObject = dataArray.find(item => String(item.id) === targetId);
+  console.log(targetObject);
+  const targetName = targetObject.name;
 
   return (
     <StyledBox>
@@ -53,7 +57,7 @@ export default function QuestionList() {
         <Header>
           <ListTitle>
             {'< '}
-            {userName}
+            {targetName}
             {' >'} <br />
             누구에게 질문할까요?
           </ListTitle>

@@ -46,7 +46,7 @@ export default function MainPage() {
     } else {
       const id = JSON.parse(localStorage.getItem('id'));
       if (id) {
-        navigate(`/post/${id}/answer`); // id에따른 answer페이지로 이동
+        navigate(`/list`); // list 페이지로 이동하는 걸로 바꿨습니다 !!! -연
       } else {
         alert('아이디를 생성하세요.');
       }
