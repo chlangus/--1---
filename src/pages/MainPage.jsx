@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-unused-vars */
 import styled, { ThemeContext } from 'styled-components';
@@ -13,15 +14,20 @@ import storeId from '../services/storeId';
 import SendQuestionButton from '../components/Buttons/SendQuestionButton';
 import IdTypeSelectButton from '../components/Buttons/IdTypeSelectButton';
 import NicknamesListButton from '../components/Buttons/NicknameListButton';
+import fetchSubject from '../services/fetchSubject';
 
 export default function MainPage() {
   const [inputValue, setInputValue] = useState('');
   const [connectType, setConnectType] = useState('new');
   const [nicknames, setNicknames] = useState([]);
+
   const navigate = useNavigate();
+
   const handleInputValue = name => {
     setInputValue(name);
   };
+
+  // const fetchQuestions = async () => {};
   const { mode } = useContext(ThemeContext);
 
   const sendName = async () => {
@@ -33,33 +39,22 @@ export default function MainPage() {
       localStorage.setItem('id', JSON.stringify(id)); // 현재 유저 정보 저장
       localStorage.setItem('userAccounts', JSON.stringify(values)); // 이 브라우저의 모든 유저 정보 저장
       navigate(`/post/${id}/answer`); // id에따른 answer페이지로 이동
-    } else alert('닉네임을 입력하세요');
+    } else alert('닉네임을 입력하세요.');
   };
-
-  const selectNickname = id => {
-    localStorage.setItem('id', JSON.stringify(id)); // 현재 유저 정보 저장
-  };
+  //
   useEffect(() => {
-    // fetch(`https://openmind-api.vercel.app/3-2/subjects/?limit=100`)
-    //   .then(response => response.json())
-    //   .then(result => {
-    //     const { results } = result;
-    //     const ids = results.map(res => res.id);
-    //     ids.forEach(element => {
-    //       fetch(`https://openmind-api.vercel.app/3-2/subjects/${element}/`, {
-    //         method: 'DELETE',
-    //       });
-    //     });
-    //   });
-
     if (localStorage.getItem('userAccounts') === null) {
       // 저장된 데이터 없으면 배열로 초기화
       localStorage.setItem('userAccounts', JSON.stringify([]));
     } else {
-      setNicknames(JSON.parse(localStorage.getItem('userAccounts')));
+      const userAccounts = JSON.parse(localStorage.getItem('userAccounts'));
+      userAccounts.map(userAccount =>
+        fetchSubject(userAccount.id).then(res =>
+          setNicknames(prev => [...prev, res]),
+        ),
+      );
     }
   }, []);
-
   return (
     <PageWrapper>
       <MainLogoAndInputWrapper>
@@ -76,10 +71,7 @@ export default function MainPage() {
           />
           {connectType &&
             (connectType === 'ordinary' ? (
-              <NicknamesListButton
-                selectNickname={selectNickname}
-                nicknames={nicknames}
-              />
+              <NicknamesListButton nicknames={nicknames} />
             ) : (
               <>
                 <NameInput onHandleInput={handleInputValue} />
