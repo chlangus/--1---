@@ -1,21 +1,26 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from './IdSelectButton';
 import arrowUpIcon from '../../assets/arrow-up.svg';
 import arrowDownIcon from '../../assets/arrow-down.svg';
 
-export default function NicknamesListButton({ selectNickname, nicknames }) {
+export default function NicknamesListButton({ nicknames }) {
   const [dropDownView, setDropDownView] = useState(false);
   const handleClickContainer = () => {
     setDropDownView(!dropDownView);
   };
-
+  const currentUser = JSON.parse(localStorage.getItem('id'));
   const handleBlurContainer = () => {
     setTimeout(() => {
       setDropDownView(false);
     }, 200);
   };
+
+  const selectNickname = id => {
+    localStorage.setItem('id', JSON.stringify(id)); // 현재 유저 정보 저장
+  };
+
   return (
     <>
       <DropDownButton
@@ -23,7 +28,9 @@ export default function NicknamesListButton({ selectNickname, nicknames }) {
         onClick={handleClickContainer}
         onBlur={handleBlurContainer}
       >
-        닉네임 목록
+        {nicknames.map(
+          nickname => nickname.id === currentUser && nickname.name,
+        )}
         <ArrowIcon
           $dropDownView={dropDownView}
           src={dropDownView ? arrowUpIcon : arrowDownIcon}
@@ -35,6 +42,7 @@ export default function NicknamesListButton({ selectNickname, nicknames }) {
           {nicknames.map(nickname => (
             <Id key={nickname.id} onClick={() => selectNickname(nickname.id)}>
               {nickname.name}
+              <Span>받은 질문: {nickname.questionCount}</Span>
             </Id>
           ))}
         </IdWrapper>
@@ -51,7 +59,7 @@ const IdWrapper = styled.ul`
   right: 30px;
   left: 30px;
   top: 110px;
-  height: 140px;
+  max-height: 140px;
   overflow-y: scroll;
   list-style-type: none;
   display: flex;
@@ -74,6 +82,11 @@ const IdWrapper = styled.ul`
   }
 `;
 
+const Span = styled.span`
+  font-size: 10px;
+  margin-left: 10px;
+  color: ${({ theme }) => theme.colorGrayScale40};
+`;
 const Id = styled.li`
   display: flex;
   justify-content: center;

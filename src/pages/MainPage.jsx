@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-unused-vars */
 import styled, { ThemeContext } from 'styled-components';
@@ -13,42 +14,58 @@ import storeId from '../services/storeId';
 import SendQuestionButton from '../components/Buttons/SendQuestionButton';
 import IdTypeSelectButton from '../components/Buttons/IdTypeSelectButton';
 import NicknamesListButton from '../components/Buttons/NicknameListButton';
+import fetchSubject from '../services/fetchSubject';
 
 export default function MainPage() {
   const [inputValue, setInputValue] = useState('');
   const [connectType, setConnectType] = useState('new');
   const [nicknames, setNicknames] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
+
   const navigate = useNavigate();
+
   const handleInputValue = name => {
     setInputValue(name);
   };
+
+  // const fetchQuestions = async () => {};
   const { mode } = useContext(ThemeContext);
 
   const sendName = async () => {
-    setInputValue(inputValue);
-    const { id } = await storeId(inputValue); // 이름 post요청으로 보내주고 결과 id 받아옴
-    const values = JSON.parse(localStorage.getItem('userAccounts')); // 기존 데이터 불러와서 데이터타입 변환
+    if (connectType === 'new') {
+      if (inputValue) {
+        const { id } = await storeId(inputValue); // 이름 post요청으로 보내주고 결과 id 받아옴
+        const values = JSON.parse(localStorage.getItem('userAccounts')); // 기존 데이터 불러와서 데이터타입 변환
 
-    values.unshift({ id, name: inputValue }); // 배열 앞에 유저정보 저장
-    localStorage.setItem('id', JSON.stringify(id)); // 현재 유저 정보 저장
-    localStorage.setItem('userAccounts', JSON.stringify(values)); // 이 브라우저의 모든 유저 정보 저장
-    navigate(`/post/${id}/answer`); // id에따른 answer페이지로 이동
+        values.unshift({ id, name: inputValue }); // 배열 앞에 유저정보 저장
+        localStorage.setItem('id', JSON.stringify(id)); // 현재 유저 정보 저장
+        localStorage.setItem('userAccounts', JSON.stringify(values)); // 이 브라우저의 모든 유저 정보 저장
+        navigate(`/post/${id}/answer`); // id에따른 answer페이지로 이동
+      } else {
+        alert('닉네임을 입력하세요.');
+      }
+    } else {
+      const id = JSON.parse(localStorage.getItem('id'));
+      if (id) {
+        navigate(`/post/${id}/answer`); // id에따른 answer페이지로 이동
+      } else {
+        alert('아이디를 생성하세요.');
+      }
+    }
   };
 
-  const selectNickname = id => {
-    localStorage.setItem('id', JSON.stringify(id)); // 현재 유저 정보 저장
-    navigate(`/post/${id}/answer`);
-  };
   useEffect(() => {
     if (localStorage.getItem('userAccounts') === null) {
       // 저장된 데이터 없으면 배열로 초기화
       localStorage.setItem('userAccounts', JSON.stringify([]));
     } else {
-      setNicknames(JSON.parse(localStorage.getItem('userAccounts')));
+      const userAccounts = JSON.parse(localStorage.getItem('userAccounts'));
+      userAccounts.map(userAccount =>
+        fetchSubject(userAccount.id).then(res =>
+          setNicknames(prev => [...prev, res]),
+        ),
+      );
     }
   }, []);
-
   return (
     <PageWrapper>
       <MainLogoAndInputWrapper>
@@ -65,18 +82,13 @@ export default function MainPage() {
           />
           {connectType &&
             (connectType === 'ordinary' ? (
-              <NicknamesListButton
-                selectNickname={selectNickname}
-                nicknames={nicknames}
-              />
+              <NicknamesListButton nicknames={nicknames} />
             ) : (
-              <>
-                <NameInput onHandleInput={handleInputValue} />
-                <GetQuestionButton onHandleButton={sendName}>
-                  질문 받기
-                </GetQuestionButton>
-              </>
+              <NameInput onHandleInput={handleInputValue} />
             ))}
+          <GetQuestionButton onHandleButton={sendName}>
+            질문 받기
+          </GetQuestionButton>
         </InputAndButtonBox>
       </MainLogoAndInputWrapper>
     </PageWrapper>
