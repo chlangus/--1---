@@ -61,7 +61,7 @@ export default function EditBoxModal({
 
   return (
     <EditBox ref={wrapperRef} value={isOpenModal}>
-      <EditItem onClick={handleEdit}>답변수정</EditItem>
+      {answerId && <EditItem onClick={handleEdit}>답변수정</EditItem>}
       <EditItem onClick={handleDelete}>답변삭제</EditItem>
       <EditItem onClick={handleReject}>답변거절</EditItem>
     </EditBox>
