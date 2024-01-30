@@ -13,6 +13,7 @@ export default function QuestionInput({
   const [question, setQuestion] = useState('');
   const [subjectData, setSubjectData] = useSubjectData();
 
+  console.log(subjectData);
   // 텍스트 에어리어 값이 변경될 때마다 호출되는 함수
   // 현재 값으로 question 상태를 업데이트
   const handleQuestionChange = e => {
@@ -27,7 +28,10 @@ export default function QuestionInput({
         { ...responseData, createdWhen: timeSince(responseData.createdAt) },
         ...prev,
       ]);
-
+      setSubjectData(prev => ({
+        ...prev,
+        questionCount: prev.questionCount + 1,
+      }));
       // 성공적으로 response를 받으면 모달 창을 닫음
       setModalOpen(false);
     } catch (error) {
