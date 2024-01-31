@@ -49,18 +49,19 @@ export default function QuestionList() {
   console.log(targetId);
   const targetObject = dataArray.find(item => String(item.id) === targetId);
   console.log(targetObject);
-  const targetName = targetObject.name;
+  const targetName = targetObject ? targetObject.name : '';
 
   return (
     <StyledBox>
       <StyledDiv>
         <Header>
-          <ListTitle>
-            {'< '}
-            {targetName}
-            {' >'} <br />
-            누구에게 질문할까요?
-          </ListTitle>
+          {targetName && (
+            <ListTitle>
+              {targetName} <br />
+              누구에게 질문할까요?
+            </ListTitle>
+          )}
+          {!targetName && <ListTitle>누구에게 질문할까요?</ListTitle>}
           <ButtonDiv>
             <DropDownButton
               orderType={orderType}
