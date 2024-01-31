@@ -46,12 +46,34 @@ export default function MainPage() {
     } else {
       const id = JSON.parse(localStorage.getItem('id'));
       if (id) {
-        navigate(`/list`); // list 페이지로 이동하는 걸로 바꿨습니다 !!! -연
+        navigate(`/post/${id}/answer`);
       } else {
         alert('아이디를 생성하세요.');
       }
     }
   };
+
+  const goToListPage = async () => {
+    if (connectType === 'new') {
+      if (inputValue) {
+        const { id } = await storeId(inputValue);
+        const values = JSON.parse(localStorage.getItem('userAccounts'));
+        values.unshift({ id, name: inputValue });
+
+        localStorage.setItem('id', JSON.stringify(id));
+        localStorage.setItem('userAccounts', JSON.stringify(values));
+        navigate('/list');
+      } else {
+        alert('익명으로 접속합니다용~!');
+        localStorage.setItem('id', JSON.stringify(''));
+        navigate('/list');
+      }
+    } else {
+      const id = JSON.parse(localStorage.getItem('id'));
+      navigate('/list');
+    }
+  };
+
   useEffect(() => {
     if (localStorage.getItem('userAccounts') === null) {
       // 저장된 데이터 없으면 배열로 초기화
@@ -69,11 +91,6 @@ export default function MainPage() {
     <PageWrapper>
       <MainLogoAndInputWrapper>
         <Img src={mode === 'light' ? logo : darkLogo} alt="logo" />
-        <Link to="/list">
-          <ButtonWrapper>
-            <SendQuestionButton>질문하러 가기</SendQuestionButton>
-          </ButtonWrapper>
-        </Link>
         <InputAndButtonBox>
           <IdTypeSelectButton
             connectType={connectType}
@@ -89,7 +106,10 @@ export default function MainPage() {
               <NameInput onHandleInput={handleInputValue} />
             ))}
           <GetQuestionButton onHandleButton={sendName}>
-            질문 받기
+            내 질문 피드가기
+          </GetQuestionButton>
+          <GetQuestionButton onHandleButton={goToListPage}>
+            질문리스트 보러가기
           </GetQuestionButton>
         </InputAndButtonBox>
       </MainLogoAndInputWrapper>

@@ -57,8 +57,9 @@ export default function QuestionList() {
         <Header>
           {targetName && (
             <ListTitle>
-              {targetName} <br />
-              누구에게 질문할까요?
+              <span>{targetName}</span> 님!
+              <br />
+              <p>누구에게 질문할까요?</p>
             </ListTitle>
           )}
           {!targetName && <ListTitle>누구에게 질문할까요?</ListTitle>}
@@ -134,6 +135,10 @@ const ListTitle = styled.h1`
   font-weight: var(--weight-regular);
   line-height: 6rem;
   margin-bottom: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 
   @media screen and ((min-width: 375px)
   and (max-width: 767px)) {
@@ -142,11 +147,24 @@ const ListTitle = styled.h1`
     margin-bottom: 0;
     line-height: 3rem;
   }
+
+  span {
+    color: ${({ theme }) =>
+      theme.mode === 'light'
+        ? `var(--color-brown-40)`
+        : `var(--color-blue-20)`};
+    font-weight: var(--weight-bold);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
 `;
 
 const ButtonDiv = styled.div`
   cursor: pointer;
   display: block;
+  white-space: nowrap;
 `;
 
 const StyledList = styled.ul`
