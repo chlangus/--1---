@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
 import useMobileLayout from '../../utils/useMobileLayout';
@@ -40,12 +41,28 @@ export default function QuestionList() {
       setOrderList(e);
     }
   };
+  // 메인페이지에서 선택한 로컬아이디로 해당 객체의 이름에 접근
+  const dataArrayString = localStorage.getItem('userAccounts');
+  const dataArray = JSON.parse(dataArrayString) || [];
+  console.log(dataArray);
+  const targetId = localStorage.getItem('id');
+  console.log(targetId);
+  const targetObject = dataArray.find(item => String(item.id) === targetId);
+  console.log(targetObject);
+  const targetName = targetObject ? targetObject.name : '';
 
   return (
     <StyledBox>
       <StyledDiv>
         <Header>
-          <ListTitle>누구에게 질문할까요?</ListTitle>
+          {targetName && (
+            <ListTitle>
+              <span>{targetName}</span> 님!
+              <br />
+              <p>누구에게 질문할까요?</p>
+            </ListTitle>
+          )}
+          {!targetName && <ListTitle>누구에게 질문할까요?</ListTitle>}
           <ButtonDiv>
             <DropDownButton
               orderType={orderType}
@@ -116,20 +133,38 @@ const ListTitle = styled.h1`
   text-align: center;
   font-size: var(--font-h1);
   font-weight: var(--weight-regular);
-  line-height: normal;
+  line-height: 6rem;
   margin-bottom: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 
   @media screen and ((min-width: 375px)
   and (max-width: 767px)) {
     display: flex;
     font-size: var(--font-h3);
     margin-bottom: 0;
+    line-height: 3rem;
+  }
+
+  span {
+    color: ${({ theme }) =>
+      theme.mode === 'light'
+        ? `var(--color-brown-40)`
+        : `var(--color-blue-20)`};
+    font-weight: var(--weight-bold);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
   }
 `;
 
 const ButtonDiv = styled.div`
   cursor: pointer;
   display: block;
+  white-space: nowrap;
 `;
 
 const StyledList = styled.ul`

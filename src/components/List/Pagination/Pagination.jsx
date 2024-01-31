@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import lightFoot from '../../../assets/light-foot.png';
+import darkFoot from '../../../assets/dark-foot.png';
 
 // 페이지 단위 기준으로 배열 그룹화하는 함수
 function sliceArrayByLimit(array, limit) {
@@ -117,6 +119,13 @@ const PageButton = styled.button`
   }
 
   &.active {
-    color: ${({ theme }) => theme.colorRed50}; /* 클릭된 버튼 색 */
+    color: transparent;
+    ${({ theme }) =>
+      theme.mode === 'light'
+        ? `background-image: url(${lightFoot})`
+        : `background-image: url(${darkFoot})`};
+    background-size: cover;
+    width: 3.5rem;
+    height: 3.2rem;
   }
 `;
