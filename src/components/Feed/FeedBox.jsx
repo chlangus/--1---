@@ -1,14 +1,20 @@
-import styled from 'styled-components';
+import { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import messageIcon from '../../assets/message-icon.svg';
+import messageIconDark from '../../assets/Messages-dark.svg';
 import useSubjectData from '../../hooks/useSubjectData';
 
 export default function FeedBox({ children }) {
+  const { mode } = useContext(ThemeContext);
   const [subjectData] = useSubjectData();
 
   return (
     <>
       <S.QuestionCount>
-        <img src={messageIcon} alt="message-icon" />
+        <img
+          src={mode === 'light' ? messageIcon : messageIconDark}
+          alt="message-icon"
+        />
         <S.Text>{subjectData.questionCount}개의 질문이 있습니다</S.Text>
       </S.QuestionCount>
       {children}
