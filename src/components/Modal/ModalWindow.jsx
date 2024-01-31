@@ -3,6 +3,7 @@ import styled, { ThemeContext } from 'styled-components';
 import { useContext } from 'react';
 import QuestionInput from '../Inputs/QuestionInput';
 import messageIcon from '../../assets/Messages.svg';
+import messageIconDark from '../../assets/Messages-dark.svg';
 import closeButton from '../../assets/close.svg';
 import darkCloseButton from '../../assets/dark-close.svg';
 
@@ -32,7 +33,10 @@ export default function ModalWindow({
           <ModalContent className="modal-content">
             <ModalHeader>
               <div>
-                <img src={messageIcon} alt="말풍선 아이콘" />
+                <img
+                  src={mode === 'light' ? messageIcon : messageIconDark}
+                  alt="말풍선 아이콘"
+                />
                 <div>질문을 작성하세요</div>
               </div>
               <button type="button" onClick={closeModal}>
