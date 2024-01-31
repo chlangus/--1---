@@ -13,7 +13,6 @@ export default function ModalWindow({
   subjectId,
 }) {
   const { mode } = useContext(ThemeContext);
-  console.log(mode);
   const handleModalClick = e => {
     // 모달 내부를 클릭했을 때는 모달이 닫히지 않도록 처리
     if (e.target.closest('.modal-content')) {
