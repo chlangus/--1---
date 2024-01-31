@@ -1,8 +1,12 @@
-import styled from 'styled-components';
+import { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import messageIcon from '../../assets/message-icon.svg';
+import messageIconDark from '../../assets/Messages-dark.svg';
 
 export default function QuestionCard({ id, name, imageSource, questionCount }) {
+  const { mode } = useContext(ThemeContext);
+
   const navigateToFeed = useNavigate();
   return (
     <CardBox onClick={() => navigateToFeed(`/post/${id}`)}>
@@ -12,7 +16,10 @@ export default function QuestionCard({ id, name, imageSource, questionCount }) {
       </ProfileWrapper>
       <ContentWrapper>
         <QuestionInfo>
-          <MessageIcon src={messageIcon} alt="메시지 아이콘" />
+          <MessageIcon
+            src={mode === 'light' ? messageIcon : messageIconDark}
+            alt="메시지 아이콘"
+          />
           <span>받은 질문</span>
         </QuestionInfo>
         <span>{questionCount}개</span>
