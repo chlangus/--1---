@@ -12,10 +12,11 @@
 
 
 
+
 ## 👉🏻 멤버 소개 및 역할
 
 
-|   <img width="100" height="100" alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/1db4a57f-45d6-4b52-9e02-124ad91f0f25"> | <img width="100" alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/04aee599-2eb7-4bc4-9725-f68d60f74b19">  | <img width="100" alt="image" src='https://github.com/chlangus/Codeit-First-Project/assets/129745640/525791d7-9700-4580-b7c6-721a48144a00'> | <img width="100" height="100"  alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/140d6f03-7f48-4c0b-b4e2-24b9f610b2dd"> | <img width="100" height="100" alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/c23a67cd-7d55-4765-991b-2327da520862"> |
+|   <img width="100" height="100" alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/1db4a57f-45d6-4b52-9e02-124ad91f0f25"> | <img width="100" alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/04aee599-2eb7-4bc4-9725-f68d60f74b19">  | <img width="100" alt="image" src='https://github.com/chlangus/Codeit-First-Project/assets/129745640/048902c0-9aee-4367-9259-364d9bd1bbe7'> | <img width="100" height="100"  alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/140d6f03-7f48-4c0b-b4e2-24b9f610b2dd"> | <img width="100" height="100" alt="image" src="https://github.com/chlangus/Codeit-First-Project/assets/129745640/c23a67cd-7d55-4765-991b-2327da520862"> |
 |:------------------------------------------------:|:--------------------------------------------:|:---------------------------------------------:|:--------------------------------------------:|:--------------------------------------------:|
 |         [최무현](https://github.com/chlangus)         |       [김성훈](https://github.com/huniiiiii)       |      [조예진](https://github.com/yejiniee)       |      [최유정](https://github.com/yoojungChoii)       |      [박소연](https://github.com/soyxxn)       |
 
