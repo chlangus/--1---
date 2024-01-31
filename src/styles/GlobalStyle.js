@@ -34,6 +34,8 @@ ${reset}
     --color-brown-40: #542F1A;
     --color-brown-50: #341909;
 
+    --color-blue-20: #ABD0E5;
+
     --color-blue-50: #1877F2;
     --color-yellow-50: #FEE500;
     --color-red-50: #B93333;

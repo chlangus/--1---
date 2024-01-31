@@ -11,7 +11,7 @@ function Navbar() {
 
   const handleIsUserID = () => {
     const userAccount = JSON.parse(localStorage.getItem('id'));
-    if (userAccount === null) {
+    if (userAccount === '') {
       // eslint-disable-next-line no-alert
       alert('헉~ 아이디 없삼~');
       navigateToPage(`/`);
