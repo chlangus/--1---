@@ -76,7 +76,7 @@ export default function AnswerPage() {
       <QuestionFeedHeader subjectId={subjectId} />
       <S.DeleteAndFeed>
         <DeleteAllButton
-          text="삭제하기"
+          text="전체 삭제"
           subjectId={subjectId}
           setQuestions={setQuestions}
           questionCount={subjectData?.questionCount}

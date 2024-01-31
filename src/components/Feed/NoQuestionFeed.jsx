@@ -1,13 +1,19 @@
-import styled from 'styled-components';
-import Messages from '../../assets/Messages.svg';
+import { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
+import messageIcon from '../../assets/Messages.svg';
+import messageIconDark from '../../assets/Messages-dark.svg';
 import Noquestion from '../../assets/noquestion.svg';
 
 export default function NoQuestionFeed() {
+  const { mode } = useContext(ThemeContext);
   return (
     <NoQuestionWapper>
       <NoQuestionBox>
         <NoQuestionText>
-          <img src={Messages} alt="메세지" />
+          <img
+            src={mode === 'light' ? messageIcon : messageIconDark}
+            alt="메세지"
+          />
           <p>아직 질문이 없습니다</p>
         </NoQuestionText>
         <img src={Noquestion} alt="문서사진" />
