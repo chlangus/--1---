@@ -70,6 +70,7 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
 
+
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colorGrayScale30};
   background: ${({ theme }) => theme.colorGrayScale10};
