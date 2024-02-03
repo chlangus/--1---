@@ -22,7 +22,7 @@ export default function AnswerPage() {
     if (Number(id) !== Number(myId)) {
       navigate(`/post/${id}`, { replace: true });
     }
-  }, [id, navigate]); // 가끔 리다이렉트될때 헤더가 현재유저 닉네임으로 바뀌는 버그가 있음..!
+  }, [id, navigate]);
 
   const [subjectId, setSubjectId] = useState(myId);
   const [questions, setQuestions] = useQuestionsAtom();
@@ -61,7 +61,9 @@ export default function AnswerPage() {
   }, []);
 
   useEffect(() => {
-    fetchPins(subjectId, offset, limit);
+    if (Number(id) === Number(myId)) {
+      fetchPins(subjectId, offset, limit);
+    }
   }, [offset]);
 
   useEffect(() => {
@@ -82,7 +84,7 @@ export default function AnswerPage() {
 
   return (
     <Wrapper>
-      <QuestionFeedHeader subjectId={subjectId} />
+      {subjectId && <QuestionFeedHeader subjectId={subjectId} />}
       <S.DeleteAndFeed>
         <DeleteAllButton
           text="전체 삭제"
