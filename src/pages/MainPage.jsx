@@ -16,8 +16,6 @@ import IdTypeSelectButton from '../components/Buttons/IdTypeSelectButton';
 import NicknamesListButton from '../components/Buttons/NicknameListButton';
 import fetchSubject from '../services/fetchSubject';
 
-//           로딩시간에 전 데이터 뜨는거 바꾸기
-
 export default function MainPage() {
   const [inputValue, setInputValue] = useState('');
   const [connectType, setConnectType] = useState('new');

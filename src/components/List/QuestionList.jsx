@@ -44,11 +44,8 @@ export default function QuestionList() {
   // 메인페이지에서 선택한 로컬아이디로 해당 객체의 이름에 접근
   const dataArrayString = localStorage.getItem('userAccounts');
   const dataArray = JSON.parse(dataArrayString) || [];
-
   const targetId = localStorage.getItem('id');
-
   const targetObject = dataArray.find(item => String(item.id) === targetId);
-
   const targetName = targetObject ? targetObject.name : '';
 
   return (

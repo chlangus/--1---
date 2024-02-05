@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import thumbsUp from '../../assets/thumbs-up.svg';
 import thumbsDown from '../../assets/thumbs-down.svg';
-// import clickedThumbsUp from '../../assets/clicked-thumbs-up.svg';
-// import clickedThumbsDown from '../../assets/clicked-thumbs-down.svg';
 import storeReaction from '../../services/storeReaction';
 
 export default function ReactionButton({ question: { id, like, dislike } }) {
@@ -14,7 +12,6 @@ export default function ReactionButton({ question: { id, like, dislike } }) {
     likeIcon: thumbsUp,
     dislikeIcon: thumbsDown,
   });
-  //  reaction 누르면 빨리 누른거 못따라감
   const handleEmotion = type => {
     if (type === 'like') {
       setReaction({
